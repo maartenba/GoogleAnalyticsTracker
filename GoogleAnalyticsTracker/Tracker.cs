@@ -49,7 +49,7 @@ namespace GoogleAnalyticsTracker
 
         private void InitializeUtmHid()
         {
-            var random = new Random((int) DateTime.UtcNow.Ticks);
+            var random = new Random((int)DateTime.UtcNow.Ticks);
             _sessionId = random.Next(100000000, 999999999).ToString(CultureInfo.InvariantCulture);
         }
 
@@ -60,17 +60,17 @@ namespace GoogleAnalyticsTracker
 
         private void InitializeCookieVariable()
         {
-            var random = new Random((int) DateTime.UtcNow.Ticks);
+            var random = new Random((int)DateTime.UtcNow.Ticks);
             var cookie = string.Format("{0}{1}", random.Next(100000000, 999999999), "00145214523");
 
             var randomvalue = random.Next(1000000000, 2147483647).ToString(CultureInfo.InvariantCulture);
 
-            _cookieValue = string.Format("__utma=1.{0}.{1}.{2}.{2}.15;+__utmz=1.{2}.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none);",cookie, randomvalue, DateTime.UtcNow.Ticks);
+            _cookieValue = string.Format("__utma=1.{0}.{1}.{2}.{2}.15;+__utmz=1.{2}.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none);", cookie, randomvalue, DateTime.UtcNow.Ticks);
         }
 
         private string GenerateUtmn()
         {
-            var random = new Random((int) DateTime.UtcNow.Ticks);
+            var random = new Random((int)DateTime.UtcNow.Ticks);
             return random.Next(100000000, 999999999).ToString(CultureInfo.InvariantCulture);
         }
 
@@ -101,7 +101,7 @@ namespace GoogleAnalyticsTracker
             }
 
             // Create request
-            HttpWebRequest request = (HttpWebRequest) WebRequest.Create(string.Format("{0}?{1}", url, data));
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format("{0}?{1}", url, data));
             request.CookieContainer = CookieContainer;
             request.Referer = string.Format("http://{0}/", TrackingDomain);
             request.UserAgent = UserAgent;
