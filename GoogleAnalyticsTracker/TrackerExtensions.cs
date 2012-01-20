@@ -1,0 +1,21 @@
+using System.Web;
+
+namespace GoogleAnalyticsTracker
+{
+    public static class TrackerExtensions
+    {
+        public static void TrackPageView(this Tracker tracker, HttpContextBase httpContext, string pageTitle)
+        {
+            TrackPageView(tracker, httpContext, pageTitle, httpContext.Request.Url.ToString());
+        }
+
+        public static void TrackPageView(this Tracker tracker, HttpContextBase httpContext, string pageTitle, string pageUrl)
+        {
+            var request = httpContext.Request;
+            tracker.Hostname = request.UserHostName;
+            tracker.UserAgent = request.UserAgent;
+            tracker.Language = request.UserLanguages != null ? string.Join(";", request.UserLanguages) : "";
+            tracker.TrackPageView(pageTitle, pageUrl);
+        }
+    }
+}

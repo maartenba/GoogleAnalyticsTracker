@@ -82,11 +82,8 @@ namespace GoogleAnalyticsTracker
 
         public virtual void OnTrackingAction(ActionExecutingContext filterContext)
         {
-            var request = filterContext.RequestContext.HttpContext.Request;
-            Tracker.Hostname = request.UserHostName;
-            Tracker.UserAgent = request.UserAgent;
-            Tracker.Language = request.UserLanguages != null ? string.Join(";", request.UserLanguages) : "";
             Tracker.TrackPageView(
+                filterContext.RequestContext.HttpContext,
                 BuildCurrentActionName(filterContext),
                 BuildCurrentActionUrl(filterContext)
             );
