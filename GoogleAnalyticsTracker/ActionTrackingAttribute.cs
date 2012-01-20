@@ -25,14 +25,20 @@ namespace GoogleAnalyticsTracker
             ActionUrl = actionUrl;
         }
 
-        protected ActionTrackingAttribute(Tracker tracker)
+        public ActionTrackingAttribute(Tracker tracker)
             : this(tracker, action => true)
         {
         }
 
-        protected ActionTrackingAttribute(Tracker tracker, Func<ActionDescriptor, bool> isTrackableAction)
+        public ActionTrackingAttribute(Tracker tracker, Func<ActionDescriptor, bool> isTrackableAction)
         {
             Tracker = tracker;
+            IsTrackableAction = isTrackableAction;
+        }
+
+        public ActionTrackingAttribute(string trackingAccount, string trackingDomain, Func<ActionDescriptor, bool> isTrackableAction)
+        {
+            Tracker = new Tracker(trackingAccount, trackingDomain);
             IsTrackableAction = isTrackableAction;
         }
 
