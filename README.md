@@ -14,7 +14,7 @@ GoogleAnalyticsTracker was created to have a means of tracking specific URL's di
 ## Example usage
 Using GoogleAnalyticsTracker is very straightforward. In your code, add the following structure wherever you want to track page views:
 
-    using (GoogleAnalyticsTracker tracker = new GoogleAnalyticsTracker("UA-XXXXXX-XX", "www.example.org"))
+    using (Tracker tracker = new Tracker("UA-XXXXXX-XX", "www.example.org"))
     {
         tracker.TrackPageView("My API - Create", "api/create");
         tracker.TrackPageView("MY API - List", "api/list");
@@ -22,8 +22,39 @@ Using GoogleAnalyticsTracker is very straightforward. In your code, add the foll
 
 Or without a using block:
 
-    GoogleAnalyticsTracker tracker = new GoogleAnalyticsTracker("UA-XXXXXX-XX", "www.example.org");
+    Tracker tracker = new Tracker("UA-XXXXXX-XX", "www.example.org");
     tracker.TrackPageView("My API - Create", "api/create");
+
+A number of extension methods are available which use the provided HttpContext as the source for URL and user propertires:
+
+    Tracker tracker = new Tracker("UA-XXXXXX-XX", "www.example.org");
+    tracker.TrackPageView(HttpContext, "My API - Create");
+
+Finally, an ActionFilter for use with ASP.NET MVC is available:
+
+	[ActionTracking("UA-XXXXXX-XX", "www.example.org")]
+	public class ApiController
+	    : Controller
+	{
+	    public JsonResult Create()
+	    {
+	        return Json(true);
+	    }
+	}
+
+This filter can also be applied as a global action filter, optionally filtering the requests to log:
+
+	public class MvcApplication : System.Web.HttpApplication
+	{
+	    public static void RegisterGlobalFilters(GlobalFilterCollection filters)
+	    {
+	        filters.Add(new HandleErrorAttribute());
+	        filters.Add(new ActionTrackingAttribute(
+	            "UA-XXXXXX-XX", "www.example.org",
+	            action => action.ControllerDescriptor.ControllerName == "Api")
+	        );
+	    }
+	}
 
 ## License
 [MS-PL License](https://github.com/maartenba/GoogleAnalyticsTracker/blob/master/LICENSE.md)
