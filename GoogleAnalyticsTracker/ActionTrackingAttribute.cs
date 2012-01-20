@@ -1,3 +1,4 @@
+using System;
 using System.Web.Mvc;
 
 namespace GoogleAnalyticsTracker
@@ -6,6 +7,8 @@ namespace GoogleAnalyticsTracker
         : ActionFilterAttribute
     {
         public Tracker Tracker { get; set; }
+        public Func<ActionDescriptor, bool> IsTrackableAction { get; set; }
+
         public string ActionDescription { get; set; }
         public string ActionUrl { get; set; }
 
@@ -23,8 +26,14 @@ namespace GoogleAnalyticsTracker
         }
 
         protected ActionTrackingAttribute(Tracker tracker)
+            : this(tracker, action => true)
+        {
+        }
+
+        protected ActionTrackingAttribute(Tracker tracker, Func<ActionDescriptor, bool> isTrackableAction)
         {
             Tracker = tracker;
+            IsTrackableAction = isTrackableAction;
         }
 
         public static void RegisterGlobalFilter(string trackingAccount, string trackingDomain)
@@ -58,11 +67,6 @@ namespace GoogleAnalyticsTracker
         public override void OnResultExecuted(ResultExecutedContext filterContext)
         {
             base.OnResultExecuted(filterContext);
-        }
-
-        public virtual bool IsTrackableAction(ActionDescriptor actionDescriptor)
-        {
-            return true;
         }
 
         public virtual string BuildCurrentActionName(ActionExecutingContext filterContext)
