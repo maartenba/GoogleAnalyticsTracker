@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace GoogleAnalyticsTracker
@@ -88,10 +88,10 @@ namespace GoogleAnalyticsTracker
             parameters.Add("utmac", TrackingAccount);
             parameters.Add("utmcc", _cookieValue);
 
-            RequestUrl(BeaconUrl, parameters);
+            RequestUrlAsync(BeaconUrl, parameters);
         }
 
-        private void RequestUrl(string url, Dictionary<string, string> parameters)
+        private void RequestUrlAsync(string url, Dictionary<string, string> parameters)
         {
             // Create GET string
             StringBuilder data = new StringBuilder();
@@ -106,17 +106,21 @@ namespace GoogleAnalyticsTracker
             request.Referer = string.Format("http://{0}/", TrackingDomain);
             request.UserAgent = UserAgent;
 
-            try
-            {
-                request.GetResponse().Close();
-            }
-            catch
-            {
-                if (ThrowOnErrors)
-                {
-                    throw;
-                }
-            }
+            Task.Factory.FromAsync(request.BeginGetResponse, result => request.EndGetResponse(result), null)
+                .ContinueWith(task =>
+                                  {
+                                      try
+                                      {
+                                          task.Result.Close();
+                                          if (task.IsFaulted && task.Exception != null && ThrowOnErrors)
+                                          {
+                                              throw task.Exception;
+                                          }
+                                      }
+                                      catch
+                                      {
+                                      }
+                                  });
         }
 
         #region IDisposable Members
