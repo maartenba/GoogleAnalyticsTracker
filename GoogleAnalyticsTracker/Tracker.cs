@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,8 @@ namespace GoogleAnalyticsTracker
         private const string BeaconUrl = "http://www.google-analytics.com/__utm.gif";
         private const string AnalyticsVersion = "4.3"; // Analytics version - AnalyticsVersion
 
+        private readonly UtmeGenerator _utmeGenerator;
+
         private string _sessionId; // Session ID - utmhid
         private string _cookieValue; // Cookie related variables - utmcc
 
@@ -24,6 +27,8 @@ namespace GoogleAnalyticsTracker
         public string Language { get; set; }
         public string UserAgent { get; set; }
         public string CharacterSet { get; set; }
+
+        internal CustomVariable[] CustomVariables { get; set; }
 
         public bool ThrowOnErrors { get; set; }
 
@@ -45,6 +50,10 @@ namespace GoogleAnalyticsTracker
             InitializeUtmHid();
             InitializeCharset();
             InitializeCookieVariable();
+
+            CustomVariables = new CustomVariable[5];
+
+            _utmeGenerator = new UtmeGenerator(this);
         }
 
         private void InitializeUtmHid()
@@ -74,6 +83,14 @@ namespace GoogleAnalyticsTracker
             return random.Next(100000000, 999999999).ToString(CultureInfo.InvariantCulture);
         }
 
+        public void SetCustomVariable(int position, string name, string value)
+        {
+            if (position < 1 || position > 5)
+                throw new ArgumentOutOfRangeException("position", position, "Must be between 1 and 5");
+
+            CustomVariables[position - 1] = new CustomVariable(name, value);
+        }
+
         public void TrackPageView(string pageTitle, string pageUrl)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
@@ -87,6 +104,10 @@ namespace GoogleAnalyticsTracker
             parameters.Add("utmp", pageUrl);
             parameters.Add("utmac", TrackingAccount);
             parameters.Add("utmcc", _cookieValue);
+
+            var utme = _utmeGenerator.Generate();
+            if (!string.IsNullOrEmpty(utme))
+                parameters.Add("utma", utme);
 
             RequestUrlAsync(BeaconUrl, parameters);
         }

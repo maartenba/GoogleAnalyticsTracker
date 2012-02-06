@@ -49,9 +49,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionTrackingAttribute.cs" />
+    <Compile Include="CustomVariable.cs" />
     <Compile Include="Tracker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TrackerExtensions.cs" />
+    <Compile Include="UtmeGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GoogleAnalyticsTracker.nuspec" />
