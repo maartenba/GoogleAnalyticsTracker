@@ -107,7 +107,7 @@ namespace GoogleAnalyticsTracker
 
             var utme = _utmeGenerator.Generate();
             if (!string.IsNullOrEmpty(utme))
-                parameters.Add("utma", utme);
+                parameters.Add("utme", utme);
 
             RequestUrlAsync(BeaconUrl, parameters);
         }
