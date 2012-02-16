@@ -13,14 +13,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleAnalyticsTracker.Wind
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		CI|Any CPU = CI|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9B6AA06C-85A9-45B9-BE39-0CDAE19D9FD2}.CI|Any CPU.ActiveCfg = CI|Any CPU
+		{9B6AA06C-85A9-45B9-BE39-0CDAE19D9FD2}.CI|Any CPU.Build.0 = CI|Any CPU
 		{9B6AA06C-85A9-45B9-BE39-0CDAE19D9FD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9B6AA06C-85A9-45B9-BE39-0CDAE19D9FD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B6AA06C-85A9-45B9-BE39-0CDAE19D9FD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B6AA06C-85A9-45B9-BE39-0CDAE19D9FD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C133EE9-8D9A-447D-BAEE-06202ABC69FC}.CI|Any CPU.ActiveCfg = CI|Any CPU
 		{8C133EE9-8D9A-447D-BAEE-06202ABC69FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8C133EE9-8D9A-447D-BAEE-06202ABC69FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C133EE9-8D9A-447D-BAEE-06202ABC69FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
