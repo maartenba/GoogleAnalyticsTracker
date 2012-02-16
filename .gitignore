@@ -7,3 +7,5 @@
 /GoogleAnalyticsTracker/obj/*
 /packages/*
 /Build/*
+obj/
+bin/

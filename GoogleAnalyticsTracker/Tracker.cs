@@ -5,7 +5,6 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace GoogleAnalyticsTracker
 {
@@ -39,10 +38,16 @@ namespace GoogleAnalyticsTracker
             TrackingAccount = trackingAccount;
             TrackingDomain = trackingDomain;
 
-
-            Hostname = Dns.GetHostName();
+#if !WINDOWS_PHONE
+            string hostname = Dns.GetHostName();
+            string osversionstring = Environment.OSVersion.VersionString;
+#else
+            string hostname = "Windows Phone";
+            string osversionstring = "Windows Phone";
+#endif
+            Hostname = hostname;
             Language = "en";
-            UserAgent = string.Format("Tracker/1.0 ({0}; {1}; {2})", Environment.OSVersion.Platform, Environment.OSVersion.Version, Environment.OSVersion.VersionString);
+            UserAgent = string.Format("Tracker/1.0 ({0}; {1}; {2})", Environment.OSVersion.Platform, Environment.OSVersion.Version, osversionstring);
             CookieContainer = new CookieContainer();
 
             ThrowOnErrors = false;
@@ -86,7 +91,7 @@ namespace GoogleAnalyticsTracker
         public void SetCustomVariable(int position, string name, string value)
         {
             if (position < 1 || position > 5)
-                throw new ArgumentOutOfRangeException("position", position, "Must be between 1 and 5");
+                throw new ArgumentOutOfRangeException(string.Format("position {0} - {1}", position, "Must be between 1 and 5"));
 
             CustomVariables[position - 1] = new CustomVariable(name, value);
         }
@@ -118,13 +123,17 @@ namespace GoogleAnalyticsTracker
             StringBuilder data = new StringBuilder();
             foreach (var parameter in parameters)
             {
-                data.Append(string.Format("{0}={1}&", parameter.Key, HttpUtility.UrlEncode(parameter.Value)));
+                data.Append(string.Format("{0}={1}&", parameter.Key, Uri.EscapeDataString(parameter.Value)));
             }
 
             // Create request
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format("{0}?{1}", url, data));
             request.CookieContainer = CookieContainer;
+
+#if !WINDOWS_PHONE
             request.Referer = string.Format("http://{0}/", TrackingDomain);
+#endif
+
             request.UserAgent = UserAgent;
 
             Task.Factory.FromAsync(request.BeginGetResponse, result => request.EndGetResponse(result), null)
