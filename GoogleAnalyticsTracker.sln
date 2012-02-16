@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{115D0F
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleAnalyticsTracker.WindowsPhone", "GoogleAnalyticsTracker.WindowsPhone\GoogleAnalyticsTracker.WindowsPhone.csproj", "{8C133EE9-8D9A-447D-BAEE-06202ABC69FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{9B6AA06C-85A9-45B9-BE39-0CDAE19D9FD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B6AA06C-85A9-45B9-BE39-0CDAE19D9FD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B6AA06C-85A9-45B9-BE39-0CDAE19D9FD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C133EE9-8D9A-447D-BAEE-06202ABC69FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C133EE9-8D9A-447D-BAEE-06202ABC69FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C133EE9-8D9A-447D-BAEE-06202ABC69FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C133EE9-8D9A-447D-BAEE-06202ABC69FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
