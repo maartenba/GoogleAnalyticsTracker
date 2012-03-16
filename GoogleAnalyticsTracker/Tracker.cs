@@ -12,6 +12,7 @@ namespace GoogleAnalyticsTracker
         : IDisposable
     {
         private const string BeaconUrl = "http://www.google-analytics.com/__utm.gif";
+        private const string BeaconUrlSsl = "https://ssl.google-analytics.com/_utm.gif";
         private const string AnalyticsVersion = "4.3"; // Analytics version - AnalyticsVersion
 
         private readonly UtmeGenerator _utmeGenerator;
@@ -32,6 +33,8 @@ namespace GoogleAnalyticsTracker
         public bool ThrowOnErrors { get; set; }
 
         public CookieContainer CookieContainer { get; set; }
+
+        public bool UseSsl { get; set; }
 
         public Tracker(string trackingAccount, string trackingDomain)
         {
@@ -114,7 +117,7 @@ namespace GoogleAnalyticsTracker
             if (!string.IsNullOrEmpty(utme))
                 parameters.Add("utme", utme);
 
-            RequestUrlAsync(BeaconUrl, parameters);
+            RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters);
         }
 
         private void RequestUrlAsync(string url, Dictionary<string, string> parameters)
