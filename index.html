@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Googleanalyticstracker by maartenba</title>
+    
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Googleanalyticstracker</h1>
+        <p>GoogleAnalyticsTracker - A C# library for tracking Google Analytics</p>
+        <p class="view"><a href="https://github.com/maartenba/GoogleAnalyticsTracker">View the Project on GitHub <small>maartenba/GoogleAnalyticsTracker</small></a></p>
+        <ul>
+          <li><a href="https://github.com/maartenba/GoogleAnalyticsTracker/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/maartenba/GoogleAnalyticsTracker/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/maartenba/GoogleAnalyticsTracker">Fork On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>GoogleAnalyticsTracker</h1>
+
+<p>GoogleAnalyticsTracker - A C# library for tracking Google Analytics</p>
+
+<h2>Like this project?</h2>
+
+<p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=C8GLSG8E33NA4"><img src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" border="0"></a> via <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=C8GLSG8E33NA4">PayPal</a>.</p>
+
+<h2>What can it be used for?</h2>
+
+<p>GoogleAnalyticsTracker was created to have a means of tracking specific URL's directly from C#. For example, when creating an API using the ASP.NET MVC framework, GoogleAnalyticsTracker enables you to track usage of the API by calling directly into Google Analytics.</p>
+
+<h2>Get it on NuGet!</h2>
+
+<pre><code>Install-Package GoogleAnalyticsTracker
+</code></pre>
+
+<h2>Example usage</h2>
+
+<p>Using GoogleAnalyticsTracker is very straightforward. In your code, add the following structure wherever you want to track page views:</p>
+
+<pre><code>using (Tracker tracker = new Tracker("UA-XXXXXX-XX", "<a href="http://www.example.org&quot;)">www.example.org")</a>)
+{
+    tracker.TrackPageView("My API - Create", "api/create");
+    tracker.TrackPageView("MY API - List", "api/list");
+}
+</code></pre>
+
+<p>Or without a using block:</p>
+
+<pre><code>Tracker tracker = new Tracker("UA-XXXXXX-XX", "<a href="http://www.example.org&quot;">www.example.org"</a>);
+tracker.TrackPageView("My API - Create", "api/create");
+</code></pre>
+
+<p>A number of extension methods are available which use the provided HttpContext as the source for URL and user propertires:</p>
+
+<pre><code>Tracker tracker = new Tracker("UA-XXXXXX-XX", "<a href="http://www.example.org&quot;">www.example.org"</a>);
+tracker.TrackPageView(HttpContext, "My API - Create");
+</code></pre>
+
+<p>Finally, an ActionFilter for use with ASP.NET MVC is available:</p>
+
+<pre><code>[ActionTracking("UA-XXXXXX-XX", "<a href="http://www.example.org&quot;)">www.example.org")</a>]
+public class ApiController
+    : Controller
+{
+    public JsonResult Create()
+    {
+        return Json(true);
+    }
+}
+</code></pre>
+
+<p>This filter can also be applied as a global action filter, optionally filtering the requests to log:</p>
+
+<pre><code>public class MvcApplication : System.Web.HttpApplication
+{
+    public static void RegisterGlobalFilters(GlobalFilterCollection filters)
+    {
+        filters.Add(new HandleErrorAttribute());
+        filters.Add(new ActionTrackingAttribute(
+            "UA-XXXXXX-XX", "<a href="http://www.example.org">www.example.org</a>",
+            action =&gt; action.ControllerDescriptor.ControllerName == "Api")
+        );
+    }
+}
+</code></pre>
+
+<h2>License</h2>
+
+<p><a href="https://github.com/maartenba/GoogleAnalyticsTracker/blob/master/LICENSE.md">MS-PL License</a></p>
+
+<h2>Building the source</h2>
+
+<p>After cloning the repository, run build.cmd. A folder named "Build" will be created and populated with:</p>
+
+<ul>
+<li>Assemblies</li>
+<li>PDB files</li>
+<li>NuGet package</li>
+</ul><h2>Who uses GoogleAnalyticsTracker?</h2>
+
+<ul>
+<li><a href="http://www.myget.org">MyGet</a></li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/maartenba">maartenba</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+  </body>
+</html>
