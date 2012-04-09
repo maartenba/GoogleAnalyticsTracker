@@ -120,6 +120,52 @@ namespace GoogleAnalyticsTracker
             RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters);
         }
 
+        public void TrackEvent(string category, string action, string label, string value)
+        {
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
+            parameters.Add("AnalyticsVersion", AnalyticsVersion);
+            parameters.Add("utmn", GenerateUtmn());
+            parameters.Add("utmhn", Hostname);
+            parameters.Add("utmni", "1");
+            parameters.Add("utmt", "event");
+
+            var utme = _utmeGenerator.Generate();
+            parameters.Add("utme", string.Format("5({0}*{1}*{2})(3)", category, action, label, value) + utme);
+
+            parameters.Add("utmcs", CharacterSet);
+            parameters.Add("utmul", Language);
+            parameters.Add("utmhid", _sessionId);
+            parameters.Add("utmac", TrackingAccount);
+            parameters.Add("utmcc", _cookieValue);
+
+            RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters);
+        }
+
+        public void TrackTransaction(string orderId, string storeName, string total, string tax, string shipping, string city, string region, string country)
+        {
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
+            parameters.Add("AnalyticsVersion", AnalyticsVersion);
+            parameters.Add("utmn", GenerateUtmn());
+            parameters.Add("utmhn", Hostname);
+            parameters.Add("utmt", "event");
+            parameters.Add("utmcs", CharacterSet);
+            parameters.Add("utmul", Language);
+            parameters.Add("utmhid", _sessionId);
+            parameters.Add("utmac", TrackingAccount);
+            parameters.Add("utmcc", _cookieValue);
+
+            parameters.Add("utmtid", orderId);
+            parameters.Add("utmtst", storeName);
+            parameters.Add("utmtto", total);
+            parameters.Add("utmttx", tax);
+            parameters.Add("utmtsp", shipping);
+            parameters.Add("utmtci", city);
+            parameters.Add("utmtrg", region);
+            parameters.Add("utmtco", country);
+
+            RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters);
+        }
+
         private void RequestUrlAsync(string url, Dictionary<string, string> parameters)
         {
             // Create GET string
