@@ -120,7 +120,7 @@ namespace GoogleAnalyticsTracker
             RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters);
         }
 
-        public void TrackEvent(string category, string action, string label, string value)
+        public void TrackEvent(string category, string action, string label, int value)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("AnalyticsVersion", AnalyticsVersion);
