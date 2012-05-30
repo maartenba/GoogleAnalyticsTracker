@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
-using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,10 +39,12 @@ namespace GoogleAnalyticsTracker
 
         public bool UseSsl { get; set; }
 
+#if !WINDOWS_PHONE
         public Tracker()
             : this(ConfigurationManager.AppSettings[TrackingAccountConfigurationKey], ConfigurationManager.AppSettings[TrackingDomainConfigurationKey])
         {
         }
+#endif
 
         public Tracker(string trackingAccount, string trackingDomain)
         {
