@@ -12,6 +12,11 @@ namespace GoogleAnalyticsTracker
         public string ActionDescription { get; set; }
         public string ActionUrl { get; set; }
 
+        public ActionTrackingAttribute()
+            : this(null, null, null, null)
+        {
+        }
+
         public ActionTrackingAttribute(string trackingAccount, string trackingDomain)
             : this(trackingAccount, trackingDomain, null, null)
         {

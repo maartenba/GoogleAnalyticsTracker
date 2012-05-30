@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -11,9 +12,12 @@ namespace GoogleAnalyticsTracker
     public class Tracker
         : IDisposable
     {
-        private const string BeaconUrl = "http://www.google-analytics.com/__utm.gif";
-        private const string BeaconUrlSsl = "https://ssl.google-analytics.com/_utm.gif";
-        private const string AnalyticsVersion = "4.3"; // Analytics version - AnalyticsVersion
+        private const string TrackingAccountConfigurationKey = "GoogleAnalyticsTracker.TrackingAccount";
+        private const string TrackingDomainConfigurationKey = "GoogleAnalyticsTracker.TrackingDomain";
+
+        const string BeaconUrl = "http://www.google-analytics.com/__utm.gif";
+        const string BeaconUrlSsl = "https://ssl.google-analytics.com/_utm.gif";
+        const string AnalyticsVersion = "4.3"; // Analytics version - AnalyticsVersion
 
         private readonly UtmeGenerator _utmeGenerator;
 
@@ -35,6 +39,11 @@ namespace GoogleAnalyticsTracker
         public CookieContainer CookieContainer { get; set; }
 
         public bool UseSsl { get; set; }
+
+        public Tracker()
+            : this(ConfigurationManager.AppSettings[TrackingAccountConfigurationKey], ConfigurationManager.AppSettings[TrackingDomainConfigurationKey])
+        {
+        }
 
         public Tracker(string trackingAccount, string trackingDomain)
         {
