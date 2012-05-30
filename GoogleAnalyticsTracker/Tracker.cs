@@ -130,7 +130,7 @@ namespace GoogleAnalyticsTracker
             parameters.Add("utmt", "event");
 
             var utme = _utmeGenerator.Generate();
-            parameters.Add("utme", string.Format("5({0}*{1}*{2})({3})", category, action, label, value) + utme);
+            parameters.Add("utme", string.Format("5({0}*{1}*{2})({3})", category, action, label ?? "", value) + utme);
 
             parameters.Add("utmcs", CharacterSet);
             parameters.Add("utmul", Language);

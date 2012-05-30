@@ -2,7 +2,7 @@ using System.Web;
 
 namespace GoogleAnalyticsTracker
 {
-    public static class TrackerExtensions
+    public static class PageViewTrackerExtensions
     {
         public static void TrackPageView(this Tracker tracker, HttpContextBase httpContext, string pageTitle)
         {
