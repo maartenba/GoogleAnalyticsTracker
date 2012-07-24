@@ -73,8 +73,14 @@
     <Reference Include="mscorlib.extensions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\GoogleAnalyticsTracker\AnalyticsSession.cs">
+      <Link>AnalyticsSession.cs</Link>
+    </Compile>
     <Compile Include="..\GoogleAnalyticsTracker\CustomVariable.cs">
       <Link>CustomVariable.cs</Link>
+    </Compile>
+    <Compile Include="..\GoogleAnalyticsTracker\IAnalyticsSession.cs">
+      <Link>IAnalyticsSession.cs</Link>
     </Compile>
     <Compile Include="..\GoogleAnalyticsTracker\Tracker.cs">
       <Link>Tracker.cs</Link>

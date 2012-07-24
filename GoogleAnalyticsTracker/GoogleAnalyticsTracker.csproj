@@ -59,8 +59,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionTrackingAttribute.cs" />
+    <Compile Include="AnalyticsSession.cs" />
     <Compile Include="CustomVariable.cs" />
     <Compile Include="EventTrackerExtensions.cs" />
+    <Compile Include="IAnalyticsSession.cs" />
     <Compile Include="Tracker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PageViewTrackerExtensions.cs" />

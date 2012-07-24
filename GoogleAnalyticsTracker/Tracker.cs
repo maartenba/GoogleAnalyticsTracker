@@ -20,11 +20,9 @@ namespace GoogleAnalyticsTracker
 
         private readonly UtmeGenerator _utmeGenerator;
 
-        private string _sessionId; // Session ID - utmhid
-        private string _cookieValue; // Cookie related variables - utmcc
-
         public string TrackingAccount { get; set; } // utmac
         public string TrackingDomain { get; set; }
+        public IAnalyticsSession AnalyticsSession { get; set; }
 
         public string Hostname { get; set; }
         public string Language { get; set; }
@@ -41,15 +39,25 @@ namespace GoogleAnalyticsTracker
 
 #if !WINDOWS_PHONE
         public Tracker()
-            : this(ConfigurationManager.AppSettings[TrackingAccountConfigurationKey], ConfigurationManager.AppSettings[TrackingDomainConfigurationKey])
+            : this(new AnalyticsSession())
+        {
+        }
+
+        public Tracker(IAnalyticsSession analyticsSession)
+            : this(ConfigurationManager.AppSettings[TrackingAccountConfigurationKey], ConfigurationManager.AppSettings[TrackingDomainConfigurationKey], analyticsSession)
         {
         }
 #endif
-
         public Tracker(string trackingAccount, string trackingDomain)
+            : this(trackingAccount, trackingDomain, new AnalyticsSession())
+        {
+        }
+
+        public Tracker(string trackingAccount, string trackingDomain, IAnalyticsSession analyticsSession)
         {
             TrackingAccount = trackingAccount;
             TrackingDomain = trackingDomain;
+            AnalyticsSession = analyticsSession;
 
 #if !WINDOWS_PHONE
             string hostname = Dns.GetHostName();
@@ -65,34 +73,16 @@ namespace GoogleAnalyticsTracker
 
             ThrowOnErrors = false;
 
-            InitializeUtmHid();
             InitializeCharset();
-            InitializeCookieVariable();
 
             CustomVariables = new CustomVariable[5];
 
             _utmeGenerator = new UtmeGenerator(this);
         }
 
-        private void InitializeUtmHid()
-        {
-            var random = new Random((int)DateTime.UtcNow.Ticks);
-            _sessionId = random.Next(100000000, 999999999).ToString(CultureInfo.InvariantCulture);
-        }
-
         private void InitializeCharset()
         {
             CharacterSet = "UTF-8";
-        }
-
-        private void InitializeCookieVariable()
-        {
-            var random = new Random((int)DateTime.UtcNow.Ticks);
-            var cookie = string.Format("{0}{1}", random.Next(100000000, 999999999), "00145214523");
-
-            var randomvalue = random.Next(1000000000, 2147483647).ToString(CultureInfo.InvariantCulture);
-
-            _cookieValue = string.Format("__utma=1.{0}.{1}.{2}.{2}.15;+__utmz=1.{2}.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none);", cookie, randomvalue, DateTime.UtcNow.Ticks);
         }
 
         private string GenerateUtmn()
@@ -118,10 +108,10 @@ namespace GoogleAnalyticsTracker
             parameters.Add("utmcs", CharacterSet);
             parameters.Add("utmul", Language);
             parameters.Add("utmdt", pageTitle);
-            parameters.Add("utmhid", _sessionId);
+            parameters.Add("utmhid", AnalyticsSession.GenerateSessionId());
             parameters.Add("utmp", pageUrl);
             parameters.Add("utmac", TrackingAccount);
-            parameters.Add("utmcc", _cookieValue);
+            parameters.Add("utmcc", AnalyticsSession.GenerateCookieValue());
 
             var utme = _utmeGenerator.Generate();
             if (!string.IsNullOrEmpty(utme))
@@ -144,9 +134,9 @@ namespace GoogleAnalyticsTracker
 
             parameters.Add("utmcs", CharacterSet);
             parameters.Add("utmul", Language);
-            parameters.Add("utmhid", _sessionId);
+            parameters.Add("utmhid", AnalyticsSession.GenerateSessionId());
             parameters.Add("utmac", TrackingAccount);
-            parameters.Add("utmcc", _cookieValue);
+            parameters.Add("utmcc", AnalyticsSession.GenerateCookieValue());
 
             RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters);
         }
@@ -160,9 +150,9 @@ namespace GoogleAnalyticsTracker
             parameters.Add("utmt", "event");
             parameters.Add("utmcs", CharacterSet);
             parameters.Add("utmul", Language);
-            parameters.Add("utmhid", _sessionId);
+            parameters.Add("utmhid", AnalyticsSession.GenerateSessionId());
             parameters.Add("utmac", TrackingAccount);
-            parameters.Add("utmcc", _cookieValue);
+            parameters.Add("utmcc", AnalyticsSession.GenerateCookieValue());
 
             parameters.Add("utmtid", orderId);
             parameters.Add("utmtst", storeName);
