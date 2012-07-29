@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("GoogleAnalyticsTracker.WindowsPhone")]
 [assembly: AssemblyDescription("GoogleAnalyticsTracker - A C# library for tracking Google Analytics.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Maarten Balliauw")]
+[assembly: AssemblyCompany("Maarten Balliauw and Henrik Sozzi")]
 [assembly: AssemblyProduct("GoogleAnalyticsTracker.WindowsPhone")]
-[assembly: AssemblyCopyright("Copyright © Maarten Balliauw 2012")]
+[assembly: AssemblyCopyright("Copyright © Maarten Balliauw and Henrik Sozzi 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,17 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.1.1.0")]
+[assembly: AssemblyFileVersion("1.1.1.0")]
+
+/*
+ * CHANGELOG
+ * 
+ * 1.1.0.0 - Henrik Sozzi (henrik.sozzi@gmail.com) - 2012-07-28
+ *  - Added WindowsPhoneAnalyticSession and used by default on WindowsPhone project
+ *  - Added screen resolution to the gif url parameters.
+ *  - Refactored UserAgent String with a one comparable to the one that the Android SDK is sending to google analytics
+ * 1.1.1.0 - Henrik Sozzi (henrik.sozzi@gmail.com) - 2012-07-29
+ *  - Refactored UserString to be the same that IE9 is sending when viewing websites. In that way now Google Analytics
+ *    is now recognizing phone manufacturer and device model name!
+*/

@@ -5,6 +5,9 @@ using System.Globalization;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+#if WINDOWS_PHONE
+using Microsoft.Phone.Info;
+#endif
 
 namespace GoogleAnalyticsTracker
 {
@@ -19,7 +22,9 @@ namespace GoogleAnalyticsTracker
         const string AnalyticsVersion = "4.3"; // Analytics version - AnalyticsVersion
 
         private readonly UtmeGenerator _utmeGenerator;
-
+#if WINDOWS_PHONE
+        private string screenRes=null;
+#endif
         public string TrackingAccount { get; set; } // utmac
         public string TrackingDomain { get; set; }
         public IAnalyticsSession AnalyticsSession { get; set; }
@@ -47,11 +52,17 @@ namespace GoogleAnalyticsTracker
             : this(ConfigurationManager.AppSettings[TrackingAccountConfigurationKey], ConfigurationManager.AppSettings[TrackingDomainConfigurationKey], analyticsSession)
         {
         }
-#endif
         public Tracker(string trackingAccount, string trackingDomain)
             : this(trackingAccount, trackingDomain, new AnalyticsSession())
         {
         }
+#else
+        public Tracker(string trackingAccount, string trackingDomain)
+            : this(trackingAccount, trackingDomain, new WindowsPhoneAnalyticsSession())
+        {
+        }
+#endif
+
 
         public Tracker(string trackingAccount, string trackingDomain, IAnalyticsSession analyticsSession)
         {
@@ -59,16 +70,34 @@ namespace GoogleAnalyticsTracker
             TrackingDomain = trackingDomain;
             AnalyticsSession = analyticsSession;
 
+            Language = CultureInfo.CurrentCulture.ToString();
 #if !WINDOWS_PHONE
-            string hostname = Dns.GetHostName();
-            string osversionstring = Environment.OSVersion.VersionString;
+            UserAgent = string.Format("Tracker/1.0 ({0}; {1}; {2})", Environment.OSVersion.Platform, Environment.OSVersion.Version, Environment.OSVersion.VersionString);
+            Hostname = Dns.GetHostName();
 #else
-            string hostname = "Windows Phone";
-            string osversionstring = "Windows Phone";
-#endif
-            Hostname = hostname;
-            Language = "en";
-            UserAgent = string.Format("Tracker/1.0 ({0}; {1}; {2})", Environment.OSVersion.Platform, Environment.OSVersion.Version, osversionstring);
+            Hostname = "Windows Phone";
+            /* This was my first try, reconstructing the same user agent that google analytics for android sdk was sending. It didn't recognized other info that
+             * OS Windows Phone.
+            // Version ver = new Version(System.Reflection.Assembly.GetExecutingAssembly().FullName.Split(',')[1].Split('=')[1]);
+            UserAgent = string.Format("GoogleAnalytics/1.4.2 ({0}; U; {1}; {2}; {3} Build/{4})",
+                                      Environment.OSVersion.Platform.ToString(),
+                                      osversionstring + " " + Environment.OSVersion.Version.ToString(),
+                                      CultureInfo.CurrentCulture.ToString(), DeviceStatus.DeviceManufacturer + " " + DeviceStatus.DeviceName,
+                                      Environment.OSVersion.Version.Build);
+             */
+            
+            /* This is my second and working solution: we reconstruct the exact same useragent that IE9 is sending. In that way
+             * Google Analytics recognize OS, Manufacturer and device model: wonderful!
+             */
+            string osver;
+            // Windows Phone 7.5, as we usually call Mango, in reality is 7.10... So we change that string.
+            if (Environment.OSVersion.Version.Major == 7 && Environment.OSVersion.Version.Minor == 10) osver = "7.5";
+            else osver = string.Format("{0}.{1}", Environment.OSVersion.Version.Major,Environment.OSVersion.Version.Minor) ;
+            
+
+            UserAgent = string.Format("Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS {0}; Trident/5.0; IEMobile/9.0; {1}; {2})",
+                                      osver, Microsoft.Phone.Info.DeviceStatus.DeviceManufacturer, Microsoft.Phone.Info.DeviceStatus.DeviceName);
+#endif 
             CookieContainer = new CookieContainer();
 
             ThrowOnErrors = false;
@@ -90,7 +119,13 @@ namespace GoogleAnalyticsTracker
             var random = new Random((int)DateTime.UtcNow.Ticks);
             return random.Next(100000000, 999999999).ToString(CultureInfo.InvariantCulture);
         }
-
+#if WINDOWS_PHONE
+        private string GenerateUtmsr()
+        {
+            if (screenRes==null) screenRes= string.Format("{0}x{1}", System.Windows.Application.Current.Host.Content.ActualWidth, System.Windows.Application.Current.Host.Content.ActualHeight);
+            return screenRes;
+        }
+#endif 
         public void SetCustomVariable(int position, string name, string value)
         {
             if (position < 1 || position > 5)
@@ -98,6 +133,14 @@ namespace GoogleAnalyticsTracker
 
             CustomVariables[position - 1] = new CustomVariable(name, value);
         }
+
+#if WINDOWS_PHONE 
+        private void AddWindowsPhoneParameters(Dictionary<string, string> parameters)
+        {
+            parameters.Add("utmsr", GenerateUtmsr());
+            parameters.Add("utmsc", "32-bit");
+        }
+#endif 
 
         public void TrackPageView(string pageTitle, string pageUrl)
         {
@@ -112,7 +155,9 @@ namespace GoogleAnalyticsTracker
             parameters.Add("utmp", pageUrl);
             parameters.Add("utmac", TrackingAccount);
             parameters.Add("utmcc", AnalyticsSession.GenerateCookieValue());
-
+#if WINDOWS_PHONE
+            AddWindowsPhoneParameters(parameters);
+#endif 
             var utme = _utmeGenerator.Generate();
             if (!string.IsNullOrEmpty(utme))
                 parameters.Add("utme", utme);
@@ -137,6 +182,9 @@ namespace GoogleAnalyticsTracker
             parameters.Add("utmhid", AnalyticsSession.GenerateSessionId());
             parameters.Add("utmac", TrackingAccount);
             parameters.Add("utmcc", AnalyticsSession.GenerateCookieValue());
+#if WINDOWS_PHONE
+            AddWindowsPhoneParameters(parameters);
+#endif 
 
             RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters);
         }
@@ -162,6 +210,9 @@ namespace GoogleAnalyticsTracker
             parameters.Add("utmtci", city);
             parameters.Add("utmtrg", region);
             parameters.Add("utmtco", country);
+#if WINDOWS_PHONE
+            AddWindowsPhoneParameters(parameters);
+#endif 
 
             RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters);
         }
