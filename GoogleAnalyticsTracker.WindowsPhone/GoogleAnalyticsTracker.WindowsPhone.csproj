@@ -61,6 +61,7 @@
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Phone" />
     <Reference Include="System.Device" />
     <Reference Include="System.Threading.Tasks.WP71">
       <HintPath>..\packages\System.Threading.Tasks.2.1.2\lib\sl4-wp71\System.Threading.Tasks.WP71.dll</HintPath>
@@ -89,6 +90,7 @@
       <Link>UtmeGenerator.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WindowsPhoneAnalyticsSession.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GoogleAnalyticsTracker.WindowsPhone.nuspec">
