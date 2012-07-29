@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="ActionTrackingAttribute.cs" />
     <Compile Include="AnalyticsSession.cs" />
+    <Compile Include="CookieBasedAnalyticsSession.cs" />
     <Compile Include="CustomVariable.cs" />
     <Compile Include="EventTrackerExtensions.cs" />
     <Compile Include="IAnalyticsSession.cs" />

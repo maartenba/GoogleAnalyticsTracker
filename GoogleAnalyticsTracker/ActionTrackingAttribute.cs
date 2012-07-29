@@ -25,7 +25,7 @@ namespace GoogleAnalyticsTracker
         public ActionTrackingAttribute(string trackingAccount, string trackingDomain, string actionDescription,
                                        string actionUrl)
         {
-            Tracker = new Tracker(trackingAccount, trackingDomain);
+            Tracker = new Tracker(trackingAccount, trackingDomain, new CookieBasedAnalyticsSession());
             ActionDescription = actionDescription;
             ActionUrl = actionUrl;
         }
@@ -43,7 +43,7 @@ namespace GoogleAnalyticsTracker
 
         public ActionTrackingAttribute(string trackingAccount, string trackingDomain, Func<ActionDescriptor, bool> isTrackableAction)
         {
-            Tracker = new Tracker(trackingAccount, trackingDomain);
+            Tracker = new Tracker(trackingAccount, trackingDomain, new CookieBasedAnalyticsSession());
             IsTrackableAction = isTrackableAction;
         }
 
