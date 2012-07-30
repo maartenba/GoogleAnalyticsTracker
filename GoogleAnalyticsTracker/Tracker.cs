@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GoogleAnalyticsTracker
 {
-    public class Tracker
+    public partial class Tracker
         : IDisposable
     {
         private const string TrackingAccountConfigurationKey = "GoogleAnalyticsTracker.TrackingAccount";
@@ -47,11 +47,12 @@ namespace GoogleAnalyticsTracker
             : this(ConfigurationManager.AppSettings[TrackingAccountConfigurationKey], ConfigurationManager.AppSettings[TrackingDomainConfigurationKey], analyticsSession)
         {
         }
-#endif
+
         public Tracker(string trackingAccount, string trackingDomain)
             : this(trackingAccount, trackingDomain, new AnalyticsSession())
         {
         }
+#endif
 
         public Tracker(string trackingAccount, string trackingDomain, IAnalyticsSession analyticsSession)
         {

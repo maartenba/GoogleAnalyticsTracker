@@ -4,7 +4,7 @@ namespace GoogleAnalyticsTracker
     {
         public static void TrackEvent(this Tracker tracker, string category, string action)
         {
-            tracker.TrackEvent(category, action, null, 0);
+            tracker.TrackEvent(category, action, null, 1);
         }
     }
 }

@@ -1,6 +1,8 @@
 using System.Web;
 
+// ReSharper disable CheckNamespace
 namespace GoogleAnalyticsTracker
+// ReSharper restore CheckNamespace
 {
     public static class PageViewTrackerExtensions
     {
