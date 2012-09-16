@@ -14,3 +14,4 @@
 /Build/*
 obj/
 bin/
+*.suo

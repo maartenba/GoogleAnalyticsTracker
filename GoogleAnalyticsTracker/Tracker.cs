@@ -37,7 +37,7 @@ namespace GoogleAnalyticsTracker
 
         public bool UseSsl { get; set; }
 
-#if !WINDOWS_PHONE
+#if !WINDOWS_PHONE && !NETFX_CORE
         public Tracker()
             : this(new AnalyticsSession())
         {
@@ -60,16 +60,26 @@ namespace GoogleAnalyticsTracker
             TrackingDomain = trackingDomain;
             AnalyticsSession = analyticsSession;
 
-#if !WINDOWS_PHONE
+#if !WINDOWS_PHONE && !NETFX_CORE
             string hostname = Dns.GetHostName();
             string osversionstring = Environment.OSVersion.VersionString;
-#else
+            string osplatform = Environment.OSVersion.Platform;
+            string osversion = Environment.OSVersion.Version;
+#elif WINDOWS_PHONE
             string hostname = "Windows Phone";
             string osversionstring = "Windows Phone";
+            string osplatform = Environment.OSVersion.Platform;
+            string osversion = Environment.OSVersion.Version;
+#else
+            string hostname = "Windows";
+            string osversionstring = "RT";
+            string osplatform = "Windows RT";
+            string osversion = "8";
 #endif
+
             Hostname = hostname;
             Language = "en";
-            UserAgent = string.Format("Tracker/1.0 ({0}; {1}; {2})", Environment.OSVersion.Platform, Environment.OSVersion.Version, osversionstring);
+            UserAgent = string.Format("Tracker/1.0 ({0}; {1}; {2})", osplatform, osversion, osversionstring);
             CookieContainer = new CookieContainer();
 
             ThrowOnErrors = false;
@@ -167,7 +177,11 @@ namespace GoogleAnalyticsTracker
             RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters);
         }
 
-        private void RequestUrlAsync(string url, Dictionary<string, string> parameters)
+        private
+#if NETFX_CORE
+            async
+#endif      
+            void RequestUrlAsync(string url, Dictionary<string, string> parameters)
         {
             // Create GET string
             StringBuilder data = new StringBuilder();
@@ -180,10 +194,11 @@ namespace GoogleAnalyticsTracker
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format("{0}?{1}", url, data));
             request.CookieContainer = CookieContainer;
 
-#if !WINDOWS_PHONE
+#if !WINDOWS_PHONE && !NETFX_CORE
             request.Referer = string.Format("http://{0}/", TrackingDomain);
 #endif
 
+#if !NETFX_CORE
             request.UserAgent = UserAgent;
 
             Task.Factory.FromAsync(request.BeginGetResponse, result => request.EndGetResponse(result), null)
@@ -201,6 +216,21 @@ namespace GoogleAnalyticsTracker
                                       {
                                       }
                                   });
+#else
+            try 
+            {
+                var response = await request.GetResponseAsync();
+            }
+            catch 
+            {
+                if (ThrowOnErrors)
+                {
+                    throw;
+                }
+            }
+
+
+#endif
         }
 
         #region IDisposable Members
