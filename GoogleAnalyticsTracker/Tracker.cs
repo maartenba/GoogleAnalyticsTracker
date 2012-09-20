@@ -63,13 +63,13 @@ namespace GoogleAnalyticsTracker
 #if !WINDOWS_PHONE && !NETFX_CORE
             string hostname = Dns.GetHostName();
             string osversionstring = Environment.OSVersion.VersionString;
-            string osplatform = Environment.OSVersion.Platform;
-            string osversion = Environment.OSVersion.Version;
+            string osplatform = Environment.OSVersion.Platform.ToString();
+            string osversion = Environment.OSVersion.Version.ToString();
 #elif WINDOWS_PHONE
             string hostname = "Windows Phone";
             string osversionstring = "Windows Phone";
-            string osplatform = Environment.OSVersion.Platform;
-            string osversion = Environment.OSVersion.Version;
+            string osplatform = "Windows Phone";
+            string osversion = Environment.OSVersion.Version.ToString();
 #else
             string hostname = "Windows";
             string osversionstring = "RT";

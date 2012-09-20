@@ -7,7 +7,7 @@
 /GoogleAnalyticsTracker.WindowsPhone.suo
 /GoogleAnalyticsTracker.WindowsPhone/GoogleAnalyticsTracker.WindowsPhone.csproj.user
 /msbuild.log
-/_ReSharper.GoogleAnalyticsTracker/*
+/_ReSharper.*
 /GoogleAnalyticsTracker/bin/*
 /GoogleAnalyticsTracker/obj/*
 /packages/*

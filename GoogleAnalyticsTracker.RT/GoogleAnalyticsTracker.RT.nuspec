@@ -6,12 +6,12 @@
     <owners>$author$</owners>
     <licenseUrl>http://github.com/maartenba/GoogleAnalyticsTracker/blob/master/LICENSE.md</licenseUrl>
     <projectUrl>http://github.com/maartenba/GoogleAnalyticsTracker</projectUrl>
-    <id>GoogleAnalyticsTracker.WindowsPhone</id>
-    <title>GoogleAnalyticsTracker.WindowsPhone</title>
+    <id>GoogleAnalyticsTracker.RT</id>
+    <title>GoogleAnalyticsTracker.RT</title>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>GoogleAnalyticsTracker was created to have a means of tracking specific URL's directly from C#. For example, it enables you to log API calls to Google Analytics.</description>
     <summary>GoogleAnalyticsTracker was created to have a means of tracking specific URL's directly from C#. For example, it enables you to log API calls to Google Analytics.</summary>
     <copyright>Copyright 2012 Maarten Balliauw</copyright>
-    <tags>google analytics ga wp7 windows phone windowsphone api rest client tracker stats statistics wp7 mango phone</tags>
+    <tags>google analytics ga winrt win8 windows8 api rest client tracker stats statistics</tags>
   </metadata>
 </package>
