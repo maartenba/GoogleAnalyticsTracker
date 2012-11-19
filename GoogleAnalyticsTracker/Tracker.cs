@@ -15,7 +15,7 @@ namespace GoogleAnalyticsTracker
         private const string TrackingDomainConfigurationKey = "GoogleAnalyticsTracker.TrackingDomain";
 
         const string BeaconUrl = "http://www.google-analytics.com/__utm.gif";
-        const string BeaconUrlSsl = "https://ssl.google-analytics.com/_utm.gif";
+        const string BeaconUrlSsl = "https://ssl.google-analytics.com/__utm.gif";
         const string AnalyticsVersion = "4.3"; // Analytics version - AnalyticsVersion
 
         private readonly UtmeGenerator _utmeGenerator;
