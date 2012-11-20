@@ -88,10 +88,16 @@
     <Compile Include="..\GoogleAnalyticsTracker\Tracker.cs">
       <Link>Tracker.cs</Link>
     </Compile>
+    <Compile Include="..\GoogleAnalyticsTracker\Tracker.tracking.cs">
+      <Link>Tracker.tracking.cs</Link>
+    </Compile>
     <Compile Include="..\GoogleAnalyticsTracker\UtmeGenerator.cs">
       <Link>UtmeGenerator.cs</Link>
     </Compile>
-    <Compile Include="Tracker.partial.cs" />
+    <Compile Include="..\GoogleAnalyticsTracker\TrackingResult.cs">
+      <Link>TrackingResult.cs</Link>
+    </Compile>
+    <Compile Include="Tracker.windowsphone.cs" />
     <Compile Include="WindowsPhoneAnalyticsSession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
