@@ -52,7 +52,7 @@ namespace GoogleAnalyticsTracker
             parameters.Add("AnalyticsVersion", AnalyticsVersion);
             parameters.Add("utmn", GenerateUtmn());
             parameters.Add("utmhn", Hostname);
-            parameters.Add("utmt", "event");
+            parameters.Add("utmt", "transaction");
             parameters.Add("utmcs", CharacterSet);
             parameters.Add("utmul", Language);
             parameters.Add("utmhid", AnalyticsSession.GenerateSessionId());
