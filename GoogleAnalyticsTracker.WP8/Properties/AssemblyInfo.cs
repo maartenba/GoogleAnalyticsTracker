@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("GoogleAnalyticsTracker")]
+[assembly: AssemblyTitle("GoogleAnalyticsTracker.WP8")]
 [assembly: AssemblyDescription("GoogleAnalyticsTracker - A C# library for tracking Google Analytics.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Maarten Balliauw")]
-[assembly: AssemblyProduct("GoogleAnalyticsTracker")]
-[assembly: AssemblyCopyright("Copyright © Maarten Balliauw 2012 - 2013 - 2013")]
+[assembly: AssemblyProduct("GoogleAnalyticsTracker.WP8")]
+[assembly: AssemblyCopyright("Copyright © Maarten Balliauw 2012 - 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("305e6078-e84d-44b7-bc27-d1a870ef877e")]
+[assembly: Guid("108221af-d9cb-4bf3-8420-036e869c1e56")]
 
 // Version information for an assembly consists of the following four values:
 //
