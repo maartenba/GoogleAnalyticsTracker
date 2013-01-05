@@ -3,18 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleAnalyticsTracker", "GoogleAnalyticsTracker\GoogleAnalyticsTracker.csproj", "{9B6AA06C-85A9-45B9-BE39-0CDAE19D9FD2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{115D0F81-D3F5-4F88-BD69-286A52124578}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleAnalyticsTracker.WP7", "GoogleAnalyticsTracker.WP7\GoogleAnalyticsTracker.WP7.csproj", "{8C133EE9-8D9A-447D-BAEE-06202ABC69FC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleAnalyticsTracker.RT", "GoogleAnalyticsTracker.RT\GoogleAnalyticsTracker.RT.csproj", "{DC0B67A9-863A-40DA-8516-062388A7B348}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleAnalyticsTracker.WP8", "GoogleAnalyticsTracker.WP8\GoogleAnalyticsTracker.WP8.csproj", "{8C122EE9-8D9A-447D-BBEE-06202ABCAA22}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{426B935E-911E-4419-862B-0CCF08CB8B09}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
