@@ -7,7 +7,7 @@ namespace GoogleAnalyticsTracker
         public void TrackPageView(string pageTitle, string pageUrl)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
-            parameters.Add("AnalyticsVersion", AnalyticsVersion);
+            parameters.Add("utmwv", AnalyticsVersion);
             parameters.Add("utmn", GenerateUtmn());
             parameters.Add("utmhn", Hostname);
             parameters.Add("utmcs", CharacterSet);
@@ -28,7 +28,7 @@ namespace GoogleAnalyticsTracker
         public void TrackEvent(string category, string action, string label, int value)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
-            parameters.Add("AnalyticsVersion", AnalyticsVersion);
+            parameters.Add("utmwv", AnalyticsVersion);
             parameters.Add("utmn", GenerateUtmn());
             parameters.Add("utmhn", Hostname);
             parameters.Add("utmni", "1");
@@ -49,7 +49,7 @@ namespace GoogleAnalyticsTracker
         public void TrackTransaction(string orderId, string storeName, string total, string tax, string shipping, string city, string region, string country)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
-            parameters.Add("AnalyticsVersion", AnalyticsVersion);
+            parameters.Add("utmwv", AnalyticsVersion);
             parameters.Add("utmn", GenerateUtmn());
             parameters.Add("utmhn", Hostname);
             parameters.Add("utmt", "transaction");
