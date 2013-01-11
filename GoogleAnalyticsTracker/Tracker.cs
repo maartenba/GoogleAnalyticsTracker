@@ -136,17 +136,36 @@ namespace GoogleAnalyticsTracker
 #endif
                         .ContinueWith(task =>
                                          {
-                                             var returnValue = new TrackingResult {Url = url, Parameters = parameters, Success = true};
-                                             if (task.IsFaulted && task.Exception != null && ThrowOnErrors)
+                                             try
                                              {
-                                                 throw task.Exception;
-                                             } 
-                                             else if (task.IsFaulted)
-                                             {
-                                                 returnValue.Success = false;
-                                                 returnValue.Exception = task.Exception;
+                                                 var returnValue = new TrackingResult
+                                                     {
+                                                         Url = url,
+                                                         Parameters = parameters,
+                                                         Success = true
+                                                     };
+                                                 if (task.IsFaulted && task.Exception != null && ThrowOnErrors)
+                                                 {
+                                                     throw task.Exception;
+                                                 }
+                                                 else if (task.IsFaulted)
+                                                 {
+                                                     returnValue.Success = false;
+                                                     returnValue.Exception = task.Exception;
+                                                 }
+                                                 return returnValue;
                                              }
-                                             return returnValue;
+                                             finally
+                                             {
+                                                 if (task.Result != null)
+                                                 {
+                                                     var disposableResult = task.Result as IDisposable;
+                                                     if (disposableResult != null)
+                                                     {
+                                                         disposableResult.Dispose();
+                                                     }
+                                                 }
+                                             }
                                          });
         }
 
