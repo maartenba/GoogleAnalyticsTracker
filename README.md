@@ -55,6 +55,14 @@ This filter can also be applied as a global action filter, optionally filtering 
 	        );
 	    }
 	}
+	
+## Characteristics
+GoogleAnalyticsTracker does not track your users. It simply serves as an interface to Google Analytics where you should provide all tracking data that is required.
+Of course. GoogleAnalyticsTracker sends some data that can be inferred from usage, such as the hostname on which it is running, but not the hostname of your client.
+Sessions are also untracked: every event that is tracked counts as a new unique visitor to Google Analytics.
+
+* If you do need to track user sessions, implement a custom IAnalyticsSession and pass it to the constructor of the Tracker object.
+* If you do need to track actual user data, it can be set on the Tracker object using its properties like Hostname, Language, UserAgent and so on.
 
 ## License
 [MS-PL License](https://github.com/maartenba/GoogleAnalyticsTracker/blob/master/LICENSE.md)
