@@ -162,7 +162,7 @@ namespace GoogleAnalyticsTracker
                                              }
                                              finally
                                              {
-                                                 if (task.Result != null)
+                                                 if (!task.IsFaulted && task.Result != null)
                                                  {
                                                      var disposableResult = task.Result as IDisposable;
                                                      if (disposableResult != null)
