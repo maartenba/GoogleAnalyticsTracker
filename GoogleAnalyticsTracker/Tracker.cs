@@ -52,6 +52,11 @@ namespace GoogleAnalyticsTracker
             : this(trackingAccount, trackingDomain, new AnalyticsSession())
         {
         }
+#elif NETFX_CORE
+        public Tracker(string trackingAccount, string trackingDomain)
+            : this(trackingAccount, trackingDomain, new WinRtAnalyticsSession())
+        {
+        }
 #endif
 
         public Tracker(string trackingAccount, string trackingDomain, IAnalyticsSession analyticsSession)
