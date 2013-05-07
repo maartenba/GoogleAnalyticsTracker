@@ -6,8 +6,21 @@ namespace GoogleAnalyticsTracker.Web.Mvc
     public class ActionTrackingAttribute
         : ActionFilterAttribute
     {
+        private Func<ActionDescriptor, bool> _isTrackableAction;
+
         public Tracker Tracker { get; set; }
-        public Func<ActionDescriptor, bool> IsTrackableAction { get; set; }
+        public Func<ActionDescriptor, bool> IsTrackableAction
+        {
+            get
+            {
+                if (_isTrackableAction != null)
+                {
+                    return _isTrackableAction;
+                }
+                return action => true;
+            }
+            set { _isTrackableAction = value; }
+        }
 
         public string ActionDescription { get; set; }
         public string ActionUrl { get; set; }
@@ -22,8 +35,7 @@ namespace GoogleAnalyticsTracker.Web.Mvc
         {
         }
 
-        public ActionTrackingAttribute(string trackingAccount, string trackingDomain, string actionDescription,
-                                       string actionUrl)
+        public ActionTrackingAttribute(string trackingAccount, string trackingDomain, string actionDescription, string actionUrl)
         {
             Tracker = new Tracker(trackingAccount, trackingDomain, new CookieBasedAnalyticsSession());
             ActionDescription = actionDescription;
