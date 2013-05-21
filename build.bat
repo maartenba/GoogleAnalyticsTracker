@@ -9,8 +9,14 @@ if not "%PackageVersion%" == "" (
    set version=-Version %PackageVersion%
 )
 
+REM Package restore
+.nuget\nuget.exe install GoogleAnalyticsTracker\packages.config -OutputDirectory %cd%\packages -NonInteractive
+.nuget\nuget.exe install GoogleAnalyticsTracker.WP7\packages.config -OutputDirectory %cd%\packages -NonInteractive
+
+REM Build
 %WINDIR%\Microsoft.NET\Framework\v4.0.30319\msbuild GoogleAnalyticsTracker.sln /p:Configuration="%config%" /m /v:M /fl /flp:LogFile=msbuild.log;Verbosity=Normal /nr:false
 
+REM Package
 mkdir Build
 mkdir Build\net40
 .nuget\nuget.exe pack "GoogleAnalyticsTracker\GoogleAnalyticsTracker.csproj" -symbols -o Build\net40 -p Configuration=%config% %version%
