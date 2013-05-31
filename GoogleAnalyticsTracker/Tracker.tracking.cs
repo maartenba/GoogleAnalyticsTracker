@@ -10,7 +10,7 @@ namespace GoogleAnalyticsTracker
         {
             try
             {
-                task.RunSynchronously();
+                Task.WaitAll(task);
             }
             catch (Exception)
             {

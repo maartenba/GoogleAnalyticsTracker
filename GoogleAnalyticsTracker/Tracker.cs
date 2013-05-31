@@ -135,11 +135,11 @@ namespace GoogleAnalyticsTracker
 #if !NETFX_CORE
             request.UserAgent = UserAgent;
 
-            var requestUrlAsyncTask = Task.Factory.FromAsync(request.BeginGetResponse, result => request.EndGetResponse(result), null);
+            return Task.Factory.FromAsync(request.BeginGetResponse, result => request.EndGetResponse(result), null)
 #else
-            var requestUrlAsyncTask = request.GetResponseAsync();
+            return request.GetResponseAsync()
 #endif
-            var continuationTask = requestUrlAsyncTask.ContinueWith(task =>
+                .ContinueWith(task =>
                 {
                     try
                     {
@@ -171,13 +171,6 @@ namespace GoogleAnalyticsTracker
                             }
                         }
                     }
-                });
-
-            return Task.Factory.StartNew(() =>
-                {
-                    requestUrlAsyncTask.Start();
-                    continuationTask.Wait();
-                    return continuationTask.Result;
                 });
         }
 
