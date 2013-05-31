@@ -135,43 +135,50 @@ namespace GoogleAnalyticsTracker
 #if !NETFX_CORE
             request.UserAgent = UserAgent;
 
-            return Task.Factory.FromAsync(request.BeginGetResponse, result => request.EndGetResponse(result), null)
+            var requestUrlAsyncTask = Task.Factory.FromAsync(request.BeginGetResponse, result => request.EndGetResponse(result), null);
 #else
-            return request.GetResponseAsync()
+            var requestUrlAsyncTask = request.GetResponseAsync();
 #endif
-                        .ContinueWith(task =>
-                                         {
-                                             try
-                                             {
-                                                 var returnValue = new TrackingResult
-                                                     {
-                                                         Url = url,
-                                                         Parameters = parameters,
-                                                         Success = true
-                                                     };
-                                                 if (task.IsFaulted && task.Exception != null && ThrowOnErrors)
-                                                 {
-                                                     throw task.Exception;
-                                                 }
-                                                 else if (task.IsFaulted)
-                                                 {
-                                                     returnValue.Success = false;
-                                                     returnValue.Exception = task.Exception;
-                                                 }
-                                                 return returnValue;
-                                             }
-                                             finally
-                                             {
-                                                 if (!task.IsFaulted && task.Result != null)
-                                                 {
-                                                     var disposableResult = task.Result as IDisposable;
-                                                     if (disposableResult != null)
-                                                     {
-                                                         disposableResult.Dispose();
-                                                     }
-                                                 }
-                                             }
-                                         });
+            var continuationTask = requestUrlAsyncTask.ContinueWith(task =>
+                {
+                    try
+                    {
+                        var returnValue = new TrackingResult
+                            {
+                                Url = url,
+                                Parameters = parameters,
+                                Success = true
+                            };
+                        if (task.IsFaulted && task.Exception != null && ThrowOnErrors)
+                        {
+                            throw task.Exception;
+                        }
+                        else if (task.IsFaulted)
+                        {
+                            returnValue.Success = false;
+                            returnValue.Exception = task.Exception;
+                        }
+                        return returnValue;
+                    }
+                    finally
+                    {
+                        if (!task.IsFaulted && task.Result != null)
+                        {
+                            var disposableResult = task.Result as IDisposable;
+                            if (disposableResult != null)
+                            {
+                                disposableResult.Dispose();
+                            }
+                        }
+                    }
+                });
+
+            return Task.Factory.StartNew(() =>
+                {
+                    requestUrlAsyncTask.Start();
+                    continuationTask.Wait();
+                    return continuationTask.Result;
+                });
         }
 
         #region IDisposable Members
