@@ -149,6 +149,9 @@
     <Compile Include="..\GoogleAnalyticsTracker\Tracker.tracking.cs">
       <Link>Tracker.tracking.cs</Link>
     </Compile>
+	<Compile Include="..\GoogleAnalyticsTracker\WebRequestExtensions.cs">
+      <Link>WebRequestExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\GoogleAnalyticsTracker\UtmeGenerator.cs">
       <Link>UtmeGenerator.cs</Link>
     </Compile>

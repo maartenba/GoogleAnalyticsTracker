@@ -108,6 +108,9 @@
     <Compile Include="..\GoogleAnalyticsTracker\TrackingResult.cs">
       <Link>TrackingResult.cs</Link>
     </Compile>
+	<Compile Include="..\GoogleAnalyticsTracker\WebRequestExtensions.cs">
+      <Link>WebRequestExtensions.cs</Link>
+    </Compile>
     <Compile Include="Tracker.windowsphone.cs" />
     <Compile Include="WindowsPhoneAnalyticsSession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

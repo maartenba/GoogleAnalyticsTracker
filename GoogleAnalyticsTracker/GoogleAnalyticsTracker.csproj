@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DateTimeExtensions.cs" />
+    <Compile Include="EventTrackerExtensions.cs" />
     <Compile Include="Tracker.tracking.cs" />
     <Compile Include="TrackingResult.cs" />
     <Compile Include="Web\HttpContextBaseExtensions.cs" />
@@ -69,7 +70,7 @@
     <Compile Include="AnalyticsSession.cs" />
     <Compile Include="Web\CookieBasedAnalyticsSession.cs" />
     <Compile Include="CustomVariable.cs" />
-    <Compile Include="EventTrackerExtensions.cs" />
+    <Compile Include="WebRequestExtensions.cs" />
     <Compile Include="IAnalyticsSession.cs" />
     <Compile Include="Tracker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
