@@ -6,21 +6,6 @@ namespace GoogleAnalyticsTracker
 {
     public partial class Tracker
     {
-        protected void RunSynchronous(Task task)
-        {
-            try
-            {
-                Task.WaitAll(task);
-            }
-            catch (Exception)
-            {
-                if (ThrowOnErrors)
-                {
-                    throw;
-                }
-            }
-        }
-
         public void TrackPageView(string pageTitle, string pageUrl)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
@@ -39,7 +24,7 @@ namespace GoogleAnalyticsTracker
             if (!string.IsNullOrEmpty(utme))
                 parameters.Add("utme", utme);
 
-            RunSynchronous(RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters));
+            RequestUrlSync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters);
         }
 
         public void TrackEvent(string category, string action, string label, int value)
@@ -60,7 +45,7 @@ namespace GoogleAnalyticsTracker
             parameters.Add("utmac", TrackingAccount);
             parameters.Add("utmcc", AnalyticsSession.GenerateCookieValue());
 
-            RunSynchronous(RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters));
+            RequestUrlSync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters);
         }
 
         public void TrackTransaction(string orderId, string storeName, string total, string tax, string shipping, string city, string region, string country)
@@ -85,7 +70,7 @@ namespace GoogleAnalyticsTracker
             parameters.Add("utmtrg", region);
             parameters.Add("utmtco", country);
 
-            RunSynchronous(RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters));
+            RequestUrlSync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters);
         }
     }
 }

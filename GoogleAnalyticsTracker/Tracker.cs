@@ -139,40 +139,86 @@ namespace GoogleAnalyticsTracker
 #else
             return request.GetResponseAsync()
 #endif
-                .ContinueWith(task =>
-                {
-                    try
-                    {
-                        var returnValue = new TrackingResult
-                            {
-                                Url = url,
-                                Parameters = parameters,
-                                Success = true
-                            };
-                        if (task.IsFaulted && task.Exception != null && ThrowOnErrors)
-                        {
-                            throw task.Exception;
-                        }
-                        else if (task.IsFaulted)
-                        {
-                            returnValue.Success = false;
-                            returnValue.Exception = task.Exception;
-                        }
-                        return returnValue;
-                    }
-                    finally
-                    {
-                        if (!task.IsFaulted && task.Result != null)
-                        {
-                            var disposableResult = task.Result as IDisposable;
-                            if (disposableResult != null)
-                            {
-                                disposableResult.Dispose();
-                            }
-                        }
-                    }
-                });
+.ContinueWith(task =>
+{
+    try
+    {
+        var returnValue = new TrackingResult
+        {
+            Url = url,
+            Parameters = parameters,
+            Success = true
+        };
+        if (task.IsFaulted && task.Exception != null && ThrowOnErrors)
+        {
+            throw task.Exception;
         }
+        else if (task.IsFaulted)
+        {
+            returnValue.Success = false;
+            returnValue.Exception = task.Exception;
+        }
+        return returnValue;
+    }
+    finally
+    {
+        if (!task.IsFaulted && task.Result != null)
+        {
+            var disposableResult = task.Result as IDisposable;
+            if (disposableResult != null)
+            {
+                disposableResult.Dispose();
+            }
+        }
+    }
+});
+        }
+
+#if !NETFX_CORE
+        private TrackingResult RequestUrlSync(string url, Dictionary<string, string> parameters)
+        {
+            // Create GET string
+            StringBuilder data = new StringBuilder();
+            foreach (var parameter in parameters)
+            {
+                data.Append(string.Format("{0}={1}&", parameter.Key, Uri.EscapeDataString(parameter.Value)));
+            }
+
+            // Create request
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format("{0}?{1}", url, data));
+            request.CookieContainer = CookieContainer;
+
+#if !WINDOWS_PHONE && !NETFX_CORE
+            request.Referer = string.Format("http://{0}/", TrackingDomain);
+#endif
+
+            request.UserAgent = UserAgent;
+            
+            var returnValue = new TrackingResult
+            {
+                Url = url,
+                Parameters = parameters,
+                Success = true
+            };
+
+            try
+            {
+                request.GetResponse();
+            }
+            catch (Exception e)
+            {
+                if (ThrowOnErrors)
+                {
+                    throw e;
+                }
+
+                returnValue.Success = false;
+                returnValue.Exception = e;
+            }
+
+            return returnValue;
+        }
+#endif
 
         #region IDisposable Members
 
