@@ -181,7 +181,9 @@ namespace GoogleAnalyticsTracker
             StringBuilder data = new StringBuilder();
             foreach (var parameter in parameters)
             {
-                data.Append(string.Format("{0}={1}&", parameter.Key, Uri.EscapeDataString(parameter.Value)));
+                data.Append(string.Format("{0}={1}&", parameter.Key,
+                    Uri.EscapeDataString(parameter.Value == null ? string.Empty : parameter.Value))
+                );
             }
 
             // Create request
