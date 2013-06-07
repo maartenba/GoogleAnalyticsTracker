@@ -103,6 +103,7 @@
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="GoogleAnalyticsTracker.pfx" />
     <None Include="GoogleAnalyticsTracker.RT.nuspec" />
+    <None Include="GoogleAnalyticsTracker.snk" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\GoogleAnalyticsTracker\AnalyticsSession.cs">
@@ -142,7 +143,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>GoogleAnalyticsTracker.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>GoogleAnalyticsTracker.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
