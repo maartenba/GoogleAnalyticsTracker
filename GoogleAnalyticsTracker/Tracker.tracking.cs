@@ -72,5 +72,28 @@ namespace GoogleAnalyticsTracker
 
             RequestUrlSync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters);
         }
+
+        public void TrackTransactionItem(string orderId, string productId, string productName, string productVariation, string productPrice, string quantity)
+        {
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
+            parameters.Add("utmwv", AnalyticsVersion);
+            parameters.Add("utmn", GenerateUtmn());
+            parameters.Add("utmhn", Hostname);
+            parameters.Add("utmt", "item");
+            parameters.Add("utmcs", CharacterSet);
+            parameters.Add("utmul", Language);
+            parameters.Add("utmhid", AnalyticsSession.GenerateSessionId());
+            parameters.Add("utmac", TrackingAccount);
+            parameters.Add("utmcc", AnalyticsSession.GenerateCookieValue());
+            
+            parameters.Add("utmtid", orderId);
+            parameters.Add("utmipc", productId);
+            parameters.Add("utmipn", productName);
+            parameters.Add("utmiva", productVariation);
+            parameters.Add("utmipr", productPrice);
+            parameters.Add("utmiqt", quantity);
+
+            RequestUrlSync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters);
+        }
     }
 }
