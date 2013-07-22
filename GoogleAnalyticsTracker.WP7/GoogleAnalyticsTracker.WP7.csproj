@@ -96,6 +96,18 @@
     <Compile Include="..\GoogleAnalyticsTracker\IAnalyticsSession.cs">
       <Link>IAnalyticsSession.cs</Link>
     </Compile>
+    <Compile Include="..\GoogleAnalyticsTracker\ITrackEvents.cs">
+      <Link>ITrackEvents.cs</Link>
+    </Compile>
+    <Compile Include="..\GoogleAnalyticsTracker\ITrackPageViews.cs">
+      <Link>ITrackPageViews.cs</Link>
+    </Compile>
+    <Compile Include="..\GoogleAnalyticsTracker\ITrackTransactionItems.cs">
+      <Link>ITrackTransactionItems.cs</Link>
+    </Compile>
+    <Compile Include="..\GoogleAnalyticsTracker\ITrackTransactions.cs">
+      <Link>ITrackTransactions.cs</Link>
+    </Compile>
     <Compile Include="..\GoogleAnalyticsTracker\Tracker.cs">
       <Link>Tracker.cs</Link>
     </Compile>
@@ -108,7 +120,7 @@
     <Compile Include="..\GoogleAnalyticsTracker\TrackingResult.cs">
       <Link>TrackingResult.cs</Link>
     </Compile>
-	<Compile Include="..\GoogleAnalyticsTracker\WebRequestExtensions.cs">
+    <Compile Include="..\GoogleAnalyticsTracker\WebRequestExtensions.cs">
       <Link>WebRequestExtensions.cs</Link>
     </Compile>
     <Compile Include="Tracker.windowsphone.cs" />
