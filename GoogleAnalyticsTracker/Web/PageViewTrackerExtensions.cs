@@ -19,5 +19,19 @@ namespace GoogleAnalyticsTracker
             tracker.Language = request.UserLanguages != null ? string.Join(";", request.UserLanguages) : "";
             tracker.TrackPageView(pageTitle, pageUrl);
         }
+
+        public static void TrackPageViewAsync(this Tracker tracker, HttpContextBase httpContext, string pageTitle)
+        {
+            TrackPageViewAsync(tracker, httpContext, pageTitle, httpContext.Request.Url.ToString());
+        }
+
+        public static void TrackPageViewAsync(this Tracker tracker, HttpContextBase httpContext, string pageTitle, string pageUrl)
+        {
+            var request = httpContext.Request;
+            tracker.Hostname = request.UserHostName;
+            tracker.UserAgent = request.UserAgent;
+            tracker.Language = request.UserLanguages != null ? string.Join(";", request.UserLanguages) : "";
+            tracker.TrackPageViewAsync(pageTitle, pageUrl);
+        }
     }
 }
