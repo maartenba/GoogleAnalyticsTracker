@@ -1,3 +1,4 @@
+using System;
 using System.Web;
 
 // ReSharper disable CheckNamespace
@@ -8,7 +9,7 @@ namespace GoogleAnalyticsTracker
     {
         public static void TrackPageView(this Tracker tracker, HttpContextBase httpContext, string pageTitle)
         {
-            TrackPageView(tracker, httpContext, pageTitle, httpContext.Request.Url.ToString());
+            TrackPageView(tracker, httpContext, pageTitle, httpContext.Request.Url.PathAndQuery);
         }
 
         public static void TrackPageView(this Tracker tracker, HttpContextBase httpContext, string pageTitle, string pageUrl)
@@ -22,7 +23,7 @@ namespace GoogleAnalyticsTracker
 
         public static void TrackPageViewAsync(this Tracker tracker, HttpContextBase httpContext, string pageTitle)
         {
-            TrackPageViewAsync(tracker, httpContext, pageTitle, httpContext.Request.Url.ToString());
+            TrackPageViewAsync(tracker, httpContext, pageTitle, httpContext.Request.Url.PathAndQuery);
         }
 
         public static void TrackPageViewAsync(this Tracker tracker, HttpContextBase httpContext, string pageTitle, string pageUrl)
