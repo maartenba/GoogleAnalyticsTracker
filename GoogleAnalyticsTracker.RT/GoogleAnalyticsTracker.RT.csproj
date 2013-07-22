@@ -134,6 +134,10 @@
       <Link>UtmeGenerator.cs</Link>
     </Compile>
     <Compile Include="Interop\Placeholder.cs" />
+    <Compile Include="ITrackEvents.cs" />
+    <Compile Include="ITrackPageViews.cs" />
+    <Compile Include="ITrackTransactionItems.cs" />
+    <Compile Include="ITrackTransactions.cs" />
     <Compile Include="WinRtAnalyticsSession.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">

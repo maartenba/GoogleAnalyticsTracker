@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace GoogleAnalyticsTracker
 {
-    public partial class Tracker
+    public partial class Tracker : ITrackEvents, ITrackPageViews, ITrackTransactions, ITrackTransactionItems
     {
         public void TrackPageView(string pageTitle, string pageUrl)
         {
