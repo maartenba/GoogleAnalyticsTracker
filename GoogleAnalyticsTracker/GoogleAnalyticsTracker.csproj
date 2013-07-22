@@ -69,6 +69,10 @@
   <ItemGroup>
     <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="EventTrackerExtensions.cs" />
+    <Compile Include="ITrackEvents.cs" />
+    <Compile Include="ITrackPageViews.cs" />
+    <Compile Include="ITrackTransactionItems.cs" />
+    <Compile Include="ITrackTransactions.cs" />
     <Compile Include="Tracker.tracking.cs" />
     <Compile Include="TrackingResult.cs" />
     <Compile Include="Web\HttpContextBaseExtensions.cs" />
