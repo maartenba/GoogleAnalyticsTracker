@@ -13,7 +13,8 @@ namespace GoogleAnalyticsTracker
         {
             Event = 5,
             CustomVariableName = 8,
-            CustomVariableValue = 9
+            CustomVariableValue = 9,
+            CustomVariableScope = 11
         }
 
         public UtmeGenerator(Tracker tracker)
@@ -38,8 +39,9 @@ namespace GoogleAnalyticsTracker
             if (string.IsNullOrEmpty(names)) return string.Empty;
 
             var values = getValues(cv => getProperty(cv, cv1 => cv1.Value), ValueType.CustomVariableValue);
+            var scopes = getValues(cv => getProperty(cv, cv1 => cv1.Scope), ValueType.CustomVariableScope);
 
-            return names + values;
+            return names + values + scopes;
         }
 
         private static string SerializeValues(IList<string> values, ValueType type)
