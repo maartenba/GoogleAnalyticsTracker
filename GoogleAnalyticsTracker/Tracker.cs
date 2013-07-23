@@ -117,12 +117,14 @@ namespace GoogleAnalyticsTracker
             return random.Next(100000000, 999999999).ToString(CultureInfo.InvariantCulture);
         }
 
-        public void SetCustomVariable(int position, string name, string value)
+        public void SetCustomVariable(int position, string name, string value, int scope=3)
         {
             if (position < 1 || position > 5)
                 throw new ArgumentOutOfRangeException(string.Format("position {0} - {1}", position, "Must be between 1 and 5"));
+            if (scope < 1 || scope > 3)
+                throw new ArgumentOutOfRangeException(string.Format("scope {0} - {1}", scope, "Must be between 1 and 3"));
 
-            CustomVariables[position - 1] = new CustomVariable(name, value);
+            CustomVariables[position - 1] = new CustomVariable(name, value, scope);
         }
 
         private Task<TrackingResult> RequestUrlAsync(string url, Dictionary<string, string> parameters)
