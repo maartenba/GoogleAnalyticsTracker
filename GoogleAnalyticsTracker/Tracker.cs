@@ -89,7 +89,7 @@ namespace GoogleAnalyticsTracker
 #if !WINDOWS_PHONE && !NETFX_CORE
             if (System.Web.HttpContext.Current != null)
             {
-                Hostname = System.Web.HttpContext.Current.Request.UserHostName;
+                Hostname = System.Web.HttpContext.Current.Request.Url.Host;
                 UserAgent = System.Web.HttpContext.Current.Request.UserAgent;
                 Language = System.Web.HttpContext.Current.Request.UserLanguages != null ? string.Join(";", System.Web.HttpContext.Current.Request.UserLanguages) : "";
             }
