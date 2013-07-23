@@ -104,7 +104,7 @@ namespace GoogleAnalyticsTracker.Web.Mvc
             var request = filterContext.RequestContext.HttpContext.Request;
 
             return ActionUrl ??
-                   (request.Url != null ? request.Url.ToString() : "");
+                   (request.Url != null ? request.Url.PathAndQuery : "");
         }
 
         public virtual void OnTrackingAction(ActionExecutingContext filterContext)
