@@ -39,7 +39,7 @@ namespace GoogleAnalyticsTracker
             if (string.IsNullOrEmpty(names)) return string.Empty;
 
             var values = getValues(cv => getProperty(cv, cv1 => cv1.Value), ValueType.CustomVariableValue);
-            var scopes = getValues(cv => getProperty(cv, cv1 => cv1.Scope), ValueType.CustomVariableScope);
+            var scopes = getValues(cv => getProperty(cv, cv1 => cv1.Scope.ToString()), ValueType.CustomVariableScope);
 
             return names + values + scopes;
         }
