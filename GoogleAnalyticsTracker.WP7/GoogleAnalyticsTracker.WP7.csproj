@@ -90,6 +90,9 @@
     <Compile Include="..\GoogleAnalyticsTracker\CustomVariable.cs">
       <Link>CustomVariable.cs</Link>
     </Compile>
+    <Compile Include="..\GoogleAnalyticsTracker\CustomVariableScope.cs">
+      <Link>CustomVariableScope.cs</Link>
+    </Compile>
     <Compile Include="..\GoogleAnalyticsTracker\DateTimeExtensions.cs">
       <Link>DateTimeExtensions.cs</Link>
     </Compile>

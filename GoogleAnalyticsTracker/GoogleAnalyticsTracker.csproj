@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomVariableScope.cs" />
     <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="EventTrackerExtensions.cs" />
     <Compile Include="ITrackEvents.cs" />
@@ -90,7 +91,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="GoogleAnalyticsTracker.nuspec" />
-    <None Include="GoogleAnalyticsTracker.pfx" />
     <None Include="GoogleAnalyticsTracker.snk" />
     <None Include="packages.config" />
   </ItemGroup>

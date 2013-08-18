@@ -12,7 +12,7 @@ namespace GoogleAnalyticsTracker
 
         protected virtual string GetUniqueVisitorId()
         {
-            Random random = new Random();
+            Random random = new Random((int)DateTime.UtcNow.Ticks);
             return string.Format("{0}{1}", random.Next(100000000, 999999999), "00145214523");
         }
 
@@ -51,7 +51,7 @@ namespace GoogleAnalyticsTracker
         {
             if (SessionId == null)
             {
-                Random random = new Random();
+                Random random = new Random((int)DateTime.UtcNow.Ticks);
                 SessionId = random.Next(100000000, 999999999).ToString(CultureInfo.InvariantCulture);
             }
             return SessionId;
