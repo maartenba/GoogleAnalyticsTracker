@@ -35,8 +35,18 @@ namespace GoogleAnalyticsTracker.Web.Mvc
         {
         }
 
+        public ActionTrackingAttribute(string trackingAccount)
+            : this(trackingAccount, null, null, null)
+        {
+        }
+
         public ActionTrackingAttribute(string trackingAccount, string trackingDomain, string actionDescription, string actionUrl)
         {
+            if (string.IsNullOrEmpty(trackingDomain) && System.Web.HttpContext.Current != null)
+            {
+                trackingDomain = System.Web.HttpContext.Current.Request.Url.Host;
+            }
+
             Tracker = new Tracker(trackingAccount, trackingDomain, new CookieBasedAnalyticsSession());
             ActionDescription = actionDescription;
             ActionUrl = actionUrl;
