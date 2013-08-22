@@ -87,7 +87,7 @@ namespace GoogleAnalyticsTracker
             UserAgent = string.Format("Tracker/1.0 ({0}; {1}; {2})", osplatform, osversion, osversionstring);
 
 #if !WINDOWS_PHONE && !NETFX_CORE
-            if (System.Web.HttpContext.Current != null)
+            if (IsHttpRequestAvailable())
             {
                 Hostname = System.Web.HttpContext.Current.Request.Url.Host;
                 UserAgent = System.Web.HttpContext.Current.Request.UserAgent;
@@ -126,6 +126,25 @@ namespace GoogleAnalyticsTracker
 
             CustomVariables[position - 1] = new CustomVariable(name, value, scope);
         }
+
+#if !WINDOWS_PHONE && !NETFX_CORE
+        protected bool IsHttpRequestAvailable()
+        {
+            if (System.Web.HttpContext.Current == null)
+            {
+                return false;
+            }
+
+            try
+            {
+                return System.Web.HttpContext.Current.Request == null;
+            }
+            catch (System.Web.HttpException ex)
+            {
+                return false;
+            }
+        }
+#endif
 
         private Task<TrackingResult> RequestUrlAsync(string url, Dictionary<string, string> parameters)
         {
