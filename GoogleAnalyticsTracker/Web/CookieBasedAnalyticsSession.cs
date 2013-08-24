@@ -1,6 +1,5 @@
 using System;
 using System.Web;
-using Newtonsoft.Json;
 
 namespace GoogleAnalyticsTracker.Web
 {
@@ -23,25 +22,28 @@ namespace GoogleAnalyticsTracker.Web
 
         protected override string GetUniqueVisitorId()
         {
-            if (string.IsNullOrEmpty(GetHttpContext().GetDeserializedCookieValue<string>(StorageKeyUniqueId)))
+            if (string.IsNullOrEmpty(GetHttpContext().GetDeserializedCookieValue(StorageKeyUniqueId)))
             {
                 GetHttpContext().SetSerializedCookieValue(StorageKeyUniqueId, base.GetUniqueVisitorId());
             }
-            return GetHttpContext().GetDeserializedCookieValue<string>(StorageKeyUniqueId);
+            return GetHttpContext().GetDeserializedCookieValue(StorageKeyUniqueId);
         }
 
         protected override int GetFirstVisitTime()
         {
-            if (GetHttpContext().GetDeserializedCookieValue<int>(StorageKeyFirstVisitTime) == 0)
+            int firstVisitTime = 0;
+            if (int.TryParse(GetHttpContext().GetDeserializedCookieValue(StorageKeyFirstVisitTime), out firstVisitTime) && firstVisitTime == 0)
             {
-                GetHttpContext().SetSerializedCookieValue(StorageKeyFirstVisitTime, base.GetFirstVisitTime());
+                firstVisitTime = base.GetFirstVisitTime();
+                GetHttpContext().SetSerializedCookieValue(StorageKeyFirstVisitTime, firstVisitTime);
             }
-            return GetHttpContext().GetDeserializedCookieValue<int>(StorageKeyFirstVisitTime);
+            return firstVisitTime;
         }
 
         protected override int GetPreviousVisitTime()
         {
-            var previousVisitTime = GetHttpContext().GetDeserializedCookieValue<int>(StorageKeyPreviousVisitTime);
+            int previousVisitTime = 0;
+            int.TryParse(GetHttpContext().GetDeserializedCookieValue(StorageKeyPreviousVisitTime), out previousVisitTime);
             GetHttpContext().SetSerializedCookieValue(StorageKeyPreviousVisitTime, GetCurrentVisitTime());
 
             if (previousVisitTime == 0)
@@ -54,7 +56,8 @@ namespace GoogleAnalyticsTracker.Web
 
         protected override int GetSessionCount()
         {
-            var sessionCount = GetHttpContext().GetDeserializedCookieValue<int>(StorageKeySessionCount);
+            int sessionCount = 0;
+            int.TryParse(GetHttpContext().GetDeserializedCookieValue(StorageKeySessionCount), out sessionCount);
             GetHttpContext().SetSerializedCookieValue(StorageKeySessionCount, ++sessionCount);
             return sessionCount;
         }
