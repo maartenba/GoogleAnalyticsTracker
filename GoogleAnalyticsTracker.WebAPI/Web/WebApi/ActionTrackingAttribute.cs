@@ -5,10 +5,10 @@ using System.Web.Http.Filters;
 namespace GoogleAnalyticsTracker.Web.WebApi {
 	public class ActionTrackingAttribute
 			: ActionFilterAttribute {
-		private Func<HttpActionDescriptor, bool> _isTrackableAction;
+		private Func<HttpActionContext, bool> _isTrackableAction;
 
 		public Tracker Tracker { get; set; }
-		public Func<HttpActionDescriptor, bool> IsTrackableAction {
+		public Func<HttpActionContext, bool> IsTrackableAction {
 			get {
 				if (_isTrackableAction != null) {
 					return _isTrackableAction;
@@ -47,18 +47,18 @@ namespace GoogleAnalyticsTracker.Web.WebApi {
 			: this(tracker, action => true) {
 		}
 
-		public ActionTrackingAttribute(Tracker tracker, Func<HttpActionDescriptor, bool> isTrackableAction) {
+		public ActionTrackingAttribute(Tracker tracker, Func<HttpActionContext, bool> isTrackableAction) {
 			Tracker = tracker;
 			IsTrackableAction = isTrackableAction;
 		}
 
-		public ActionTrackingAttribute(string trackingAccount, string trackingDomain, Func<HttpActionDescriptor, bool> isTrackableAction) {
+		public ActionTrackingAttribute(string trackingAccount, string trackingDomain, Func<HttpActionContext, bool> isTrackableAction) {
 			Tracker = new Tracker(trackingAccount, trackingDomain, new CookieBasedAnalyticsSession());
 			IsTrackableAction = isTrackableAction;
 		}
 
 		public override void OnActionExecuting(HttpActionContext filterContext) {
-			if (IsTrackableAction(filterContext.ActionDescriptor)) {
+			if (IsTrackableAction(filterContext)) {
 				OnTrackingAction(filterContext);
 			}
 		}
