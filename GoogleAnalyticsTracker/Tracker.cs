@@ -139,14 +139,14 @@ namespace GoogleAnalyticsTracker
             {
                 return System.Web.HttpContext.Current.Request == null;
             }
-            catch (System.Web.HttpException ex)
+            catch (System.Web.HttpException)
             {
                 return false;
             }
         }
 #endif
 
-        private Task<TrackingResult> RequestUrlAsync(string url, Dictionary<string, string> parameters)
+        private Task<TrackingResult> RequestUrlAsync(string url, Dictionary<string, string> parameters, string userAgent = null)
         {
             // Create GET string
             StringBuilder data = new StringBuilder();
@@ -164,7 +164,7 @@ namespace GoogleAnalyticsTracker
 #endif
 
 #if !NETFX_CORE
-            request.UserAgent = UserAgent;
+            request.UserAgent = userAgent ?? UserAgent;
 
             return Task.Factory.FromAsync(request.BeginGetResponse, result => request.EndGetResponse(result), null)
 #else
@@ -206,7 +206,7 @@ namespace GoogleAnalyticsTracker
         }
 
 #if !NETFX_CORE
-        private TrackingResult RequestUrlSync(string url, Dictionary<string, string> parameters)
+        private TrackingResult RequestUrlSync(string url, Dictionary<string, string> parameters, string userAgent = null)
         {
             // Create GET string
             StringBuilder data = new StringBuilder();
@@ -223,7 +223,7 @@ namespace GoogleAnalyticsTracker
             request.Referer = string.Format("http://{0}/", TrackingDomain);
 #endif
 
-            request.UserAgent = UserAgent;
+            request.UserAgent = userAgent ?? UserAgent;
             
             var returnValue = new TrackingResult
             {
