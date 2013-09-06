@@ -9,6 +9,9 @@ namespace GoogleAnalyticsTracker.Web.Mvc
         private Func<ActionDescriptor, bool> _isTrackableAction;
 
         public Tracker Tracker { get; set; }
+
+				public bool UseAsync { get; set; }
+
         public Func<ActionDescriptor, bool> IsTrackableAction
         {
             get
@@ -50,6 +53,7 @@ namespace GoogleAnalyticsTracker.Web.Mvc
             Tracker = new Tracker(trackingAccount, trackingDomain, new CookieBasedAnalyticsSession());
             ActionDescription = actionDescription;
             ActionUrl = actionUrl;
+						UseAsync = false;
         }
 
         public ActionTrackingAttribute(Tracker tracker)
@@ -119,11 +123,18 @@ namespace GoogleAnalyticsTracker.Web.Mvc
 
         public virtual void OnTrackingAction(ActionExecutingContext filterContext)
         {
-            Tracker.TrackPageView(
+          if(UseAsync)
+					Tracker.TrackPageViewAsync(
                 filterContext.RequestContext.HttpContext,
                 BuildCurrentActionName(filterContext),
                 BuildCurrentActionUrl(filterContext)
             );
-        }
+					else
+						Tracker.TrackPageView(
+									filterContext.RequestContext.HttpContext,
+									BuildCurrentActionName(filterContext),
+									BuildCurrentActionUrl(filterContext)
+							);
+				}
     }
 }
