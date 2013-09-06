@@ -8,6 +8,9 @@ namespace GoogleAnalyticsTracker.Web.WebApi {
 		private Func<HttpActionContext, bool> _isTrackableAction;
 
 		public Tracker Tracker { get; set; }
+
+		public bool UseAsync { get; set; }
+
 		public Func<HttpActionContext, bool> IsTrackableAction {
 			get {
 				if (_isTrackableAction != null) {
@@ -41,6 +44,7 @@ namespace GoogleAnalyticsTracker.Web.WebApi {
 			Tracker = new Tracker(trackingAccount, trackingDomain, new CookieBasedAnalyticsSession());
 			ActionDescription = actionDescription;
 			ActionUrl = actionUrl;
+			UseAsync = true;
 		}
 
 		public ActionTrackingAttribute(Tracker tracker)
@@ -77,11 +81,18 @@ namespace GoogleAnalyticsTracker.Web.WebApi {
 		}
 
 		public virtual void OnTrackingAction(HttpActionContext filterContext) {
-			Tracker.TrackPageView(
-					filterContext.Request,
-					BuildCurrentActionName(filterContext),
-					BuildCurrentActionUrl(filterContext)
-			);
+			if(UseAsync)
+				Tracker.TrackPageViewAsync(
+						filterContext.Request,
+						BuildCurrentActionName(filterContext),
+						BuildCurrentActionUrl(filterContext)
+				);
+			else
+				Tracker.TrackPageView(
+						filterContext.Request,
+						BuildCurrentActionName(filterContext),
+						BuildCurrentActionUrl(filterContext)
+				);
 		}
 	}
 }
