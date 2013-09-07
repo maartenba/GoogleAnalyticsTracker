@@ -60,6 +60,7 @@
     <Compile Include="Web\WebApi\ConfigurationHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="GoogleAnalyticsTracker.WebAPI.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
