@@ -14,7 +14,7 @@
     <copyright>Copyright 2012 - 2013 Maarten Balliauw</copyright>
     <tags>google analytics ga mvc api rest client tracker stats statistics webapi</tags>
     <dependencies>
-      <dependency id="GoogleAnalyticsTracker" version="1.4" />
+      <dependency id="GoogleAnalyticsTracker" version="1.7" />
     </dependencies>
   </metadata>
 </package>
