@@ -10,7 +10,7 @@ if not "%PackageVersion%" == "" (
 )
 
 REM Package restore
-.nuget\nuget.exe install GoogleAnalyticsTracker\packages.config -OutputDirectory %cd%\packages -NonInteractive
+.nuget\nuget.exe install GoogleAnalyticsTracker.WebAPI\packages.config -OutputDirectory %cd%\packages -NonInteractive
 .nuget\nuget.exe install GoogleAnalyticsTracker.WP7\packages.config -OutputDirectory %cd%\packages -NonInteractive
 
 REM Build
@@ -22,6 +22,11 @@ mkdir Build\net40
 .nuget\nuget.exe pack "GoogleAnalyticsTracker\GoogleAnalyticsTracker.csproj" -symbols -o Build\net40 -p Configuration=%config% %version%
 copy GoogleAnalyticsTracker\bin\%config%\*.dll Build\net40
 copy GoogleAnalyticsTracker\bin\%config%\*.pdb Build\net40
+
+mkdir Build\net45-webapi
+.nuget\nuget.exe pack "GoogleAnalyticsTracker.WebAPI\GoogleAnalyticsTracker.WebAPI.csproj" -symbols -o Build\net45-webapi -p Configuration=%config% %version%
+copy GoogleAnalyticsTracker\bin\%config%\*.dll Build\net45-webapi
+copy GoogleAnalyticsTracker\bin\%config%\*.pdb Build\net45-webapi
 
 mkdir Build\sl4-wp71
 .nuget\nuget.exe pack "GoogleAnalyticsTracker.WP7\GoogleAnalyticsTracker.WP7.csproj" -symbols -o Build\sl4-wp71 -p Configuration=%config% %version%
