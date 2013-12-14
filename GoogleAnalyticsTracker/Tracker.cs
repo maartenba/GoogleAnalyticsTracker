@@ -166,7 +166,7 @@ namespace GoogleAnalyticsTracker
 #if !NETFX_CORE
             request.UserAgent = userAgent ?? UserAgent;
 
-            return Task.Factory.FromAsync(request.BeginGetResponse, result => request.EndGetResponse(result), null)
+            return Task.Factory.FromAsync<WebResponse>(request.BeginGetResponse, request.EndGetResponse, null)
 #else
             return request.GetResponseAsync()
 #endif
