@@ -131,63 +131,24 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\GoogleAnalyticsTracker\AnalyticsSession.cs">
-      <Link>AnalyticsSession.cs</Link>
-    </Compile>
-    <Compile Include="..\GoogleAnalyticsTracker\CustomVariable.cs">
-      <Link>CustomVariable.cs</Link>
-    </Compile>
-    <Compile Include="..\GoogleAnalyticsTracker\CustomVariableScope.cs">
-      <Link>CustomVariableScope.cs</Link>
-    </Compile>
-    <Compile Include="..\GoogleAnalyticsTracker\DateTimeExtensions.cs">
-      <Link>DateTimeExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\GoogleAnalyticsTracker\IAnalyticsSession.cs">
-      <Link>IAnalyticsSession.cs</Link>
-    </Compile>
-    <Compile Include="..\GoogleAnalyticsTracker\ITrackEvents.cs">
-      <Link>ITrackEvents.cs</Link>
-    </Compile>
-    <Compile Include="..\GoogleAnalyticsTracker\ITrackPageViews.cs">
-      <Link>ITrackPageViews.cs</Link>
-    </Compile>
-    <Compile Include="..\GoogleAnalyticsTracker\ITrackTransactionItems.cs">
-      <Link>ITrackTransactionItems.cs</Link>
-    </Compile>
-    <Compile Include="..\GoogleAnalyticsTracker\ITrackTransactions.cs">
-      <Link>ITrackTransactions.cs</Link>
-    </Compile>
-    <Compile Include="..\GoogleAnalyticsTracker\Tracker.async.cs">
-      <Link>Tracker.async.cs</Link>
-    </Compile>
-    <Compile Include="..\GoogleAnalyticsTracker\Tracker.cs">
-      <Link>Tracker.cs</Link>
-    </Compile>
-    <Compile Include="..\GoogleAnalyticsTracker\Tracker.tracking.cs">
-      <Link>Tracker.tracking.cs</Link>
-    </Compile>
-    <Compile Include="..\GoogleAnalyticsTracker\WebRequestExtensions.cs">
-      <Link>WebRequestExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\GoogleAnalyticsTracker\UtmeGenerator.cs">
-      <Link>UtmeGenerator.cs</Link>
-    </Compile>
-    <Compile Include="..\GoogleAnalyticsTracker\TrackingResult.cs">
-      <Link>TrackingResult.cs</Link>
-    </Compile>
-    <Compile Include="Tracker.windowsphone.cs" />
+    <Compile Include="Tracker.cs" />
     <Compile Include="WindowsPhoneAnalyticsSession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WindowsPhoneTrackerEnvironment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GoogleAnalyticsTracker.WP8.nuspec">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GoogleAnalyticsTracker.Core\GoogleAnalyticsTracker.Core.csproj">
+      <Project>{C9514873-F2E2-48E3-8A9B-E3FD5A0F0892}</Project>
+      <Name>GoogleAnalyticsTracker.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <ProjectExtensions />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

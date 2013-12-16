@@ -1,4 +1,5 @@
 ﻿using Windows.Foundation.Collections;
+using GoogleAnalyticsTracker.Core;
 
 namespace GoogleAnalyticsTracker
 {

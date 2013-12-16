@@ -1,4 +1,5 @@
 ﻿using System.IO.IsolatedStorage;
+using GoogleAnalyticsTracker.Core;
 
 namespace GoogleAnalyticsTracker
 {
