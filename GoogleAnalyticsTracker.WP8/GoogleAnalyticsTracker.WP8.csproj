@@ -158,6 +158,9 @@
     <Compile Include="..\GoogleAnalyticsTracker\ITrackTransactions.cs">
       <Link>ITrackTransactions.cs</Link>
     </Compile>
+    <Compile Include="..\GoogleAnalyticsTracker\Tracker.async.cs">
+      <Link>Tracker.async.cs</Link>
+    </Compile>
     <Compile Include="..\GoogleAnalyticsTracker\Tracker.cs">
       <Link>Tracker.cs</Link>
     </Compile>
