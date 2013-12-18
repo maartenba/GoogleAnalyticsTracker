@@ -41,11 +41,19 @@ namespace GoogleAnalyticsTracker.WebApi {
         {
 		}
 
-		public ActionTrackingAttribute(string trackingAccount, string trackingDomain, string actionDescription, string actionUrl) {
-			if (string.IsNullOrEmpty(trackingDomain) && System.Web.HttpContext.Current != null) 
+		public ActionTrackingAttribute(string trackingAccount, string trackingDomain, string actionDescription, string actionUrl)
+        {
+            try 
             {
-				trackingDomain = System.Web.HttpContext.Current.Request.Url.Host;
-			}
+                if (string.IsNullOrEmpty(trackingDomain) && System.Web.HttpContext.Current != null && System.Web.HttpContext.Current.Request != null) 
+                {
+				    trackingDomain = System.Web.HttpContext.Current.Request.Url.Host;
+			    }
+		    }
+            catch
+            {
+                // intended
+            }
 
             Tracker = new Tracker(trackingAccount, trackingDomain, new CookieBasedAnalyticsSession(), new AspNetWebApiTrackerEnvironment());
 			ActionDescription = actionDescription;
@@ -92,6 +100,12 @@ namespace GoogleAnalyticsTracker.WebApi {
 
         public virtual void OnTrackingAction(HttpActionContext filterContext)
         {
+            var requireRequestAndResponse = Tracker.AnalyticsSession as IRequireRequestAndResponse;
+            if (requireRequestAndResponse != null)
+            {
+                requireRequestAndResponse.SetRequestAndResponse(filterContext.Request, filterContext.Response);
+            }
+
             // todo: we should await the result
             Tracker.TrackPageViewAsync(
                 filterContext.Request,

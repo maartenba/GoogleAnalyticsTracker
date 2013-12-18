@@ -1,66 +1,76 @@
+using System;
+using System.Net.Http;
 using GoogleAnalyticsTracker.Core;
 
 namespace GoogleAnalyticsTracker.WebApi
 {
     public class CookieBasedAnalyticsSession
-        : AnalyticsSession, IAnalyticsSession
+        : AnalyticsSession, IAnalyticsSession, IRequireRequestAndResponse
     {
         private const string StorageKeyUniqueId = "_GAT_uqid";
         private const string StorageKeyFirstVisitTime = "_GAT_fvt";
         private const string StorageKeyPreviousVisitTime = "_GAT_pvt";
         private const string StorageKeySessionCount = "_GAT_sc";
 
-        // todo: figure out a way to pass HttpRequest/Response into this class
-        //private HttpRequestMessage GetHttpRequestMessage()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        private HttpRequestMessage _requestMessage;
+        private HttpResponseMessage _responseMessage;
 
-        //private HttpRequestMessage GetHttpResponseMessage()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        private HttpRequestMessage GetHttpRequestMessage()
+        {
+            return _requestMessage;
+        }
 
-        //protected override string GetUniqueVisitorId()
-        //{
-        //    if (string.IsNullOrEmpty(GetHttpRequestMessage().GetDeserializedCookieValue(StorageKeyUniqueId)))
-        //    {
-        //        GetHttpResponseMessage().SetSerializedCookieValue(StorageKeyUniqueId, base.GetUniqueVisitorId());
-        //    }
-        //    return GetHttpRequestMessage().GetDeserializedCookieValue(StorageKeyUniqueId);
-        //}
+        private HttpResponseMessage GetHttpResponseMessage()
+        {
+            return _responseMessage;
+        }
 
-        //protected override int GetFirstVisitTime()
-        //{
-        //    int firstVisitTime = 0;
-        //    if (int.TryParse(GetHttpRequestMessage().GetDeserializedCookieValue(StorageKeyFirstVisitTime), out firstVisitTime) && firstVisitTime == 0)
-        //    {
-        //        firstVisitTime = base.GetFirstVisitTime();
-        //        GetHttpResponseMessage().SetSerializedCookieValue(StorageKeyFirstVisitTime, firstVisitTime);
-        //    }
-        //    return firstVisitTime;
-        //}
+        public void SetRequestAndResponse(HttpRequestMessage requestMessage, HttpResponseMessage responseMessage)
+        {
+            _requestMessage = requestMessage;
+            _responseMessage = responseMessage;
+        }
 
-        //protected override int GetPreviousVisitTime()
-        //{
-        //    int previousVisitTime = 0;
-        //    int.TryParse(GetHttpRequestMessage().GetDeserializedCookieValue(StorageKeyPreviousVisitTime), out previousVisitTime);
-        //    GetHttpResponseMessage().SetSerializedCookieValue(StorageKeyPreviousVisitTime, GetCurrentVisitTime());
+        protected override string GetUniqueVisitorId()
+        {
+            if (string.IsNullOrEmpty(GetHttpRequestMessage().GetDeserializedCookieValue(StorageKeyUniqueId)))
+            {
+                GetHttpResponseMessage().SetSerializedCookieValue(StorageKeyUniqueId, base.GetUniqueVisitorId());
+            }
+            return GetHttpRequestMessage().GetDeserializedCookieValue(StorageKeyUniqueId);
+        }
 
-        //    if (previousVisitTime == 0)
-        //    {
-        //        previousVisitTime = GetCurrentVisitTime();
-        //    }
+        protected override int GetFirstVisitTime()
+        {
+            int firstVisitTime = 0;
+            if (int.TryParse(GetHttpRequestMessage().GetDeserializedCookieValue(StorageKeyFirstVisitTime), out firstVisitTime) && firstVisitTime == 0)
+            {
+                firstVisitTime = base.GetFirstVisitTime();
+                GetHttpResponseMessage().SetSerializedCookieValue(StorageKeyFirstVisitTime, firstVisitTime);
+            }
+            return firstVisitTime;
+        }
 
-        //    return previousVisitTime;
-        //}
+        protected override int GetPreviousVisitTime()
+        {
+            int previousVisitTime = 0;
+            int.TryParse(GetHttpRequestMessage().GetDeserializedCookieValue(StorageKeyPreviousVisitTime), out previousVisitTime);
+            GetHttpResponseMessage().SetSerializedCookieValue(StorageKeyPreviousVisitTime, GetCurrentVisitTime());
 
-        //protected override int GetSessionCount()
-        //{
-        //    int sessionCount = 0;
-        //    int.TryParse(GetHttpRequestMessage().GetDeserializedCookieValue(StorageKeySessionCount), out sessionCount);
-        //    GetHttpResponseMessage().SetSerializedCookieValue(StorageKeySessionCount, ++sessionCount);
-        //    return sessionCount;
-        //}
+            if (previousVisitTime == 0)
+            {
+                previousVisitTime = GetCurrentVisitTime();
+            }
+
+            return previousVisitTime;
+        }
+
+        protected override int GetSessionCount()
+        {
+            int sessionCount = 0;
+            int.TryParse(GetHttpRequestMessage().GetDeserializedCookieValue(StorageKeySessionCount), out sessionCount);
+            GetHttpResponseMessage().SetSerializedCookieValue(StorageKeySessionCount, ++sessionCount);
+            return sessionCount;
+        }
     }
 }

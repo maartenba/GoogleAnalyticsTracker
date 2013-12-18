@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Maarten Balliauw")]
 [assembly: AssemblyProduct("GoogleAnalyticsTracker")]
-[assembly: AssemblyCopyright("Copyright © Maarten Balliauw 2012 - 2013")]
+[assembly: AssemblyCopyright("Copyright © Maarten Balliauw 2012 - 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
