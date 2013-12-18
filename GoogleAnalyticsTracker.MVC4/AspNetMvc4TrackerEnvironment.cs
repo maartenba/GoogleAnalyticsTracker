@@ -2,7 +2,7 @@
 using System.Net;
 using GoogleAnalyticsTracker.Core;
 
-namespace GoogleAnalyticsTracker
+namespace GoogleAnalyticsTracker.MVC4
 {
     public class AspNetMvc4TrackerEnvironment
         : ITrackerEnvironment

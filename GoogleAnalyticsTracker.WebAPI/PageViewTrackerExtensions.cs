@@ -1,10 +1,8 @@
-using System;
-using System.Threading.Tasks;
-using System.Web;
 using System.Net.Http;
+using System.Threading.Tasks;
 using GoogleAnalyticsTracker.Core;
 
-namespace GoogleAnalyticsTracker
+namespace GoogleAnalyticsTracker.WebApi
 {
 	public static class PageViewTrackerExtensions
     {

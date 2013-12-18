@@ -145,23 +145,12 @@ namespace GoogleAnalyticsTracker.Core
                 return;
             }
 
-            if (disposing)
-            {
-                //TODO: Managed cleanup code here, while managed refs still valid
-            }
-            //TODO: Unmanaged cleanup code here
-
             disposed = true;
         }
 
         public void Dispose()
         {
-            // Call the private Dispose(bool) helper and indicate 
-            // that we are explicitly disposing
             this.Dispose(true);
-
-            // Tell the garbage collector that the object doesn't require any
-            // cleanup when collected since Dispose was called explicitly.
             GC.SuppressFinalize(this);
         }
 

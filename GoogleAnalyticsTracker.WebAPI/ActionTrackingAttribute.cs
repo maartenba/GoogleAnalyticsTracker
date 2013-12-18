@@ -2,7 +2,7 @@ using System;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 
-namespace GoogleAnalyticsTracker.Web.WebApi {
+namespace GoogleAnalyticsTracker.WebApi {
     public class ActionTrackingAttribute
 			: ActionFilterAttribute 
     {

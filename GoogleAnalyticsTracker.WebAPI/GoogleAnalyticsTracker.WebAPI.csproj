@@ -7,8 +7,8 @@
     <ProjectGuid>{C4C1095C-C197-48E2-8E56-CC49C06A758A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GoogleAnalyticsTracker</RootNamespace>
-    <AssemblyName>GoogleAnalyticsTracker.WebAPI</AssemblyName>
+    <RootNamespace>GoogleAnalyticsTracker.WebApi</RootNamespace>
+    <AssemblyName>GoogleAnalyticsTracker.WebApi</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -57,11 +57,11 @@
     <Compile Include="AspNetWebApiTrackerEnvironment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tracker.cs" />
-    <Compile Include="Web\CookieBasedAnalyticsSession.cs" />
-    <Compile Include="Web\HttpRequestMessageExtensions.cs" />
-    <Compile Include="Web\PageViewTrackerExtensions.cs" />
-    <Compile Include="Web\WebApi\ActionTrackingAttribute.cs" />
-    <Compile Include="Web\WebApi\ConfigurationHelper.cs" />
+    <Compile Include="CookieBasedAnalyticsSession.cs" />
+    <Compile Include="HttpRequestMessageExtensions.cs" />
+    <Compile Include="PageViewTrackerExtensions.cs" />
+    <Compile Include="ActionTrackingAttribute.cs" />
+    <Compile Include="ConfigurationHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GoogleAnalyticsTracker.WebAPI.nuspec" />

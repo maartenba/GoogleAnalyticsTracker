@@ -8,7 +8,7 @@
     <ProjectGuid>{9B6AA06C-85A9-45B9-BE39-0CDAE19D9FD2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GoogleAnalyticsTracker</RootNamespace>
+    <RootNamespace>GoogleAnalyticsTracker.MVC4</RootNamespace>
     <AssemblyName>GoogleAnalyticsTracker.MVC4</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -91,12 +91,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AspNetMvc4TrackerEnvironment.cs" />
-    <Compile Include="Web\HttpContextBaseExtensions.cs" />
-    <Compile Include="Web\Mvc\ActionTrackingAttribute.cs" />
-    <Compile Include="Web\CookieBasedAnalyticsSession.cs" />
+    <Compile Include="HttpContextBaseExtensions.cs" />
+    <Compile Include="ActionTrackingAttribute.cs" />
+    <Compile Include="CookieBasedAnalyticsSession.cs" />
     <Compile Include="Tracker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Web\PageViewTrackerExtensions.cs" />
+    <Compile Include="PageViewTrackerExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GoogleAnalyticsTracker.MVC4.nuspec" />

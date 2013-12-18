@@ -1,11 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Configuration;
-using System.Globalization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Configuration;
 using GoogleAnalyticsTracker.Core;
 
-namespace GoogleAnalyticsTracker
+namespace GoogleAnalyticsTracker.MVC4
 {
     public class Tracker
         : TrackerBase

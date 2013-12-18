@@ -1,9 +1,6 @@
-using System;
-using System.Net.Http;
-using System.Web;
 using GoogleAnalyticsTracker.Core;
 
-namespace GoogleAnalyticsTracker.Web
+namespace GoogleAnalyticsTracker.WebApi
 {
     public class CookieBasedAnalyticsSession
         : AnalyticsSession, IAnalyticsSession

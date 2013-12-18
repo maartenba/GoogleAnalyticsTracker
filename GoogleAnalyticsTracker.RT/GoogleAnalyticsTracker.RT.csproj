@@ -9,7 +9,7 @@
     <ProjectGuid>{DC0B67A9-863A-40DA-8516-062388A7B348}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GoogleAnalyticsTracker</RootNamespace>
+    <RootNamespace>GoogleAnalyticsTracker.RT</RootNamespace>
     <AssemblyName>GoogleAnalyticsTracker.RT</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>

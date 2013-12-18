@@ -1,7 +1,7 @@
 using System;
 using System.Web.Mvc;
 
-namespace GoogleAnalyticsTracker.Web.Mvc
+namespace GoogleAnalyticsTracker.MVC4
 {
     public class ActionTrackingAttribute
         : ActionFilterAttribute

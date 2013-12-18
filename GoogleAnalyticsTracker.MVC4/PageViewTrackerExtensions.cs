@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using System.Web;
 using GoogleAnalyticsTracker.Core;
 
-namespace GoogleAnalyticsTracker.Web
+namespace GoogleAnalyticsTracker.MVC4
 {
 	public static class PageViewTrackerExtensions
     {

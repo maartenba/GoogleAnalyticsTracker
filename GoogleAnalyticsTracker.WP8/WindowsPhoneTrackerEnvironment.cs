@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Net;
 using GoogleAnalyticsTracker.Core;
 
-namespace GoogleAnalyticsTracker
+namespace GoogleAnalyticsTracker.WP8
 {
     public class WindowsPhoneTrackerEnvironment
         : ITrackerEnvironment

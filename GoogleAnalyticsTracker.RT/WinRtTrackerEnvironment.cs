@@ -1,8 +1,6 @@
-﻿using System;
-using System.Net;
-using GoogleAnalyticsTracker.Core;
+﻿using GoogleAnalyticsTracker.Core;
 
-namespace GoogleAnalyticsTracker
+namespace GoogleAnalyticsTracker.RT
 {
     public class WinRtTrackerEnvironment
         : ITrackerEnvironment
