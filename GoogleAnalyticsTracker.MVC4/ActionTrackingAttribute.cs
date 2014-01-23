@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace GoogleAnalyticsTracker.MVC4
@@ -84,7 +85,7 @@ namespace GoogleAnalyticsTracker.MVC4
         {
             if (IsTrackableAction(filterContext.ActionDescriptor))
             {
-                OnTrackingAction(filterContext);
+                OnTrackingAction(filterContext).Wait();
             }
         }
 
@@ -102,10 +103,9 @@ namespace GoogleAnalyticsTracker.MVC4
             return ActionUrl ?? (request.Url != null ? request.Url.PathAndQuery : "");
         }
 
-        public virtual void OnTrackingAction(ActionExecutingContext filterContext)
+        public virtual Task OnTrackingAction(ActionExecutingContext filterContext)
         {
-            // todo: we should await the result
-            Tracker.TrackPageViewAsync(
+            return Tracker.TrackPageViewAsync(
                 filterContext.RequestContext.HttpContext,
                 BuildCurrentActionName(filterContext),
                 BuildCurrentActionUrl(filterContext));

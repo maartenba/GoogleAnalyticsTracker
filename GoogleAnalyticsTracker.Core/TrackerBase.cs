@@ -95,8 +95,8 @@ namespace GoogleAnalyticsTracker.Core
             // Create request
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format("{0}?{1}", url, data));
             request.CookieContainer = CookieContainer;
-            request.Headers["Referer"] = string.Format("http://{0}/", TrackingDomain);
-            request.Headers["User-Agent"] = userAgent ?? UserAgent;
+            request.SetHeader("Referer", string.Format("http://{0}/", TrackingDomain));
+            request.SetHeader("User-Agent", userAgent ?? UserAgent);
 
             return Task.Factory.FromAsync<WebResponse>(request.BeginGetResponse, request.EndGetResponse, null)
                 .ContinueWith(task =>

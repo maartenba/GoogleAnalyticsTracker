@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 
@@ -80,7 +81,7 @@ namespace GoogleAnalyticsTracker.WebApi {
 		public override void OnActionExecuting(HttpActionContext filterContext) 
         {
 			if (IsTrackableAction(filterContext)) {
-				OnTrackingAction(filterContext);
+                OnTrackingAction(filterContext).Wait();
 			}
 		}
 
@@ -98,7 +99,7 @@ namespace GoogleAnalyticsTracker.WebApi {
 			return ActionUrl ?? (request.RequestUri != null ? request.RequestUri.PathAndQuery : "");
 		}
 
-        public virtual void OnTrackingAction(HttpActionContext filterContext)
+        public virtual Task OnTrackingAction(HttpActionContext filterContext)
         {
             var requireRequestAndResponse = Tracker.AnalyticsSession as IRequireRequestAndResponse;
             if (requireRequestAndResponse != null)
@@ -106,8 +107,7 @@ namespace GoogleAnalyticsTracker.WebApi {
                 requireRequestAndResponse.SetRequestAndResponse(filterContext.Request, filterContext.Response);
             }
 
-            // todo: we should await the result
-            Tracker.TrackPageViewAsync(
+            return Tracker.TrackPageViewAsync(
                 filterContext.Request,
                 BuildCurrentActionName(filterContext),
                 BuildCurrentActionUrl(filterContext));

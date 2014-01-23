@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="CustomVariableScope.cs" />
     <Compile Include="DateTimeExtensions.cs" />
+    <Compile Include="HttpWebRequestExtensions.cs" />
     <Compile Include="ITrackerEnvironment.cs" />
     <Compile Include="ITrackEvents.cs" />
     <Compile Include="ITrackPageViews.cs" />

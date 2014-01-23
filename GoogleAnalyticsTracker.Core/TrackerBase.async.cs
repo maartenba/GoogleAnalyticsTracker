@@ -5,7 +5,7 @@ namespace GoogleAnalyticsTracker.Core
 {
     public partial class TrackerBase
     {
-		public Task<TrackingResult>  TrackPageViewAsync(string pageTitle, string pageUrl, string hostname = null, string userAgent = null, string characterSet = null, string language = null)
+        public Task<TrackingResult> TrackPageViewAsync(string pageTitle, string pageUrl, string hostname = null, string userAgent = null, string characterSet = null, string language = null)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("utmwv", AnalyticsVersion);
