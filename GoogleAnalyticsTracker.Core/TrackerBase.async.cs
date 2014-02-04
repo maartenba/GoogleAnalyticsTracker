@@ -26,7 +26,7 @@ namespace GoogleAnalyticsTracker.Core
             return RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, userAgent);
         }
 
-	    public Task<TrackingResult> TrackEventAsync(string category, string action, string label, int value, string hostname = null, string userAgent = null, string characterSet = null, string language = null)
+	    public Task<TrackingResult> TrackEventAsync(string category, string action, string label, int value, bool nonInteraction = false, string hostname = null, string userAgent = null, string characterSet = null, string language = null)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("utmwv", AnalyticsVersion);
@@ -37,8 +37,12 @@ namespace GoogleAnalyticsTracker.Core
 
             var utme = _utmeGenerator.Generate();
             parameters.Add("utme", string.Format("5({0}*{1}*{2})({3})", category, action, label ?? "", value) + utme);
+	        if (nonInteraction)
+	        {
+	            parameters.Add("utmi", "1");
+	        }
 
-            parameters.Add("utmcs", characterSet ?? CharacterSet);
+	        parameters.Add("utmcs", characterSet ?? CharacterSet);
             parameters.Add("utmul", language ?? Language);
             parameters.Add("utmhid", AnalyticsSession.GenerateSessionId());
             parameters.Add("utmac", TrackingAccount);
