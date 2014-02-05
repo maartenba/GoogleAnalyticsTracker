@@ -14,13 +14,13 @@ namespace GoogleAnalyticsTracker.Core
         public static void SetHeader(this HttpWebRequest Request, string Header, string Value)
         {
             // Retrieve the property through reflection.
-            PropertyInfo PropertyInfo = Request.GetType().GetProperty(Header.Replace("-", string.Empty));
+            var propertyInfo = Request.GetType().GetProperty(Header.Replace("-", string.Empty));
 
             // Check if the property is available.
-            if (PropertyInfo != null)
+            if (propertyInfo != null)
             {
                 // Set the value of the header.
-                PropertyInfo.SetValue(Request, Value, null);
+                propertyInfo.SetValue(Request, Value, null);
             }
             else
             {
