@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using GoogleAnalyticsTracker.Core;
 
 namespace GoogleAnalyticsTracker.MVC4
 {
@@ -81,11 +82,11 @@ namespace GoogleAnalyticsTracker.MVC4
             GlobalFilters.Filters.Add(new ActionTrackingAttribute(tracker));
         }
 
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        public override async void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if (IsTrackableAction(filterContext.ActionDescriptor))
             {
-                OnTrackingAction(filterContext).Wait();
+                await OnTrackingAction(filterContext);
             }
         }
 
@@ -103,9 +104,9 @@ namespace GoogleAnalyticsTracker.MVC4
             return ActionUrl ?? (request.Url != null ? request.Url.PathAndQuery : "");
         }
 
-        public virtual Task OnTrackingAction(ActionExecutingContext filterContext)
+        public virtual async Task<TrackingResult> OnTrackingAction(ActionExecutingContext filterContext)
         {
-            return Tracker.TrackPageViewAsync(
+            return await Tracker.TrackPageViewAsync(
                 filterContext.RequestContext.HttpContext,
                 BuildCurrentActionName(filterContext),
                 BuildCurrentActionUrl(filterContext));

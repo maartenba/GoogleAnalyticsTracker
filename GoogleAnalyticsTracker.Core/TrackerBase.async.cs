@@ -5,7 +5,7 @@ namespace GoogleAnalyticsTracker.Core
 {
     public partial class TrackerBase
     {
-        public Task<TrackingResult> TrackPageViewAsync(string pageTitle, string pageUrl, string hostname = null, string userAgent = null, string characterSet = null, string language = null)
+        public async Task<TrackingResult> TrackPageViewAsync(string pageTitle, string pageUrl, string hostname = null, string userAgent = null, string characterSet = null, string language = null)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("utmwv", AnalyticsVersion);
@@ -23,10 +23,10 @@ namespace GoogleAnalyticsTracker.Core
             if (!string.IsNullOrEmpty(utme))
                 parameters.Add("utme", utme);
 
-            return RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, userAgent);
+            return await RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, userAgent);
         }
 
-	    public Task<TrackingResult> TrackEventAsync(string category, string action, string label, int value, bool nonInteraction = false, string hostname = null, string userAgent = null, string characterSet = null, string language = null)
+	    public async Task<TrackingResult> TrackEventAsync(string category, string action, string label, int value, bool nonInteraction = false, string hostname = null, string userAgent = null, string characterSet = null, string language = null)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("utmwv", AnalyticsVersion);
@@ -48,15 +48,15 @@ namespace GoogleAnalyticsTracker.Core
             parameters.Add("utmac", TrackingAccount);
             parameters.Add("utmcc", AnalyticsSession.GenerateCookieValue());
 
-            return RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, userAgent);
+            return await RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, userAgent);
         }
 
-        public Task<TrackingResult> TrackEventAsync(string category, string action)
+        public async Task<TrackingResult> TrackEventAsync(string category, string action)
         {
-            return TrackEventAsync(category, action, null, 1);
+            return await TrackEventAsync(category, action, null, 1);
         }
 
-        public Task<TrackingResult> TrackTransactionAsync(string orderId, string storeName, string total, string tax, string shipping, string city, string region, string country, string hostname = null, string userAgent = null, string characterSet = null, string language = null)
+        public async Task<TrackingResult> TrackTransactionAsync(string orderId, string storeName, string total, string tax, string shipping, string city, string region, string country, string hostname = null, string userAgent = null, string characterSet = null, string language = null)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("utmwv", AnalyticsVersion);
@@ -78,10 +78,10 @@ namespace GoogleAnalyticsTracker.Core
             parameters.Add("utmtrg", region);
             parameters.Add("utmtco", country);
 
-            return RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, userAgent);
+            return await RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, userAgent);
         }
 
-		public Task<TrackingResult> TrackTransactionItemAsync(string orderId, string productId, string productName, string productVariation, string productPrice, string quantity, string hostname = null, string userAgent = null, string characterSet = null, string language = null)
+		public async Task<TrackingResult> TrackTransactionItemAsync(string orderId, string productId, string productName, string productVariation, string productPrice, string quantity, string hostname = null, string userAgent = null, string characterSet = null, string language = null)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("utmwv", AnalyticsVersion);
@@ -101,7 +101,7 @@ namespace GoogleAnalyticsTracker.Core
             parameters.Add("utmipr", productPrice);
             parameters.Add("utmiqt", quantity);
 
-            return RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, userAgent);
+            return await RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, userAgent);
         }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
+using GoogleAnalyticsTracker.Core;
 
 namespace GoogleAnalyticsTracker.WebApi {
     public class ActionTrackingAttribute
@@ -78,10 +79,10 @@ namespace GoogleAnalyticsTracker.WebApi {
 			IsTrackableAction = isTrackableAction;
 		}
 
-		public override void OnActionExecuting(HttpActionContext filterContext) 
+		public override async void OnActionExecuting(HttpActionContext filterContext) 
         {
 			if (IsTrackableAction(filterContext)) {
-                OnTrackingAction(filterContext).Wait();
+                await OnTrackingAction(filterContext);
 			}
 		}
 
@@ -99,7 +100,7 @@ namespace GoogleAnalyticsTracker.WebApi {
 			return ActionUrl ?? (request.RequestUri != null ? request.RequestUri.PathAndQuery : "");
 		}
 
-        public virtual Task OnTrackingAction(HttpActionContext filterContext)
+        public virtual async Task<TrackingResult> OnTrackingAction(HttpActionContext filterContext)
         {
             var requireRequestAndResponse = Tracker.AnalyticsSession as IRequireRequestAndResponse;
             if (requireRequestAndResponse != null)
@@ -107,7 +108,7 @@ namespace GoogleAnalyticsTracker.WebApi {
                 requireRequestAndResponse.SetRequestAndResponse(filterContext.Request, filterContext.Response);
             }
 
-            return Tracker.TrackPageViewAsync(
+            return await Tracker.TrackPageViewAsync(
                 filterContext.Request,
                 BuildCurrentActionName(filterContext),
                 BuildCurrentActionUrl(filterContext));

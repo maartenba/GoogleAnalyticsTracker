@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GoogleAnalyticsTracker.Core
@@ -83,7 +84,7 @@ namespace GoogleAnalyticsTracker.Core
             CustomVariables[position - 1] = new CustomVariable(name, value, scope);
         }
 
-        private  Task<TrackingResult> RequestUrlAsync(string url, Dictionary<string, string> parameters, string userAgent = null)
+        private async Task<TrackingResult> RequestUrlAsync(string url, Dictionary<string, string> parameters, string userAgent = null)
         {
             // Create GET string
             StringBuilder data = new StringBuilder();
@@ -92,46 +93,38 @@ namespace GoogleAnalyticsTracker.Core
                 data.Append(string.Format("{0}={1}&", parameter.Key, Uri.EscapeDataString(parameter.Value)));
             }
 
+            // Build TrackingResult
+            var returnValue = new TrackingResult
+            {
+                Url = url,
+                Parameters = parameters
+            };
+
             // Create request
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format("{0}?{1}", url, data));
             request.CookieContainer = CookieContainer;
             request.SetHeader("Referer", string.Format("http://{0}/", TrackingDomain));
             request.SetHeader("User-Agent", userAgent ?? UserAgent);
 
-            return Task.Factory.FromAsync<WebResponse>(request.BeginGetResponse, request.EndGetResponse, null)
-                .ContinueWith(task =>
+            // Perform request
+            try
+            {
+                await Task.Factory.FromAsync<WebResponse>(request.BeginGetResponse, request.EndGetResponse, null);
+                returnValue.Success = true;
+            }
+            catch (Exception ex)
+            {
+                if (ThrowOnErrors)
                 {
-                    try
-                    {
-                        var returnValue = new TrackingResult
-                        {
-                            Url = url,
-                            Parameters = parameters,
-                            Success = true
-                        };
-                        if (task.IsFaulted && task.Exception != null && ThrowOnErrors)
-                        {
-                            throw task.Exception;
-                        }
-                        else if (task.IsFaulted)
-                        {
-                            returnValue.Success = false;
-                            returnValue.Exception = task.Exception;
-                        }
-                        return returnValue;
-                    }
-                    finally
-                    {
-                        if (!task.IsFaulted && task.Result != null)
-                        {
-                            var disposableResult = task.Result as IDisposable;
-                            if (disposableResult != null)
-                            {
-                                disposableResult.Dispose();
-                            }
-                        }
-                    }
-                });
+                    throw;
+                }
+                else
+                {
+                    returnValue.Success = false;
+                    returnValue.Exception = ex;
+                }
+            }
+            return returnValue;
         }
 
         #region IDisposable Members
