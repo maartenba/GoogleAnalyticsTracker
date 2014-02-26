@@ -11,13 +11,14 @@ namespace GoogleAnalyticsTracker.MVC4
 			return await TrackPageViewAsync(tracker, httpContext, pageTitle, httpContext.Request.Url.PathAndQuery);
 		}
 
-		public static async Task<TrackingResult> TrackPageViewAsync(this Tracker tracker, HttpContextBase httpContext, string pageTitle, string pageUrl) 
+        public static async Task<TrackingResult> TrackPageViewAsync(this Tracker tracker, HttpContextBase httpContext, string pageTitle, string pageUrl)
         {
-			var request = httpContext.Request;
-			return await tracker.TrackPageViewAsync(pageTitle, pageUrl,
-				hostname: request.Url.Host,
-				userAgent: request.UserAgent,
-				language: request.UserLanguages != null ? string.Join(";", request.UserLanguages) : "");
-		}
+            var request = httpContext.Request;
+            return await tracker.TrackPageViewAsync(pageTitle, pageUrl,
+                hostname: request.Url.Host,
+                userAgent: request.UserAgent,
+                language: request.UserLanguages != null ? string.Join(";", request.UserLanguages) : "",
+                refererUrl: request.UrlReferrer != null ? request.UrlReferrer.ToString() : null);
+        }
 	}
 }

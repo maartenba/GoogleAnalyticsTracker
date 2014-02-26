@@ -16,7 +16,8 @@ namespace GoogleAnalyticsTracker.WebApi
 			return await tracker.TrackPageViewAsync(pageTitle, pageUrl,
 				hostname: httpRequest.RequestUri.Host,
 				userAgent: httpRequest.Headers.UserAgent.ToString(),
-				language: httpRequest.Headers.AcceptLanguage.ToString()
+				language: httpRequest.Headers.AcceptLanguage.ToString(),
+                refererUrl: httpRequest.Headers.Referrer != null ? httpRequest.Headers.Referrer.ToString() : null
 			);
 		}
 	}
