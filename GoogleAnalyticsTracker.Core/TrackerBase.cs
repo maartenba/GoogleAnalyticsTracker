@@ -50,7 +50,7 @@ namespace GoogleAnalyticsTracker.Core
 
             Hostname = trackerEnvironment.Hostname;
             Language = "en";
-            UserAgent = string.Format("Tracker/1.0 ({0}; {1}; {2})", trackerEnvironment.OsPlatform, trackerEnvironment.OsVersion, trackerEnvironment.OsVersionString);
+            UserAgent = string.Format("GoogleAnalyticsTracker/2.0 ({0}; {1}; {2})", trackerEnvironment.OsPlatform, trackerEnvironment.OsVersion, trackerEnvironment.OsVersionString);
 
             CookieContainer = new CookieContainer();
 

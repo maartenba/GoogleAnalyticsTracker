@@ -5,24 +5,20 @@ namespace GoogleAnalyticsTracker.Core
 {
     public partial class TrackerBase
     {
-        public async Task<TrackingResult> TrackPageViewAsync(string pageTitle, string pageUrl, string hostname = null, string userAgent = null, string characterSet = null, string language = null, string refererUrl =null)
+        public async Task<TrackingResult> TrackPageViewAsync(string pageTitle, string pageUrl, Dictionary<string, string> beaconParameters = null, string userAgent = null)
         {
+            // Add defaults
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("utmwv", AnalyticsVersion);
             parameters.Add("utmn", GenerateUtmn());
-            parameters.Add("utmhn", hostname ?? Hostname);
-            parameters.Add("utmcs", characterSet ?? CharacterSet);
-            parameters.Add("utmul", language ?? Language);
+            parameters.Add("utmhn", Hostname);
+            parameters.Add("utmcs", CharacterSet);
+            parameters.Add("utmul", Language);
             parameters.Add("utmdt", pageTitle);
             parameters.Add("utmhid", AnalyticsSession.GenerateSessionId());
             parameters.Add("utmp", pageUrl);
             parameters.Add("utmac", TrackingAccount);
             parameters.Add("utmcc", AnalyticsSession.GenerateCookieValue());
-
-            if (!string.IsNullOrEmpty(refererUrl))
-            {
-                parameters.Add("utmr", refererUrl);
-            }
 
             var utme = _utmeGenerator.Generate();
             if (!string.IsNullOrEmpty(utme))
@@ -30,53 +26,68 @@ namespace GoogleAnalyticsTracker.Core
                 parameters.Add("utme", utme);
             }
 
-            return await RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, userAgent);
+            // Add beacon parameters (these always override defaults)
+            if (beaconParameters != null)
+            {
+                foreach (var beaconParameter in beaconParameters)
+                {
+                    parameters[beaconParameter.Key] = beaconParameter.Value;
+                }
+            }
+
+            return await RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, userAgent ?? UserAgent);
         }
 
-	    public async Task<TrackingResult> TrackEventAsync(string category, string action, string label, int value, bool nonInteraction = false, string hostname = null, string userAgent = null, string characterSet = null, string language = null, string refererUrl =null)
+	    public async Task<TrackingResult> TrackEventAsync(string category, string action, string label, int value, bool nonInteraction = false, Dictionary<string, string> beaconParameters = null, string userAgent = null)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("utmwv", AnalyticsVersion);
             parameters.Add("utmn", GenerateUtmn());
-            parameters.Add("utmhn", hostname ?? Hostname);
+            parameters.Add("utmhn", Hostname);
             parameters.Add("utmni", "1");
             parameters.Add("utmt", "event");
-
-            if (!string.IsNullOrEmpty(refererUrl))
-            {
-                parameters.Add("utmr", refererUrl);
-            }
-
             var utme = _utmeGenerator.Generate();
+
             parameters.Add("utme", string.Format("5({0}*{1}*{2})({3})", category, action, label ?? "", value) + utme);
 	        if (nonInteraction)
 	        {
 	            parameters.Add("utmi", "1");
 	        }
 
-	        parameters.Add("utmcs", characterSet ?? CharacterSet);
-            parameters.Add("utmul", language ?? Language);
+	        parameters.Add("utmcs", CharacterSet);
+            parameters.Add("utmul", Language);
             parameters.Add("utmhid", AnalyticsSession.GenerateSessionId());
             parameters.Add("utmac", TrackingAccount);
             parameters.Add("utmcc", AnalyticsSession.GenerateCookieValue());
 
-            return await RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, userAgent);
+            // Add beacon parameters (these always override defaults)
+            if (beaconParameters != null)
+            {
+                foreach (var beaconParameter in beaconParameters)
+                {
+                    parameters[beaconParameter.Key] = beaconParameter.Value;
+                }
+            }
+
+            return await RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, userAgent ?? UserAgent);
         }
 
-        public async Task<TrackingResult> TrackEventAsync(string category, string action)
+        public async Task<TrackingResult> TrackEventAsync(string category, string action, Dictionary<string, string> beaconParameters = null, string userAgent = null)
         {
-            return await TrackEventAsync(category, action, null, 1);
+            return await TrackEventAsync(category, action, null, 1, 
+                beaconParameters: beaconParameters,
+                userAgent: userAgent);
         }
 
-        public async Task<TrackingResult> TrackTransactionAsync(string orderId, string storeName, string total, string tax, string shipping, string city, string region, string country, string hostname = null, string userAgent = null, string characterSet = null, string language = null, string refererUrl =null)
+        public async Task<TrackingResult> TrackTransactionAsync(string orderId, string storeName, string total, string tax, string shipping, string city, string region, string country, Dictionary<string, string> beaconParameters = null, string userAgent = null)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("utmwv", AnalyticsVersion);
             parameters.Add("utmn", GenerateUtmn());
-            parameters.Add("utmhn", hostname ?? Hostname);
+            parameters.Add("utmhn", Hostname);
             parameters.Add("utmt", "transaction");
-            parameters.Add("utmcs", characterSet ?? CharacterSet);
-            parameters.Add("utmul", language ?? Language);
+            parameters.Add("utmcs", CharacterSet);
+            parameters.Add("utmul", Language);
             parameters.Add("utmhid", AnalyticsSession.GenerateSessionId());
             parameters.Add("utmac", TrackingAccount);
             parameters.Add("utmcc", AnalyticsSession.GenerateCookieValue());
@@ -90,23 +101,27 @@ namespace GoogleAnalyticsTracker.Core
             parameters.Add("utmtrg", region);
             parameters.Add("utmtco", country);
 
-            if (!string.IsNullOrEmpty(refererUrl))
+            // Add beacon parameters (these always override defaults)
+            if (beaconParameters != null)
             {
-                parameters.Add("utmr", refererUrl);
+                foreach (var beaconParameter in beaconParameters)
+                {
+                    parameters[beaconParameter.Key] = beaconParameter.Value;
+                }
             }
 
-            return await RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, userAgent);
+            return await RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, userAgent ?? UserAgent);
         }
 
-		public async Task<TrackingResult> TrackTransactionItemAsync(string orderId, string productId, string productName, string productVariation, string productPrice, string quantity, string hostname = null, string userAgent = null, string characterSet = null, string language = null, string refererUrl =null)
+		public async Task<TrackingResult> TrackTransactionItemAsync(string orderId, string productId, string productName, string productVariation, string productPrice, string quantity, Dictionary<string, string> beaconParameters = null, string userAgent = null)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("utmwv", AnalyticsVersion);
             parameters.Add("utmn", GenerateUtmn());
-            parameters.Add("utmhn", hostname ?? Hostname);
+            parameters.Add("utmhn", Hostname);
             parameters.Add("utmt", "item");
-            parameters.Add("utmcs", characterSet ?? CharacterSet);
-            parameters.Add("utmul", language ?? Language);
+            parameters.Add("utmcs", CharacterSet);
+            parameters.Add("utmul", Language);
             parameters.Add("utmhid", AnalyticsSession.GenerateSessionId());
             parameters.Add("utmac", TrackingAccount);
             parameters.Add("utmcc", AnalyticsSession.GenerateCookieValue());
@@ -118,12 +133,16 @@ namespace GoogleAnalyticsTracker.Core
             parameters.Add("utmipr", productPrice);
             parameters.Add("utmiqt", quantity);
 
-            if (!string.IsNullOrEmpty(refererUrl))
+            // Add beacon parameters (these always override defaults)
+            if (beaconParameters != null)
             {
-                parameters.Add("utmr", refererUrl);
+                foreach (var beaconParameter in beaconParameters)
+                {
+                    parameters[beaconParameter.Key] = beaconParameter.Value;
+                }
             }
 
-            return await RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, userAgent);
+            return await RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, userAgent ?? UserAgent);
         }
     }
 }
