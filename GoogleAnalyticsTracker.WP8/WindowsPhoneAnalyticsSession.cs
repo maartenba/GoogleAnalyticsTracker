@@ -1,6 +1,7 @@
 ﻿using System.IO.IsolatedStorage;
+using GoogleAnalyticsTracker.Core;
 
-namespace GoogleAnalyticsTracker
+namespace GoogleAnalyticsTracker.WP8
 {
     public class WindowsPhoneAnalyticsSession
         : AnalyticsSession, IAnalyticsSession

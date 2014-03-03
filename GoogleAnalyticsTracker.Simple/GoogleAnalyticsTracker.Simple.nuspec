@@ -9,10 +9,10 @@
     <id>$id$</id>
     <title>$title$</title>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>GoogleAnalyticsTracker for ASP.NET Web API. GoogleAnalyticsTracker was created to have a means of tracking specific URL's directly from C#. For example, it enables you to log API calls to Google Analytics.</description>
-    <summary>GoogleAnalyticsTracker for ASP.NET Web API. GoogleAnalyticsTracker was created to have a means of tracking specific URL's directly from C#. For example, it enables you to log API calls to Google Analytics.</summary>
+    <description>GoogleAnalyticsTracker was created to have a means of tracking specific URL's directly from C#. For example, it enables you to log API calls to Google Analytics.</description>
+    <summary>GoogleAnalyticsTracker was created to have a means of tracking specific URL's directly from C#. For example, it enables you to log API calls to Google Analytics.</summary>
     <copyright>Copyright 2012 - 2014 Maarten Balliauw</copyright>
-    <tags>google analytics ga mvc api rest client tracker stats statistics webapi</tags>
+    <tags>google analytics ga mvc api rest client tracker stats statistics</tags>
     <dependencies>
       <dependency id="GoogleAnalyticsTracker.Core" version="2.0" />
     </dependencies>

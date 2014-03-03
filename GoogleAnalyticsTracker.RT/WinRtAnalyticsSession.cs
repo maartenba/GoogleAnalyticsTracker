@@ -1,6 +1,7 @@
 ﻿using Windows.Foundation.Collections;
+using GoogleAnalyticsTracker.Core;
 
-namespace GoogleAnalyticsTracker
+namespace GoogleAnalyticsTracker.RT
 {
     public class WinRtAnalyticsSession
         : AnalyticsSession

@@ -10,30 +10,32 @@ if not "%PackageVersion%" == "" (
 )
 
 REM Package restore
-.nuget\nuget.exe install GoogleAnalyticsTracker.WebAPI\packages.config -OutputDirectory %cd%\packages -NonInteractive
-.nuget\nuget.exe install GoogleAnalyticsTracker.WP7\packages.config -OutputDirectory %cd%\packages -NonInteractive
+tools\nuget.exe restore GoogleAnalyticsTracker.sln -OutputDirectory %cd%\packages -NonInteractive
 
 REM Build
 %WINDIR%\Microsoft.NET\Framework\v4.0.30319\msbuild GoogleAnalyticsTracker.sln /p:Configuration="%config%" /m /v:M /fl /flp:LogFile=msbuild.log;Verbosity=Normal /nr:false
 
 REM Package
 mkdir Build
-mkdir Build\net40
-.nuget\nuget.exe pack "GoogleAnalyticsTracker\GoogleAnalyticsTracker.csproj" -symbols -o Build\net40 -p Configuration=%config% %version%
-copy GoogleAnalyticsTracker\bin\%config%\*.dll Build\net40
-copy GoogleAnalyticsTracker\bin\%config%\*.pdb Build\net40
+mkdir Build\nuget
+tools\nuget.exe pack "GoogleAnalyticsTracker.Core\GoogleAnalyticsTracker.Core.csproj" -symbols -o Build\nuget -p Configuration=%config% %version%
+tools\nuget.exe pack "GoogleAnalyticsTracker.Simple\GoogleAnalyticsTracker.Simple.csproj" -symbols -o Build\nuget -p Configuration=%config% %version%
+tools\nuget.exe pack "GoogleAnalyticsTracker.MVC4\GoogleAnalyticsTracker.MVC4.csproj" -symbols -o Build\nuget -p Configuration=%config% %version%
+tools\nuget.exe pack "GoogleAnalyticsTracker.WebAPI\GoogleAnalyticsTracker.WebAPI.csproj" -symbols -o Build\nuget -p Configuration=%config% %version%
+tools\nuget.exe pack "GoogleAnalyticsTracker.RT\GoogleAnalyticsTracker.RT.csproj" -symbols -o Build\nuget -p Configuration=%config% %version%
+tools\nuget.exe pack "GoogleAnalyticsTracker.WP8\GoogleAnalyticsTracker.WP8.csproj" -symbols -o Build\nuget -p Configuration=%config% %version%
 
-mkdir Build\net45-webapi
-.nuget\nuget.exe pack "GoogleAnalyticsTracker.WebAPI\GoogleAnalyticsTracker.WebAPI.csproj" -symbols -o Build\net45-webapi -p Configuration=%config% %version%
-copy GoogleAnalyticsTracker\bin\%config%\*.dll Build\net45-webapi
-copy GoogleAnalyticsTracker\bin\%config%\*.pdb Build\net45-webapi
-
-mkdir Build\sl4-wp71
-.nuget\nuget.exe pack "GoogleAnalyticsTracker.WP7\GoogleAnalyticsTracker.WP7.csproj" -symbols -o Build\sl4-wp71 -p Configuration=%config% %version%
-copy GoogleAnalyticsTracker.WP7\bin\%config%\*.dll Build\sl4-wp71
-copy GoogleAnalyticsTracker.WP7\bin\%config%\*.pdb Build\sl4-wp71
-
-mkdir Build\wp8
-.nuget\nuget.exe pack "GoogleAnalyticsTracker.WP8\GoogleAnalyticsTracker.WP8.csproj" -symbols -o Build\wp8 -p Configuration=%config% %version%
-copy GoogleAnalyticsTracker.WP8\bin\%config%\*.dll Build\wp8
-copy GoogleAnalyticsTracker.WP8\bin\%config%\*.pdb Build\wp8
+REM Plain assemblies
+mkdir Build\assemblies
+copy GoogleAnalyticsTracker.Core\bin\%config%\Google*.dll Build\assemblies
+copy GoogleAnalyticsTracker.Core\bin\%config%\Google*.pdb Build\assemblies
+copy GoogleAnalyticsTracker.Simple\bin\%config%\Google*.dll Build\assemblies
+copy GoogleAnalyticsTracker.Simple\bin\%config%\Google*.pdb Build\assemblies
+copy GoogleAnalyticsTracker.MVC4\bin\%config%\Google*.dll Build\assemblies
+copy GoogleAnalyticsTracker.MVC4\bin\%config%\Google*.pdb Build\assemblies
+copy GoogleAnalyticsTracker.WebAPI\bin\%config%\Google*.dll Build\assemblies
+copy GoogleAnalyticsTracker.WebAPI\bin\%config%\Google*.pdb Build\assemblies
+copy GoogleAnalyticsTracker.RT\bin\%config%\Google*.dll Build\assemblies
+copy GoogleAnalyticsTracker.RT\bin\%config%\Google*.pdb Build\assemblies
+copy GoogleAnalyticsTracker.WP8\bin\%config%\Google*.dll Build\assemblies
+copy GoogleAnalyticsTracker.WP8\bin\%config%\Google*.pdb Build\assemblies

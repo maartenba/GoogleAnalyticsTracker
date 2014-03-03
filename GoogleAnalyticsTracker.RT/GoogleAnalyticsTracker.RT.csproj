@@ -9,7 +9,7 @@
     <ProjectGuid>{DC0B67A9-863A-40DA-8516-062388A7B348}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GoogleAnalyticsTracker</RootNamespace>
+    <RootNamespace>GoogleAnalyticsTracker.RT</RootNamespace>
     <AssemblyName>GoogleAnalyticsTracker.RT</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
@@ -101,47 +101,31 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <None Include="GoogleAnalyticsTracker.pfx" />
     <None Include="GoogleAnalyticsTracker.RT.nuspec" />
     <None Include="GoogleAnalyticsTracker.snk" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\GoogleAnalyticsTracker\AnalyticsSession.cs">
-      <Link>AnalyticsSession.cs</Link>
-    </Compile>
-    <Compile Include="..\GoogleAnalyticsTracker\CustomVariable.cs">
-      <Link>CustomVariable.cs</Link>
-    </Compile>
-    <Compile Include="..\GoogleAnalyticsTracker\CustomVariableScope.cs">
-      <Link>CustomVariableScope.cs</Link>
-    </Compile>
-    <Compile Include="..\GoogleAnalyticsTracker\DateTimeExtensions.cs">
-      <Link>DateTimeExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\GoogleAnalyticsTracker\IAnalyticsSession.cs">
-      <Link>IAnalyticsSession.cs</Link>
-    </Compile>
-    <Compile Include="..\GoogleAnalyticsTracker\Properties\AssemblyInfo.cs">
-      <Link>Properties\AssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\GoogleAnalyticsTracker\Tracker.async.cs">
-      <Link>Tracker.async.cs</Link>
-    </Compile>
-    <Compile Include="..\GoogleAnalyticsTracker\Tracker.cs">
-      <Link>Tracker.cs</Link>
-    </Compile>
-    <Compile Include="..\GoogleAnalyticsTracker\TrackingResult.cs">
-      <Link>TrackingResult.cs</Link>
-    </Compile>
-    <Compile Include="..\GoogleAnalyticsTracker\UtmeGenerator.cs">
-      <Link>UtmeGenerator.cs</Link>
-    </Compile>
+    <Compile Include="WinRtTrackerEnvironment.cs" />
     <Compile Include="Interop\Placeholder.cs" />
-    <Compile Include="ITrackEvents.cs" />
-    <Compile Include="ITrackPageViews.cs" />
-    <Compile Include="ITrackTransactionItems.cs" />
-    <Compile Include="ITrackTransactions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tracker.cs" />
     <Compile Include="WinRtAnalyticsSession.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GoogleAnalyticsTracker.Core\GoogleAnalyticsTracker.Core.csproj">
+      <Project>{c9514873-f2e2-48e3-8a9b-e3fd5a0f0892}</Project>
+      <Name>GoogleAnalyticsTracker.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.165\lib\win8\Microsoft.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.165\lib\win8\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
@@ -153,6 +137,7 @@
     <AssemblyOriginatorKeyFile>GoogleAnalyticsTracker.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.4\tools\Microsoft.Bcl.Build.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

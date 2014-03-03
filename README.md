@@ -13,7 +13,27 @@ Note that for GoogleAnalyticsTracker to work, you should configure Google Analyt
 
 ## Get it on NuGet!
 
-    Install-Package GoogleAnalyticsTracker
+Depending on the type of application you are using, use any of the following NuGet packages:
+
+Windows applications (WinForms, WPF, Console):
+
+    Install-Package GoogleAnalyticsTracker.Simple
+
+Windows Store applications:
+
+    Install-Package GoogleAnalyticsTracker.RT
+
+Windows Phone 8 applications:
+
+    Install-Package GoogleAnalyticsTracker.WP8
+
+ASP.NET MVC 4 applications:
+
+    Install-Package GoogleAnalyticsTracker.MVC4
+
+ASP.NET Web API applications:
+
+    Install-Package GoogleAnalyticsTracker.WebAPI
 	
 ## Example usage
 Using GoogleAnalyticsTracker is very straightforward. In your code, add the following structure wherever you want to track page views:
