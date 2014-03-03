@@ -45,9 +45,16 @@ namespace GoogleAnalyticsTracker.MVC4
 
         public ActionTrackingAttribute(string trackingAccount, string trackingDomain, string actionDescription, string actionUrl)
         {
-            if (string.IsNullOrEmpty(trackingDomain) && System.Web.HttpContext.Current != null)
+            try
             {
-                trackingDomain = System.Web.HttpContext.Current.Request.Url.Host;
+                if (string.IsNullOrEmpty(trackingDomain) && System.Web.HttpContext.Current != null && System.Web.HttpContext.Current.Request != null)
+                {
+                    trackingDomain = System.Web.HttpContext.Current.Request.Url.Host;
+                }
+            }
+            catch
+            {
+                // intended
             }
 
             Tracker = new Tracker(trackingAccount, trackingDomain, new CookieBasedAnalyticsSession(), new AspNetMvc4TrackerEnvironment());
