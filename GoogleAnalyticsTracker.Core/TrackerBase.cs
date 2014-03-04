@@ -100,10 +100,17 @@ namespace GoogleAnalyticsTracker.Core
                 Parameters = parameters
             };
 
+            // Determine referer URL
+            var referer = string.Format("http://{0}/", TrackingDomain);
+            if (parameters.ContainsKey(BeaconParameter.Browser.ReferralUrl))
+            {
+                referer = parameters[BeaconParameter.Browser.ReferralUrl];
+            }
+
             // Create request
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format("{0}?{1}", url, data));
             request.CookieContainer = CookieContainer;
-            request.SetHeader("Referer", string.Format("http://{0}/", TrackingDomain));
+            request.SetHeader("Referer", referer);
             request.SetHeader("User-Agent", userAgent ?? UserAgent);
 
             // Perform request
