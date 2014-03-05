@@ -31,9 +31,6 @@ ASP.NET MVC 4 applications:
 
     Install-Package GoogleAnalyticsTracker.MVC4
 
-ASP.NET MVC 5 applications:
-
-    Install-Package GoogleAnalyticsTracker.MVC5
 
 ASP.NET Web API v1 applications:
 
