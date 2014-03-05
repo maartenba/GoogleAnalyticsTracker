@@ -1,7 +1,7 @@
 using System.Web;
 using GoogleAnalyticsTracker.Core;
 
-namespace GoogleAnalyticsTracker.MVC4
+namespace GoogleAnalyticsTracker.Mvc4
 {
     public class CookieBasedAnalyticsSession
         : AnalyticsSession, IAnalyticsSession

@@ -1,6 +1,6 @@
 using System.Web;
 
-namespace GoogleAnalyticsTracker.MVC4
+namespace GoogleAnalyticsTracker.Mvc4
 {
     public static class HttpContextBaseExtensions
     {

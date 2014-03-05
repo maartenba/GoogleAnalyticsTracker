@@ -2,12 +2,11 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.Controllers;
-using System.Web.Http.Filters;
 using GoogleAnalyticsTracker.Core;
 
-namespace GoogleAnalyticsTracker.WebApi {
+namespace GoogleAnalyticsTracker.WebApi2 {
     public class ActionTrackingAttribute
-			: AsyncActionFilterAttribute 
+			: AsyncActionFilterAttribute
     {
 		private Func<HttpActionContext, bool> _isTrackableAction;
 
@@ -85,7 +84,7 @@ namespace GoogleAnalyticsTracker.WebApi {
             if (IsTrackableAction(actionContext))
             {
                 await OnTrackingAction(actionContext);
-            }
+			}
         }
 
 		public virtual string BuildCurrentActionName(HttpActionContext filterContext)

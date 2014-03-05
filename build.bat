@@ -21,7 +21,8 @@ mkdir Build\nuget
 tools\nuget.exe pack "GoogleAnalyticsTracker.Core\GoogleAnalyticsTracker.Core.csproj" -symbols -o Build\nuget -p Configuration=%config% %version%
 tools\nuget.exe pack "GoogleAnalyticsTracker.Simple\GoogleAnalyticsTracker.Simple.csproj" -symbols -o Build\nuget -p Configuration=%config% %version%
 tools\nuget.exe pack "GoogleAnalyticsTracker.MVC4\GoogleAnalyticsTracker.MVC4.csproj" -symbols -o Build\nuget -p Configuration=%config% %version%
-tools\nuget.exe pack "GoogleAnalyticsTracker.WebAPI\GoogleAnalyticsTracker.WebAPI.csproj" -symbols -o Build\nuget -p Configuration=%config% %version%
+tools\nuget.exe pack "GoogleAnalyticsTracker.WebAPI2\GoogleAnalyticsTracker.WebAPI.csproj" -symbols -o Build\nuget -p Configuration=%config% %version%
+tools\nuget.exe pack "GoogleAnalyticsTracker.WebAPI2\GoogleAnalyticsTracker.WebAPI2.csproj" -symbols -o Build\nuget -p Configuration=%config% %version%
 tools\nuget.exe pack "GoogleAnalyticsTracker.RT\GoogleAnalyticsTracker.RT.csproj" -symbols -o Build\nuget -p Configuration=%config% %version%
 tools\nuget.exe pack "GoogleAnalyticsTracker.WP8\GoogleAnalyticsTracker.WP8.csproj" -symbols -o Build\nuget -p Configuration=%config% %version%
 
@@ -35,6 +36,8 @@ copy GoogleAnalyticsTracker.MVC4\bin\%config%\Google*.dll Build\assemblies
 copy GoogleAnalyticsTracker.MVC4\bin\%config%\Google*.pdb Build\assemblies
 copy GoogleAnalyticsTracker.WebAPI\bin\%config%\Google*.dll Build\assemblies
 copy GoogleAnalyticsTracker.WebAPI\bin\%config%\Google*.pdb Build\assemblies
+copy GoogleAnalyticsTracker.WebAPI2\bin\%config%\Google*.dll Build\assemblies
+copy GoogleAnalyticsTracker.WebAPI2\bin\%config%\Google*.pdb Build\assemblies
 copy GoogleAnalyticsTracker.RT\bin\%config%\Google*.dll Build\assemblies
 copy GoogleAnalyticsTracker.RT\bin\%config%\Google*.pdb Build\assemblies
 copy GoogleAnalyticsTracker.WP8\bin\%config%\Google*.dll Build\assemblies

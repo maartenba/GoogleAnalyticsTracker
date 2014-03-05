@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using GoogleAnalyticsTracker.Core;
 
-namespace GoogleAnalyticsTracker.MVC4
+namespace GoogleAnalyticsTracker.Mvc4
 {
     public class ActionTrackingAttribute
         : ActionFilterAttribute

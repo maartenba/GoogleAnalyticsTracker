@@ -31,9 +31,17 @@ ASP.NET MVC 4 applications:
 
     Install-Package GoogleAnalyticsTracker.MVC4
 
-ASP.NET Web API applications:
+ASP.NET MVC 5 applications:
 
-    Install-Package GoogleAnalyticsTracker.WebAPI
+    Install-Package GoogleAnalyticsTracker.MVC5
+
+ASP.NET Web API v1 applications:
+
+    Install-Package GoogleAnalyticsTracker.WebAPI2
+
+ASP.NET Web API v2 applications:
+
+    Install-Package GoogleAnalyticsTracker.WebAPI22
 	
 ## Example usage
 Using GoogleAnalyticsTracker is very straightforward. In your code, add the following structure wherever you want to track page views:

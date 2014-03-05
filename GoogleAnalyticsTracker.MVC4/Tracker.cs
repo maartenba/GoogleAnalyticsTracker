@@ -1,7 +1,7 @@
 ﻿using System.Configuration;
 using GoogleAnalyticsTracker.Core;
 
-namespace GoogleAnalyticsTracker.MVC4
+namespace GoogleAnalyticsTracker.Mvc4
 {
     public class Tracker
         : TrackerBase

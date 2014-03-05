@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleAnalyticsTracker.MVC4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleAnalyticsTracker.Simple", "GoogleAnalyticsTracker.Simple\GoogleAnalyticsTracker.Simple.csproj", "{A0D5C5E5-5556-48B2-A3BF-86E219A15717}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleAnalyticsTracker.WebAPI2", "GoogleAnalyticsTracker.WebAPI2\GoogleAnalyticsTracker.WebAPI2.csproj", "{B4B1095C-C197-48E2-AAAA-CC49C06A758A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CI|Any CPU = CI|Any CPU
@@ -130,6 +132,21 @@ Global
 		{A0D5C5E5-5556-48B2-A3BF-86E219A15717}.Release|ARM.ActiveCfg = Release|Any CPU
 		{A0D5C5E5-5556-48B2-A3BF-86E219A15717}.Release|x64.ActiveCfg = Release|Any CPU
 		{A0D5C5E5-5556-48B2-A3BF-86E219A15717}.Release|x86.ActiveCfg = Release|Any CPU
+		{B4B1095C-C197-48E2-AAAA-CC49C06A758A}.CI|Any CPU.ActiveCfg = Release|Any CPU
+		{B4B1095C-C197-48E2-AAAA-CC49C06A758A}.CI|Any CPU.Build.0 = Release|Any CPU
+		{B4B1095C-C197-48E2-AAAA-CC49C06A758A}.CI|ARM.ActiveCfg = Release|Any CPU
+		{B4B1095C-C197-48E2-AAAA-CC49C06A758A}.CI|x64.ActiveCfg = Release|Any CPU
+		{B4B1095C-C197-48E2-AAAA-CC49C06A758A}.CI|x86.ActiveCfg = Release|Any CPU
+		{B4B1095C-C197-48E2-AAAA-CC49C06A758A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4B1095C-C197-48E2-AAAA-CC49C06A758A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4B1095C-C197-48E2-AAAA-CC49C06A758A}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{B4B1095C-C197-48E2-AAAA-CC49C06A758A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B4B1095C-C197-48E2-AAAA-CC49C06A758A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B4B1095C-C197-48E2-AAAA-CC49C06A758A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4B1095C-C197-48E2-AAAA-CC49C06A758A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4B1095C-C197-48E2-AAAA-CC49C06A758A}.Release|ARM.ActiveCfg = Release|Any CPU
+		{B4B1095C-C197-48E2-AAAA-CC49C06A758A}.Release|x64.ActiveCfg = Release|Any CPU
+		{B4B1095C-C197-48E2-AAAA-CC49C06A758A}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
