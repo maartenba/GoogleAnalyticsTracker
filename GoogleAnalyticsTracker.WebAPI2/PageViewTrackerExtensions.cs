@@ -12,20 +12,28 @@ namespace GoogleAnalyticsTracker.WebApi2
 			return await TrackPageViewAsync(tracker, httpRequest, pageTitle, httpRequest.RequestUri.PathAndQuery);
 		}
 
-		public static async Task<TrackingResult> TrackPageViewAsync(this Tracker tracker, HttpRequestMessage httpRequest, string pageTitle, string pageUrl)
-		{
-		    var beaconParameters = new Dictionary<string, string>();
-            beaconParameters.Add(BeaconParameter.HostName, httpRequest.RequestUri.Host);
-            beaconParameters.Add(BeaconParameter.Browser.Language, httpRequest.Headers.AcceptLanguage.ToString());
-		    if (httpRequest.Headers.Referrer != null)
-		    {
-		        beaconParameters.Add(BeaconParameter.Browser.ReferralUrl, httpRequest.Headers.Referrer.ToString());
-		    }
+        public static async Task<TrackingResult> TrackPageViewAsync(this Tracker tracker, HttpRequestMessage httpRequest, string pageTitle, string pageUrl, Dictionary<string, string> beaconParameters = null)
+        {
+            var internalBeaconParameters = new Dictionary<string, string>();
+            internalBeaconParameters.Add(BeaconParameter.HostName, httpRequest.RequestUri.Host);
+            internalBeaconParameters.Add(BeaconParameter.Browser.Language, httpRequest.Headers.AcceptLanguage.ToString());
+            if (httpRequest.Headers.Referrer != null)
+            {
+                internalBeaconParameters.Add(BeaconParameter.Browser.ReferralUrl, httpRequest.Headers.Referrer.ToString());
+            }
 
-		    return await tracker.TrackPageViewAsync(pageTitle, pageUrl,
+            if (beaconParameters != null)
+            {
+                foreach (var beaconParameter in beaconParameters)
+                {
+                    internalBeaconParameters[beaconParameter.Key] = beaconParameter.Value;
+                }
+            }
+
+            return await tracker.TrackPageViewAsync(pageTitle, pageUrl,
                 userAgent: httpRequest.Headers.UserAgent.ToString(),
-                beaconParameters: beaconParameters
-			);
-		}
+                beaconParameters: internalBeaconParameters
+            );
+        }
 	}
 }

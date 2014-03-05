@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.Controllers;
@@ -84,6 +85,12 @@ namespace GoogleAnalyticsTracker.WebApi {
         {
             if (IsTrackableAction(actionContext))
             {
+                var requireRequestAndResponse = Tracker.AnalyticsSession as IRequireRequestAndResponse;
+                if (requireRequestAndResponse != null)
+                {
+                    requireRequestAndResponse.SetRequestAndResponse(actionContext.Request, actionContext.Response);
+                }
+
                 await OnTrackingAction(actionContext);
             }
         }
@@ -104,12 +111,6 @@ namespace GoogleAnalyticsTracker.WebApi {
 
         public virtual async Task<TrackingResult> OnTrackingAction(HttpActionContext filterContext)
         {
-            var requireRequestAndResponse = Tracker.AnalyticsSession as IRequireRequestAndResponse;
-            if (requireRequestAndResponse != null)
-            {
-                requireRequestAndResponse.SetRequestAndResponse(filterContext.Request, filterContext.Response);
-            }
-
             return await Tracker.TrackPageViewAsync(
                 filterContext.Request,
                 BuildCurrentActionName(filterContext),
