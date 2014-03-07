@@ -22,44 +22,64 @@ namespace GoogleAnalyticsTracker.Mvc4
 
         protected override string GetUniqueVisitorId()
         {
-            if (string.IsNullOrEmpty(GetHttpContext().GetDeserializedCookieValue(StorageKeyUniqueId)))
+            var httpContext = GetHttpContext();
+            if (httpContext != null)
             {
-                GetHttpContext().SetSerializedCookieValue(StorageKeyUniqueId, base.GetUniqueVisitorId());
+                if (string.IsNullOrEmpty(httpContext.GetDeserializedCookieValue(StorageKeyUniqueId)))
+                {
+                    httpContext.SetSerializedCookieValue(StorageKeyUniqueId, base.GetUniqueVisitorId());
+                }
+                return httpContext.GetDeserializedCookieValue(StorageKeyUniqueId);
             }
-            return GetHttpContext().GetDeserializedCookieValue(StorageKeyUniqueId);
+            return base.GetUniqueVisitorId();
         }
 
         protected override int GetFirstVisitTime()
         {
-            int firstVisitTime = 0;
-            if (int.TryParse(GetHttpContext().GetDeserializedCookieValue(StorageKeyFirstVisitTime), out firstVisitTime) && firstVisitTime == 0)
+            var httpContext = GetHttpContext();
+            if (httpContext != null)
             {
-                firstVisitTime = base.GetFirstVisitTime();
-                GetHttpContext().SetSerializedCookieValue(StorageKeyFirstVisitTime, firstVisitTime);
+                int firstVisitTime = 0;
+                if (int.TryParse(httpContext.GetDeserializedCookieValue(StorageKeyFirstVisitTime), out firstVisitTime) && firstVisitTime == 0)
+                {
+                    firstVisitTime = base.GetFirstVisitTime();
+                    httpContext.SetSerializedCookieValue(StorageKeyFirstVisitTime, firstVisitTime);
+                }
+                return firstVisitTime;
             }
-            return firstVisitTime;
+            return base.GetFirstVisitTime();
         }
 
         protected override int GetPreviousVisitTime()
         {
-            int previousVisitTime = 0;
-            int.TryParse(GetHttpContext().GetDeserializedCookieValue(StorageKeyPreviousVisitTime), out previousVisitTime);
-            GetHttpContext().SetSerializedCookieValue(StorageKeyPreviousVisitTime, GetCurrentVisitTime());
-
-            if (previousVisitTime == 0)
+            var httpContext = GetHttpContext();
+            if (httpContext != null)
             {
-                previousVisitTime = GetCurrentVisitTime();
-            }
+                int previousVisitTime = 0;
+                int.TryParse(httpContext.GetDeserializedCookieValue(StorageKeyPreviousVisitTime), out previousVisitTime);
+                httpContext.SetSerializedCookieValue(StorageKeyPreviousVisitTime, GetCurrentVisitTime());
 
-            return previousVisitTime;
+                if (previousVisitTime == 0)
+                {
+                    previousVisitTime = GetCurrentVisitTime();
+                }
+
+                return previousVisitTime;
+            }
+            return base.GetPreviousVisitTime();
         }
 
         protected override int GetSessionCount()
         {
-            int sessionCount = 0;
-            int.TryParse(GetHttpContext().GetDeserializedCookieValue(StorageKeySessionCount), out sessionCount);
-            GetHttpContext().SetSerializedCookieValue(StorageKeySessionCount, ++sessionCount);
-            return sessionCount;
+            var httpContext = GetHttpContext();
+            if (httpContext != null)
+            {
+                int sessionCount = 0;
+                int.TryParse(httpContext.GetDeserializedCookieValue(StorageKeySessionCount), out sessionCount);
+                httpContext.SetSerializedCookieValue(StorageKeySessionCount, ++sessionCount);
+                return sessionCount;
+            }
+            return base.GetSessionCount();
         }
     }
 }
