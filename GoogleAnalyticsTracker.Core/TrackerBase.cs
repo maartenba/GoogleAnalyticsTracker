@@ -114,9 +114,10 @@ namespace GoogleAnalyticsTracker.Core
             request.SetHeader("User-Agent", userAgent ?? UserAgent);
 
             // Perform request
+            WebResponse response = null;
             try
             {
-                await Task.Factory.FromAsync<WebResponse>(request.BeginGetResponse, request.EndGetResponse, null);
+                response = await Task.Factory.FromAsync<WebResponse>(request.BeginGetResponse, request.EndGetResponse, null);
                 returnValue.Success = true;
             }
             catch (Exception ex)
@@ -129,6 +130,13 @@ namespace GoogleAnalyticsTracker.Core
                 {
                     returnValue.Success = false;
                     returnValue.Exception = ex;
+                }
+            }
+            finally
+            {
+                if (response != null)
+                {
+                    response.Dispose();
                 }
             }
             return returnValue;
