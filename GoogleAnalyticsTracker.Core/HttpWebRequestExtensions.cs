@@ -14,7 +14,7 @@ namespace GoogleAnalyticsTracker.Core
         public static void SetHeader(this HttpWebRequest Request, string Header, string Value)
         {
             // Retrieve the property through reflection.
-            var propertyInfo = Request.GetType().GetProperty(Header.Replace("-", string.Empty));
+            var propertyInfo = Request.GetType().GetRuntimeProperty(Header.Replace("-", string.Empty));
 
             // Check if the property is available.
             if (propertyInfo != null)
