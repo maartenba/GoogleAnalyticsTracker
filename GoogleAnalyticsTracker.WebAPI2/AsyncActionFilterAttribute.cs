@@ -8,11 +8,13 @@ using System.Web.Http.Filters;
 namespace GoogleAnalyticsTracker.WebApi2
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = true)]
-    public class AsyncActionFilterAttribute 
+    public class AsyncActionFilterAttribute
         : FilterAttribute, IActionFilter
     {
         public async Task<HttpResponseMessage> ExecuteActionFilterAsync(HttpActionContext actionContext, CancellationToken cancellationToken, Func<Task<HttpResponseMessage>> continuation)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             await OnActionExecutingAsync(actionContext, cancellationToken);
 
             if (actionContext.Response != null)
@@ -36,7 +38,17 @@ namespace GoogleAnalyticsTracker.WebApi2
             }
 
             await OnActionExecutedAsync(executedContext, cancellationToken);
-            return executedContext.Response;
+
+            if (executedContext.Response != null)
+            {
+                return executedContext.Response;
+            }
+            if (executedContext.Exception != null)
+            {
+                throw executedContext.Exception;
+            }
+
+            throw new InvalidOperationException(string.Format("ActionFilterAttribute of type {0} must supply response or exception.", GetType().Name));
         }
 
         public virtual void OnActionExecuting(HttpActionContext actionContext)

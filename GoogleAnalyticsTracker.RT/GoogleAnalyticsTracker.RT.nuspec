@@ -14,7 +14,7 @@
     <copyright>Copyright 2012 - 2014 Maarten Balliauw</copyright>
     <tags>google analytics ga winrt win8 windows8 api rest client tracker stats statistics</tags>
     <dependencies>
-      <dependency id="GoogleAnalyticsTracker.Core" version="3.0.2" />
+      <dependency id="GoogleAnalyticsTracker.Core" version="$version$" />
     </dependencies>
   </metadata>
 </package>
