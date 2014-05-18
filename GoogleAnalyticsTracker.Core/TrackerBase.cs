@@ -108,10 +108,26 @@ namespace GoogleAnalyticsTracker.Core
             }
 
             // Create request
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format("{0}?{1}", url, data));
-            request.CookieContainer = CookieContainer;
-            request.SetHeader("Referer", referer);
-            request.SetHeader("User-Agent", userAgent ?? UserAgent);
+            HttpWebRequest request = null;
+            try
+            {
+                request = (HttpWebRequest)WebRequest.Create(string.Format("{0}?{1}", url, data));
+                request.CookieContainer = CookieContainer;
+                request.SetHeader("Referer", referer);
+                request.SetHeader("User-Agent", userAgent ?? UserAgent);
+            }
+            catch (Exception ex)
+            {
+                if (ThrowOnErrors)
+                {
+                    throw;
+                }
+                else
+                {
+                    returnValue.Success = false;
+                    returnValue.Exception = ex;
+                }
+            }
 
             // Perform request
             WebResponse response = null;
