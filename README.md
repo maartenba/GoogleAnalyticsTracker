@@ -80,7 +80,7 @@ This filter can also be applied as a global action filter, optionally filtering 
 	        filters.Add(new HandleErrorAttribute());
 	        filters.Add(new ActionTrackingAttribute(
 	            "UA-XXXXXX-XX", "www.example.org",
-	            action => action.ControllerDescriptor.ControllerName == "Api")
+	            action => action.ControllerContext.ControllerDescriptor.ControllerName == "Api")
 	        );
 	    }
 	}
