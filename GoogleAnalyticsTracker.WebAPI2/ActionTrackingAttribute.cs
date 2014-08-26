@@ -95,9 +95,20 @@ namespace GoogleAnalyticsTracker.WebApi2 {
 
         public virtual string BuildCurrentActionName(HttpActionContext filterContext)
         {
-            return ActionDescription ??
-                         filterContext.ActionDescriptor.ControllerDescriptor.ControllerName + " - " +
+            if (!string.IsNullOrEmpty(ActionDescription))
+            {
+                return ActionDescription;
+            } 
+            else if (filterContext.ActionDescriptor.ControllerDescriptor != null)
+            {
+                return filterContext.ActionDescriptor.ControllerDescriptor.ControllerName + " - " +
+                       filterContext.ActionDescriptor.ActionName;
+            }
+            else
+            {
+                return filterContext.ControllerContext.ControllerDescriptor.ControllerName + " - " +
                          filterContext.ActionDescriptor.ActionName;
+            }
         }
 
         public virtual string BuildCurrentActionUrl(HttpActionContext filterContext)
