@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleAnalyticsTracker.WP8", "GoogleAnalyticsTracker.WP8\GoogleAnalyticsTracker.WP8.csproj", "{8C122EE9-8D9A-447D-BBEE-06202ABCAA22}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleAnalyticsTracker.WebAPI", "GoogleAnalyticsTracker.WebAPI\GoogleAnalyticsTracker.WebAPI.csproj", "{C4C1095C-C197-48E2-8E56-CC49C06A758A}"
@@ -16,6 +14,19 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleAnalyticsTracker.Simple", "GoogleAnalyticsTracker.Simple\GoogleAnalyticsTracker.Simple.csproj", "{A0D5C5E5-5556-48B2-A3BF-86E219A15717}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleAnalyticsTracker.WebAPI2", "GoogleAnalyticsTracker.WebAPI2\GoogleAnalyticsTracker.WebAPI2.csproj", "{B4B1095C-C197-48E2-AAAA-CC49C06A758A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Measurement Protocol", "Measurement Protocol", "{9D8762CD-A680-4324-A0A3-639DA9121DFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleAnalyticsTracker.Core.v1", "GoogleAnalyticsTracker.Core.v1\GoogleAnalyticsTracker.Core.v1.csproj", "{E53B5981-6ADB-47D3-94AC-130F0B1C3FBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleAnalyticsTracker.WebAPI2.v1", "GoogleAnalyticsTracker.WebAPI2.v1\GoogleAnalyticsTracker.WebAPI2.v1.csproj", "{9691BB99-B55E-4448-90C6-9E1021460A72}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{4D3FA5B3-4152-4BFE-90D0-C3DBAECF78E0}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -147,8 +158,42 @@ Global
 		{B4B1095C-C197-48E2-AAAA-CC49C06A758A}.Release|ARM.ActiveCfg = Release|Any CPU
 		{B4B1095C-C197-48E2-AAAA-CC49C06A758A}.Release|x64.ActiveCfg = Release|Any CPU
 		{B4B1095C-C197-48E2-AAAA-CC49C06A758A}.Release|x86.ActiveCfg = Release|Any CPU
+		{E53B5981-6ADB-47D3-94AC-130F0B1C3FBB}.CI|Any CPU.ActiveCfg = Release|Any CPU
+		{E53B5981-6ADB-47D3-94AC-130F0B1C3FBB}.CI|Any CPU.Build.0 = Release|Any CPU
+		{E53B5981-6ADB-47D3-94AC-130F0B1C3FBB}.CI|ARM.ActiveCfg = Release|Any CPU
+		{E53B5981-6ADB-47D3-94AC-130F0B1C3FBB}.CI|x64.ActiveCfg = Release|Any CPU
+		{E53B5981-6ADB-47D3-94AC-130F0B1C3FBB}.CI|x86.ActiveCfg = Release|Any CPU
+		{E53B5981-6ADB-47D3-94AC-130F0B1C3FBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E53B5981-6ADB-47D3-94AC-130F0B1C3FBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E53B5981-6ADB-47D3-94AC-130F0B1C3FBB}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{E53B5981-6ADB-47D3-94AC-130F0B1C3FBB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E53B5981-6ADB-47D3-94AC-130F0B1C3FBB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E53B5981-6ADB-47D3-94AC-130F0B1C3FBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E53B5981-6ADB-47D3-94AC-130F0B1C3FBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E53B5981-6ADB-47D3-94AC-130F0B1C3FBB}.Release|ARM.ActiveCfg = Release|Any CPU
+		{E53B5981-6ADB-47D3-94AC-130F0B1C3FBB}.Release|x64.ActiveCfg = Release|Any CPU
+		{E53B5981-6ADB-47D3-94AC-130F0B1C3FBB}.Release|x86.ActiveCfg = Release|Any CPU
+		{9691BB99-B55E-4448-90C6-9E1021460A72}.CI|Any CPU.ActiveCfg = Release|Any CPU
+		{9691BB99-B55E-4448-90C6-9E1021460A72}.CI|Any CPU.Build.0 = Release|Any CPU
+		{9691BB99-B55E-4448-90C6-9E1021460A72}.CI|ARM.ActiveCfg = Release|Any CPU
+		{9691BB99-B55E-4448-90C6-9E1021460A72}.CI|x64.ActiveCfg = Release|Any CPU
+		{9691BB99-B55E-4448-90C6-9E1021460A72}.CI|x86.ActiveCfg = Release|Any CPU
+		{9691BB99-B55E-4448-90C6-9E1021460A72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9691BB99-B55E-4448-90C6-9E1021460A72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9691BB99-B55E-4448-90C6-9E1021460A72}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{9691BB99-B55E-4448-90C6-9E1021460A72}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9691BB99-B55E-4448-90C6-9E1021460A72}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9691BB99-B55E-4448-90C6-9E1021460A72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9691BB99-B55E-4448-90C6-9E1021460A72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9691BB99-B55E-4448-90C6-9E1021460A72}.Release|ARM.ActiveCfg = Release|Any CPU
+		{9691BB99-B55E-4448-90C6-9E1021460A72}.Release|x64.ActiveCfg = Release|Any CPU
+		{9691BB99-B55E-4448-90C6-9E1021460A72}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E53B5981-6ADB-47D3-94AC-130F0B1C3FBB} = {9D8762CD-A680-4324-A0A3-639DA9121DFD}
+		{9691BB99-B55E-4448-90C6-9E1021460A72} = {9D8762CD-A680-4324-A0A3-639DA9121DFD}
 	EndGlobalSection
 EndGlobal
