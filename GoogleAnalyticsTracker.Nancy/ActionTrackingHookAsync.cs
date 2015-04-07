@@ -72,9 +72,9 @@ namespace GoogleAnalyticsTracker.Nancy
 
         public string BuildCurrentActionName(NancyContext context)
         {
-            var request = context.Request;
+            var description = context.ResolvedRoute.Description;
 
-            return ActionDescription ?? (request.Url != null ? new Uri(request.Url).AbsolutePath : ""); ;
+            return ActionDescription ?? (description.Name != null ? string.Format("{0}[\"{1}\",\"{2}\"]", description.Method, description.Name, description.Path) : string.Format("{0}[\"{1}\"]", description.Method, description.Path)); ;
         }
 
         public virtual string BuildCurrentActionUrl(NancyContext context)

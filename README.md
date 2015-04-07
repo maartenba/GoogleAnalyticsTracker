@@ -102,7 +102,7 @@ An hook is also available for NancyFx:
             };
 
             Get["/ping"] = _ => Response.AsJson(new { Value="Pong" });
-            Get["/"] = _ => "Hello World";
+            Get["Index","/"] = _ => "Hello World";
         }
     }
 ```
