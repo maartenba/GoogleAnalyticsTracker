@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("GoogleAnalyticsTracker.Nancy")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("GoogleAnalyticsTracker - A C# library for tracking Google Analytics.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("GoogleAnalyticsTracker.Nancy")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyCompany("Maarten Balliauw")]
+[assembly: AssemblyProduct("GoogleAnalyticsTracker")]
+[assembly: AssemblyCopyright("Copyright © Maarten Balliauw 2012 - 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
