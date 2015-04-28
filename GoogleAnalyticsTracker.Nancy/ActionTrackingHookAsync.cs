@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Nancy;
 using System.Threading;
@@ -74,7 +71,7 @@ namespace GoogleAnalyticsTracker.Nancy
         {
             var description = context.ResolvedRoute.Description;
 
-            return ActionDescription ?? (description.Name != null ? string.Format("{0}[\"{1}\",\"{2}\"]", description.Method, description.Name, description.Path) : string.Format("{0}[\"{1}\"]", description.Method, description.Path)); ;
+            return ActionDescription ?? (description.Name != null ? string.Format("{0}[\"{1}\",\"{2}\"]", description.Method, description.Name, description.Path) : string.Format("{0}[\"{1}\"]", description.Method, description.Path));
         }
 
         public virtual string BuildCurrentActionUrl(NancyContext context)
