@@ -85,6 +85,28 @@ This filter can also be applied as a global action filter, optionally filtering 
 	    }
 	}
 	
+
+An hook is also available for NancyFx:
+
+```
+  public class HelloModule : NancyModule
+    {
+        private readonly ActionTrackingHookAsync actionTrackingHook = new ActionTrackingHookAsync("UA-XXXXXX-XX", "www.example.org");
+
+        public HelloModule()
+        {
+            Before += async (ctx, ct) =>
+            {
+                await actionTrackingHook.OnActionExecutingAsync(ctx, ct);
+                return null;
+            };
+
+            Get["/ping"] = _ => Response.AsJson(new { Value="Pong" });
+            Get["Index","/"] = _ => "Hello World";
+        }
+    }
+```
+
 ## Characteristics
 GoogleAnalyticsTracker does not track your users. It simply serves as an interface to Google Analytics where you should provide all tracking data that is required.
 Of course. GoogleAnalyticsTracker sends some data that can be inferred from usage, such as the hostname on which it is running, but not the hostname of your client.
