@@ -48,16 +48,16 @@
     <Compile Include="SimpleTrackerEnvironment.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GoogleAnalyticsTracker.Core\GoogleAnalyticsTracker.Core.csproj">
-      <Project>{C9514873-F2E2-48E3-8A9B-E3FD5A0F0892}</Project>
-      <Name>GoogleAnalyticsTracker.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="GoogleAnalyticsTracker.Simple.nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GoogleAnalyticsTracker.Core\GoogleAnalyticsTracker.Core.csproj">
+      <Project>{e53b5981-6adb-47d3-94ac-130f0b1c3fbb}</Project>
+      <Name>GoogleAnalyticsTracker.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

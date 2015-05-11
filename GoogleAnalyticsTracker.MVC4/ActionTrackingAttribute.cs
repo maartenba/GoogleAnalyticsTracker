@@ -52,10 +52,7 @@ namespace GoogleAnalyticsTracker.Mvc4
                     trackingDomain = System.Web.HttpContext.Current.Request.Url.Host;
                 }
             }
-            catch
-            {
-                // intended
-            }
+            catch { /* intended */ }
 
             Tracker = new Tracker(trackingAccount, trackingDomain, new CookieBasedAnalyticsSession(), new AspNetMvc4TrackerEnvironment());
             ActionDescription = actionDescription;
@@ -100,15 +97,15 @@ namespace GoogleAnalyticsTracker.Mvc4
         public virtual string BuildCurrentActionName(ActionExecutingContext filterContext)
         {
             return ActionDescription ??
-                   filterContext.ActionDescriptor.ControllerDescriptor.ControllerName + " - " +
-                   filterContext.ActionDescriptor.ActionName;
+                   string.Format("{0} - {1}", filterContext.ActionDescriptor.ControllerDescriptor.ControllerName,
+                       filterContext.ActionDescriptor.ActionName);
         }
 
         public virtual string BuildCurrentActionUrl(ActionExecutingContext filterContext)
         {
             var request = filterContext.RequestContext.HttpContext.Request;
 
-            return ActionUrl ?? (request.Url != null ? request.Url.PathAndQuery : "");
+            return ActionUrl ?? (request.Url != null ? request.Url.PathAndQuery : string.Empty);
         }
 
         public virtual async Task<TrackingResult> OnTrackingAction(ActionExecutingContext filterContext)

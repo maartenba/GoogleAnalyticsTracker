@@ -1,5 +1,6 @@
 ﻿using System.Configuration;
 using GoogleAnalyticsTracker.Core;
+using GoogleAnalyticsTracker.Core.Interface;
 
 namespace GoogleAnalyticsTracker.WebApi
 {

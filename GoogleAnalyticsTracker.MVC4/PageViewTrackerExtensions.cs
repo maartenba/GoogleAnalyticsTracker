@@ -2,34 +2,26 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web;
 using GoogleAnalyticsTracker.Core;
+using GoogleAnalyticsTracker.Core.TrackerParameters;
 
 namespace GoogleAnalyticsTracker.Mvc4
 {
-	public static class PageViewTrackerExtensions
-    {
-        public static async Task<TrackingResult> TrackPageViewAsync(this Tracker tracker, HttpContextBase httpContext, string pageTitle) 
+    public static class PageViewTrackerExtensions
+    {        
+        public static async Task<TrackingResult> TrackPageViewAsync(this Tracker tracker, HttpContextBase httpContext, string pageTitle, string pageUrl = null)
         {
-			return await TrackPageViewAsync(tracker, httpContext, pageTitle, httpContext.Request.Url.PathAndQuery);
-		}
-
-        public static async Task<TrackingResult> TrackPageViewAsync(this Tracker tracker, HttpContextBase httpContext, string pageTitle, string pageUrl)
-        {
-            var request = httpContext.Request;
-
-            var beaconParameters = new Dictionary<string, string>();
-            beaconParameters.Add(BeaconParameter.HostName, request.Url.Host);
-            if (request.UserLanguages != null)
+            var pageViewParameters = new PageView
             {
-                beaconParameters.Add(BeaconParameter.Browser.Language, string.Join(";", request.UserLanguages));
-            }
-            if (request.UrlReferrer != null)
-            {
-                beaconParameters.Add(BeaconParameter.Browser.ReferralUrl, request.UrlReferrer.ToString());
-            }
+                DocumentTitle = pageTitle,
+                DocumentLocationUrl = pageUrl,
+                UserAgent = httpContext.Request.UserAgent,
+                DocumentHostName = httpContext.Request.UserHostName,
+                UserLanguage = httpContext.Request.UserLanguages != null ? string.Join(";",  httpContext.Request.UserLanguages).ToLower() : null,
+                ReferralUrl = httpContext.Request.UrlReferrer != null ? httpContext.Request.UrlReferrer.ToString() : null,
+                CacheBuster = tracker.AnalyticsSession.GenerateCacheBuster()
+            };
 
-            return await tracker.TrackPageViewAsync(pageTitle, pageUrl,
-                userAgent: request.UserAgent,
-                beaconParameters: beaconParameters);
+            return await tracker.TrackPageViewAsync(pageViewParameters);
         }
-	}
+    }
 }

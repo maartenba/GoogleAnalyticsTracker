@@ -7,10 +7,12 @@ using System.Web.Http.Filters;
 
 namespace GoogleAnalyticsTracker.WebApi
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = true)]
-    public class AsyncActionFilterAttribute 
-        : FilterAttribute, IActionFilter
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
+    public class AsyncActionFilterAttribute : FilterAttribute, IActionFilter
     {
+        public string ActionDescription { get; set; }
+        public string ActionUrl { get; set; }
+
         public async Task<HttpResponseMessage> ExecuteActionFilterAsync(HttpActionContext actionContext, CancellationToken cancellationToken, Func<Task<HttpResponseMessage>> continuation)
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -18,9 +20,7 @@ namespace GoogleAnalyticsTracker.WebApi
             await OnActionExecutingAsync(actionContext, cancellationToken);
 
             if (actionContext.Response != null)
-            {
                 return actionContext.Response;
-            }
 
             HttpActionExecutedContext executedContext;
 
@@ -40,15 +40,31 @@ namespace GoogleAnalyticsTracker.WebApi
             await OnActionExecutedAsync(executedContext, cancellationToken);
 
             if (executedContext.Response != null)
-            {
                 return executedContext.Response;
-            }
+
             if (executedContext.Exception != null)
-            {
                 throw executedContext.Exception;
-            }
 
             throw new InvalidOperationException(string.Format("ActionFilterAttribute of type {0} must supply response or exception.", GetType().Name));
+        }
+
+        public virtual string BuildCurrentActionName(HttpActionContext filterContext)
+        {
+            if (!string.IsNullOrEmpty(ActionDescription))
+                return ActionDescription;
+
+            return string.Format("{0} - {1}",
+                filterContext.ActionDescriptor.ControllerDescriptor != null
+                    ? filterContext.ActionDescriptor.ControllerDescriptor.ControllerName
+                    : filterContext.ControllerContext.ControllerDescriptor.ControllerName,
+                filterContext.ActionDescriptor.ActionName);
+        }
+
+        public virtual string BuildCurrentActionUrl(HttpActionContext filterContext)
+        {
+            var request = filterContext.Request;
+
+            return ActionUrl ?? (request.RequestUri != null ? request.RequestUri.PathAndQuery : string.Empty);
         }
 
         public virtual void OnActionExecuting(HttpActionContext actionContext)
@@ -61,13 +77,13 @@ namespace GoogleAnalyticsTracker.WebApi
 
         public virtual Task OnActionExecutingAsync(HttpActionContext actionContext, CancellationToken cancellationToken)
         {
-            this.OnActionExecuting(actionContext);
+            OnActionExecuting(actionContext);
             return Task.FromResult(new object());
         }
 
         public virtual Task OnActionExecutedAsync(HttpActionExecutedContext actionExecutedContext, CancellationToken cancellationToken)
         {
-            this.OnActionExecuted(actionExecutedContext);
+            OnActionExecuted(actionExecutedContext);
             return Task.FromResult(new object());
         }
     }

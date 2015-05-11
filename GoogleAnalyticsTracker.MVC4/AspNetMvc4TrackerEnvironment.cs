@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Net;
-using GoogleAnalyticsTracker.Core;
+using GoogleAnalyticsTracker.Core.Interface;
 
 namespace GoogleAnalyticsTracker.Mvc4
 {
@@ -27,10 +27,8 @@ namespace GoogleAnalyticsTracker.Mvc4
 
         protected bool IsHttpRequestAvailable()
         {
-            if (System.Web.HttpContext.Current == null)
-            {
-                return false;
-            }
+            if (System.Web.HttpContext.Current == null)            
+                return false;            
 
             try
             {

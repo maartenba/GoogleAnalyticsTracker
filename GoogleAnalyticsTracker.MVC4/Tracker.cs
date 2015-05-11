@@ -1,10 +1,10 @@
 ﻿using System.Configuration;
 using GoogleAnalyticsTracker.Core;
+using GoogleAnalyticsTracker.Core.Interface;
 
 namespace GoogleAnalyticsTracker.Mvc4
 {
-    public class Tracker
-        : TrackerBase
+    public class Tracker : TrackerBase
     {
         public Tracker()
             : this(new AnalyticsSession())
@@ -44,7 +44,7 @@ namespace GoogleAnalyticsTracker.Mvc4
                 UserAgent = System.Web.HttpContext.Current.Request.UserAgent;
                 Language = System.Web.HttpContext.Current.Request.UserLanguages != null
                     ? string.Join(";", System.Web.HttpContext.Current.Request.UserLanguages)
-                    : "";
+                    : string.Empty;
             }
         }
 

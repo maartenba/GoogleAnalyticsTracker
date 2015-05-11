@@ -3,8 +3,7 @@ using GoogleAnalyticsTracker.Core;
 
 namespace GoogleAnalyticsTracker.Mvc4
 {
-    public class CookieBasedAnalyticsSession
-        : AnalyticsSession, IAnalyticsSession
+    public class CookieBasedAnalyticsSession : AnalyticsSession
     {
         private const string StorageKeyUniqueId = "_GAT_uqid";
         private const string StorageKeyFirstVisitTime = "_GAT_fvt";

@@ -1,11 +1,10 @@
 using System;
 using System.Net;
-using GoogleAnalyticsTracker.Core;
+using GoogleAnalyticsTracker.Core.Interface;
 
 namespace GoogleAnalyticsTracker.Simple
 {
-    public class SimpleTrackerEnvironment
-        : ITrackerEnvironment
+    public class SimpleTrackerEnvironment : ITrackerEnvironment
     {
         public SimpleTrackerEnvironment()
         {

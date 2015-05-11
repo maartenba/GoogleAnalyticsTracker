@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Net;
-using GoogleAnalyticsTracker.Core;
+using GoogleAnalyticsTracker.Core.Interface;
 
 namespace GoogleAnalyticsTracker.WebApi
 {
-    public class AspNetWebApiTrackerEnvironment
-        : ITrackerEnvironment
+    public class AspNetWebApiTrackerEnvironment : ITrackerEnvironment
     {
         public AspNetWebApiTrackerEnvironment()
         {

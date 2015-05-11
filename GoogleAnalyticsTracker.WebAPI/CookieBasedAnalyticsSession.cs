@@ -1,11 +1,9 @@
-using System;
 using System.Net.Http;
 using GoogleAnalyticsTracker.Core;
 
 namespace GoogleAnalyticsTracker.WebApi
 {
-    public class CookieBasedAnalyticsSession
-        : AnalyticsSession, IAnalyticsSession, IRequireRequestAndResponse
+    public class CookieBasedAnalyticsSession : AnalyticsSession, IRequireRequestAndResponse
     {
         private const string StorageKeyUniqueId = "_GAT_uqid";
         private const string StorageKeyFirstVisitTime = "_GAT_fvt";

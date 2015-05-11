@@ -72,7 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GoogleAnalyticsTracker.Core\GoogleAnalyticsTracker.Core.csproj">
-      <Project>{c9514873-f2e2-48e3-8a9b-e3fd5a0f0892}</Project>
+      <Project>{e53b5981-6adb-47d3-94ac-130f0b1c3fbb}</Project>
       <Name>GoogleAnalyticsTracker.Core</Name>
     </ProjectReference>
   </ItemGroup>

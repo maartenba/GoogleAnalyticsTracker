@@ -19,18 +19,14 @@ namespace GoogleAnalyticsTracker.Mvc4
 
         public static void SetSerializedCookieValue(this HttpContextBase context, string key, string value)
         {
-            if (context != null)
-            {
-                context.Response.Cookies.Add(new HttpCookie(key, value));
-            }
+            if (context != null)            
+                context.Response.Cookies.Add(new HttpCookie(key, value));            
         }
 
         public static void SetSerializedCookieValue(this HttpContextBase context, string key, int value)
         {
-            if (context != null)
-            {
-                context.Response.Cookies.Add(new HttpCookie(key, value.ToString()));
-            }
+            if (context != null)            
+                context.Response.Cookies.Add(new HttpCookie(key, value.ToString()));            
         }
     }
 }

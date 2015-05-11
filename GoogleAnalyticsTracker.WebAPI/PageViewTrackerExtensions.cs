@@ -1,39 +1,26 @@
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using GoogleAnalyticsTracker.Core;
+using GoogleAnalyticsTracker.Core.TrackerParameters;
 
 namespace GoogleAnalyticsTracker.WebApi
 {
 	public static class PageViewTrackerExtensions
-    {
-        public static async Task<TrackingResult> TrackPageViewAsync(this Tracker tracker, HttpRequestMessage httpRequest, string pageTitle)
+    {        
+        public static async Task<TrackingResult> TrackPageViewAsync(this Tracker tracker, HttpRequestMessage httpRequest, string pageTitle, string pageUrl = null)
         {
-			return await TrackPageViewAsync(tracker, httpRequest, pageTitle, httpRequest.RequestUri.PathAndQuery);
-		}
-
-        public static async Task<TrackingResult> TrackPageViewAsync(this Tracker tracker, HttpRequestMessage httpRequest, string pageTitle, string pageUrl, Dictionary<string, string> beaconParameters = null)
-        {
-            var internalBeaconParameters = new Dictionary<string, string>();
-            internalBeaconParameters.Add(BeaconParameter.HostName, httpRequest.RequestUri.Host);
-            internalBeaconParameters.Add(BeaconParameter.Browser.Language, httpRequest.Headers.AcceptLanguage.ToString());
-            if (httpRequest.Headers.Referrer != null)
+            var pageViewParameters = new PageView
             {
-                internalBeaconParameters.Add(BeaconParameter.Browser.ReferralUrl, httpRequest.Headers.Referrer.ToString());
-            }
+                DocumentTitle = pageTitle,
+                DocumentLocationUrl = pageUrl,
+                UserAgent = httpRequest.Headers.UserAgent.ToString(),
+                DocumentHostName = httpRequest.RequestUri.Host,
+                UserLanguage = httpRequest.Headers.AcceptLanguage.ToString().ToLower(),
+                ReferralUrl = httpRequest.Headers.Referrer != null ? httpRequest.Headers.Referrer.ToString() : null,
+                CacheBuster = tracker.AnalyticsSession.GenerateCacheBuster()
+            };
 
-            if (beaconParameters != null)
-            {
-                foreach (var beaconParameter in beaconParameters)
-                {
-                    internalBeaconParameters[beaconParameter.Key] = beaconParameter.Value;
-                }
-            }
-
-            return await tracker.TrackPageViewAsync(pageTitle, pageUrl,
-                userAgent: httpRequest.Headers.UserAgent.ToString(),
-                beaconParameters: internalBeaconParameters
-            );
+            return await tracker.TrackPageViewAsync(pageViewParameters);
         }
 	}
 }
