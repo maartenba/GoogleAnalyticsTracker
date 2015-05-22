@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <version>$version$</version>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>http://github.com/maartenba/GoogleAnalyticsTracker/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>http://github.com/maartenba/GoogleAnalyticsTracker</projectUrl>
+    <id>GoogleAnalyticsTracker.RT</id>
+    <title>GoogleAnalyticsTracker.RT</title>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>GoogleAnalyticsTracker was created to have a means of tracking specific URL's directly from C#. For example, it enables you to log API calls to Google Analytics.</description>
+    <summary>GoogleAnalyticsTracker was created to have a means of tracking specific URL's directly from C#. For example, it enables you to log API calls to Google Analytics.</summary>
+    <copyright>Copyright 2012 - 2015 Maarten Balliauw</copyright>
+    <tags>google analytics ga winrt win8 windows8 api rest client tracker stats statistics</tags>
+    <dependencies>
+      <dependency id="GoogleAnalyticsTracker.Core" version="$version$" />
+    </dependencies>
+  </metadata>
+</package>
