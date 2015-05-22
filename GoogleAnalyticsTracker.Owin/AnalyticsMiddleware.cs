@@ -37,7 +37,6 @@ namespace GoogleAnalyticsTracker.Owin
             {
                 // Run the original request
                 await Next.Invoke(context);
-
                 await tracker.TrackPageViewAsync();
             }
         }

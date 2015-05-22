@@ -62,6 +62,5 @@ namespace GoogleAnalyticsTracker.Owin
                        ? _context.Request.Path.ToString()
                        : string.Format("{0}{1}", _context.Request.Path, _context.Request.QueryString);
         }
-
     }
 }
