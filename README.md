@@ -19,11 +19,11 @@ Windows applications (WinForms, WPF, Console):
 
     Install-Package GoogleAnalyticsTracker.Simple
 
-Windows Store applications:
+Windows Store (8 and 8.1) applications:
 
     Install-Package GoogleAnalyticsTracker.RT
 
-Windows Phone 8 applications:
+Windows Phone (8 and 8.1) applications:
 
     Install-Package GoogleAnalyticsTracker.WP8
 
@@ -31,6 +31,9 @@ ASP.NET MVC 4 applications:
 
     Install-Package GoogleAnalyticsTracker.MVC4
 
+ASP.NET MVC 5 applications:
+
+    Install-Package GoogleAnalyticsTracker.MVC5
 
 ASP.NET Web API v1 applications:
 
@@ -39,9 +42,18 @@ ASP.NET Web API v1 applications:
 ASP.NET Web API v2 applications:
 
     Install-Package GoogleAnalyticsTracker.WebAPI2
+
+OWIN applications:
+
+    Install-Package GoogleAnalyticsTracker.Owin
+
+Nancy applications:
+
+    Install-Package GoogleAnalyticsTracker.Nancy
 	
 ## Example usage
-Using GoogleAnalyticsTracker is very straightforward. In your code, add the following structure wherever you want to track page views:
+
+Using GoogleAnalyticsTracker is very straightforward. In your code, add the following structure wherever you want to track page views (note: when using `GoogleAnalyticsTracker.Simple`, the class to use is `SimpleTracker`):
 
     using (Tracker tracker = new Tracker("UA-XXXXXX-XX", "www.example.org"))
     {

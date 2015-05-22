@@ -50,7 +50,7 @@ namespace GoogleAnalyticsTracker.WebApi
             var responseMessage = GetHttpResponseMessage();
             if (requestMessage != null && responseMessage != null)
             {
-                int firstVisitTime = 0;
+                int firstVisitTime;
                 if (int.TryParse(requestMessage.GetDeserializedCookieValue(StorageKeyFirstVisitTime), out firstVisitTime) && firstVisitTime == 0)
                 {
                     firstVisitTime = base.GetFirstVisitTime();
@@ -67,7 +67,7 @@ namespace GoogleAnalyticsTracker.WebApi
             var responseMessage = GetHttpResponseMessage();
             if (requestMessage != null && responseMessage != null)
             {
-                int previousVisitTime = 0;
+                int previousVisitTime;
                 int.TryParse(requestMessage.GetDeserializedCookieValue(StorageKeyPreviousVisitTime), out previousVisitTime);
                 responseMessage.SetSerializedCookieValue(StorageKeyPreviousVisitTime, GetCurrentVisitTime());
 
@@ -87,7 +87,7 @@ namespace GoogleAnalyticsTracker.WebApi
             var responseMessage = GetHttpResponseMessage();
             if (requestMessage != null && responseMessage != null)
             {
-                int sessionCount = 0;
+                int sessionCount;
                 int.TryParse(requestMessage.GetDeserializedCookieValue(StorageKeySessionCount), out sessionCount);
                 responseMessage.SetSerializedCookieValue(StorageKeySessionCount, ++sessionCount);
                 return sessionCount;

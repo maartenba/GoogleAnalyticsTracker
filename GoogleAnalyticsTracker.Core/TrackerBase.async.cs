@@ -15,7 +15,7 @@ namespace GoogleAnalyticsTracker.Core
         {            
             var beaconList = new BeaconList<string, string>();         
 
-            foreach (var p in parameters.GetType().GetProperties())
+            foreach (var p in parameters.GetType().GetRuntimeProperties())
             {
                 var attr = p.GetCustomAttribute(typeof(BeaconAttribute), true) as BeaconAttribute;
 
@@ -23,10 +23,10 @@ namespace GoogleAnalyticsTracker.Core
 
                 object value;
 
-                if ((p.PropertyType.IsEnum || p.PropertyType.IsNullableEnum()) && attr.IsEnumByValueBased)
-                    value = GetValueFromEnum(p, parameters) ?? p.GetGetMethod().Invoke(parameters, null);                
+                if ((p.PropertyType.GetTypeInfo().IsEnum || p.PropertyType.IsNullableEnum()) && attr.IsEnumByValueBased)
+                    value = GetValueFromEnum(p, parameters) ?? p.GetMethod.Invoke(parameters, null);                
                 else
-                    value = p.GetGetMethod().Invoke(parameters, null);
+                    value = p.GetMethod.Invoke(parameters, null);
 
                 if (value != null)                    
                     beaconList.Add(attr.Name, value.ToString());
@@ -37,8 +37,8 @@ namespace GoogleAnalyticsTracker.Core
         }
 
         private static object GetValueFromEnum(PropertyInfo propertyInfo, IGeneralParameters parameters)
-        {            
-            var value = propertyInfo.GetGetMethod().Invoke(parameters, null);
+        {
+            var value = propertyInfo.GetMethod.Invoke(parameters, null);
 
             if (value == null) return null;
 

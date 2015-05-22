@@ -19,7 +19,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
 
         /// <summary>
         /// When present, the IP address of the sender will be anonymized. 
-        /// For example, the IP will be anonymized if any of the following parameters are present in the payload: &aip=, &aip=0, or &aip=1
+        /// For example, the IP will be anonymized if any of the following parameters are present in the payload: &amp;aip=, &amp;aip=0, or &amp;aip=1
         /// <remarks>Optional</remarks>
         /// <example>GoogleBoolean.True</example>
         /// </summary>        

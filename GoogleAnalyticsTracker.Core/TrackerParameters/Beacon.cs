@@ -19,7 +19,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         public virtual bool Equals(Beacon<TKey, TValue> other)
         {
             if (other == null) { return false; }
-            if (object.ReferenceEquals(this, other)) { return true; }
+            if (ReferenceEquals(this, other)) { return true; }
             var comparer = Comparer<TKey>.Default;
             return comparer.Compare(Item1, other.Item1) == 0;
         }
