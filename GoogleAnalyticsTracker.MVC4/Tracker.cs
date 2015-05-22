@@ -50,19 +50,7 @@ namespace GoogleAnalyticsTracker.Mvc4
 
         protected bool IsHttpRequestAvailable()
         {
-            if (System.Web.HttpContext.Current == null)
-            {
-                return false;
-            }
-
-            try
-            {
-                return System.Web.HttpContext.Current.Request == null;
-            }
-            catch (System.Web.HttpException)
-            {
-                return false;
-            }
+            return System.Web.HttpContext.Current != null;
         }
     }
 }

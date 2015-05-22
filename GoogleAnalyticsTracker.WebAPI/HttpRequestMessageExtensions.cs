@@ -22,7 +22,7 @@ namespace GoogleAnalyticsTracker.WebApi
 			if (response != null) 
             {
 				var cookieValue = new CookieHeaderValue(key, value);
-				response.Headers.AddCookies(new CookieHeaderValue[] {cookieValue});
+				response.Headers.AddCookies(new[] {cookieValue});
 			}
 		}
 

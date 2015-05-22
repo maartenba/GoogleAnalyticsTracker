@@ -47,7 +47,7 @@ namespace GoogleAnalyticsTracker.Mvc4
         {
             try
             {
-                if (string.IsNullOrEmpty(trackingDomain) && System.Web.HttpContext.Current != null && System.Web.HttpContext.Current.Request != null)
+                if (string.IsNullOrEmpty(trackingDomain) && System.Web.HttpContext.Current != null)
                 {
                     trackingDomain = System.Web.HttpContext.Current.Request.Url.Host;
                 }

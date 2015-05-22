@@ -12,7 +12,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         SessionControl? SessionControl { get; set; }
 
         /// <summary>
-        /// The IP address of the user. This should be a valid IP address. It will always be anonymized just as though &aip (anonymize IP) had been used.
+        /// The IP address of the user. This should be a valid IP address. It will always be anonymized just as though &amp;aip (anonymize IP) had been used.
         /// <remarks>Optional</remarks>
         /// <example>1.2.3.4</example>
         /// </summary>        

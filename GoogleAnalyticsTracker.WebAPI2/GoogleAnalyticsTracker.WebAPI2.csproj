@@ -47,6 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Shared\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="ActionTrackingAttribute.cs" />
     <Compile Include="AspNetWebApiTrackerEnvironment.cs" />
     <Compile Include="AsyncActionFilterAttribute.cs" />

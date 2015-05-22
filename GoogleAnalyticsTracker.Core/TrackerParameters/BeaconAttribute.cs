@@ -2,7 +2,7 @@
 
 namespace GoogleAnalyticsTracker.Core.TrackerParameters
 {
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Enum, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Enum)]
     public class BeaconAttribute : Attribute
     {
         /// <summary>

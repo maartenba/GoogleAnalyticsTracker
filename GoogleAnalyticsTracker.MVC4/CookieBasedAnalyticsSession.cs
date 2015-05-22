@@ -38,7 +38,7 @@ namespace GoogleAnalyticsTracker.Mvc4
             var httpContext = GetHttpContext();
             if (httpContext != null)
             {
-                int firstVisitTime = 0;
+                int firstVisitTime;
                 if (int.TryParse(httpContext.GetDeserializedCookieValue(StorageKeyFirstVisitTime), out firstVisitTime) && firstVisitTime == 0)
                 {
                     firstVisitTime = base.GetFirstVisitTime();
@@ -54,7 +54,7 @@ namespace GoogleAnalyticsTracker.Mvc4
             var httpContext = GetHttpContext();
             if (httpContext != null)
             {
-                int previousVisitTime = 0;
+                int previousVisitTime;
                 int.TryParse(httpContext.GetDeserializedCookieValue(StorageKeyPreviousVisitTime), out previousVisitTime);
                 httpContext.SetSerializedCookieValue(StorageKeyPreviousVisitTime, GetCurrentVisitTime());
 
@@ -73,7 +73,7 @@ namespace GoogleAnalyticsTracker.Mvc4
             var httpContext = GetHttpContext();
             if (httpContext != null)
             {
-                int sessionCount = 0;
+                int sessionCount;
                 int.TryParse(httpContext.GetDeserializedCookieValue(StorageKeySessionCount), out sessionCount);
                 httpContext.SetSerializedCookieValue(StorageKeySessionCount, ++sessionCount);
                 return sessionCount;

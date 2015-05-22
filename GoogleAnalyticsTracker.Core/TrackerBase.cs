@@ -115,21 +115,8 @@ namespace GoogleAnalyticsTracker.Core
 
         #region IDisposable Members
 
-        private bool disposed;
-
-        private void Dispose(bool disposing)
-        {
-            if (disposed)
-            {
-                return;
-            }
-
-            disposed = true;
-        }
-
         public void Dispose()
         {
-            this.Dispose(true);
             GC.SuppressFinalize(this);
         }
 
