@@ -46,6 +46,7 @@
     <Compile Include="..\Shared\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="PageViewTrackerExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleTracker.cs" />
     <Compile Include="SimpleTrackerEnvironment.cs" />

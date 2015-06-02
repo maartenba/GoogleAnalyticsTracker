@@ -57,19 +57,19 @@ Using GoogleAnalyticsTracker is very straightforward. In your code, add the foll
 
     using (Tracker tracker = new Tracker("UA-XXXXXX-XX", "www.example.org"))
     {
-        tracker.TrackPageView("My API - Create", "api/create");
-        tracker.TrackPageView("MY API - List", "api/list");
+        await tracker.TrackPageViewAsync("My API - Create", "api/create");
+        await tracker.TrackPageViewAsync("MY API - List", "api/list");
     }
 
 Or without a using block:
 
     Tracker tracker = new Tracker("UA-XXXXXX-XX", "www.example.org");
-    tracker.TrackPageView("My API - Create", "api/create");
+    await tracker.TrackPageViewAsync("My API - Create", "api/create");
 
 A number of extension methods are available which use the provided HttpContext as the source for URL and user propertires:
 
     Tracker tracker = new Tracker("UA-XXXXXX-XX", "www.example.org");
-    tracker.TrackPageView(HttpContext, "My API - Create");
+    await tracker.TrackPageViewAsync(HttpContext, "My API - Create");
 
 Finally, an ActionFilter for use with ASP.NET MVC is available:
 
