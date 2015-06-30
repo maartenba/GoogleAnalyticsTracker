@@ -12,8 +12,8 @@ namespace GoogleAnalyticsTracker.Core
     public partial class TrackerBase
     {
         private static IDictionary<string, string> GetParametersDictionary(IGeneralParameters parameters)
-        {            
-            var beaconList = new BeaconList<string, string>();         
+        {
+            var beaconList = new BeaconList<string, string>();
 
             foreach (var p in parameters.GetType().GetRuntimeProperties())
             {
@@ -24,14 +24,16 @@ namespace GoogleAnalyticsTracker.Core
                 object value;
 
                 if ((p.PropertyType.GetTypeInfo().IsEnum || p.PropertyType.IsNullableEnum()) && attr.IsEnumByValueBased)
-                    value = GetValueFromEnum(p, parameters) ?? p.GetMethod.Invoke(parameters, null);                
+                    value = GetValueFromEnum(p, parameters) ?? p.GetMethod.Invoke(parameters, null);
+                else if (p.PropertyType.GetTypeInfo().IsEnum || p.PropertyType.IsNullableEnum())
+                    value = GetLowerCaseValueFromEnum(p, parameters) ?? p.GetMethod.Invoke(parameters, null);
                 else
                     value = p.GetMethod.Invoke(parameters, null);
 
-                if (value != null)                    
+                if (value != null)
                     beaconList.Add(attr.Name, value.ToString());
             }
-           
+
             beaconList.ShiftToLast("z");
             return beaconList.OrderBy(k => k.Item1, new BeaconComparer()).ToDictionary(key => key.Item1, value => value.Item2);
         }
@@ -50,6 +52,13 @@ namespace GoogleAnalyticsTracker.Core
             return enumValue.GetHashCode().ToString(CultureInfo.InvariantCulture);
         }
 
+        private static object GetLowerCaseValueFromEnum(PropertyInfo propertyInfo, IGeneralParameters parameters)
+        {
+            var value = propertyInfo.GetMethod.Invoke(parameters, null);
+
+            return value == null ? null : value.ToString().ToLowerInvariant();
+        }
+
         private void SetRequired(IGeneralParameters parameters)
         {
             parameters.TrackingId = TrackingAccount;
@@ -60,7 +69,7 @@ namespace GoogleAnalyticsTracker.Core
         {
             SetRequired(pageView);
 
-            var parameters = GetParametersDictionary(pageView);            
+            var parameters = GetParametersDictionary(pageView);
 
             return await RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, pageView.UserAgent ?? UserAgent);
         }
@@ -70,7 +79,7 @@ namespace GoogleAnalyticsTracker.Core
             SetRequired(eventTracking);
 
             var parameters = GetParametersDictionary(eventTracking);
-           
+
             return await RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, eventTracking.UserAgent ?? UserAgent);
         }
 
@@ -78,7 +87,7 @@ namespace GoogleAnalyticsTracker.Core
         {
             SetRequired(eCommerceTransaction);
 
-            var parameters = GetParametersDictionary(eCommerceTransaction);        
+            var parameters = GetParametersDictionary(eCommerceTransaction);
 
             return await RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, eCommerceTransaction.UserAgent ?? UserAgent);
         }
@@ -88,7 +97,7 @@ namespace GoogleAnalyticsTracker.Core
             SetRequired(eCommerceItem);
 
             var parameters = GetParametersDictionary(eCommerceItem);
-           
+
             return await RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, eCommerceItem.UserAgent ?? UserAgent);
         }
 
@@ -97,7 +106,7 @@ namespace GoogleAnalyticsTracker.Core
             SetRequired(userTimings);
 
             var parameters = GetParametersDictionary(userTimings);
-        
+
             return await RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, userTimings.UserAgent ?? UserAgent);
         }
     }
