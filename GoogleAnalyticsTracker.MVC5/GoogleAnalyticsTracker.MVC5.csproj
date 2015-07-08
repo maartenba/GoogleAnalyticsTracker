@@ -80,7 +80,7 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="ActionTrackingAttribute.cs" />
-    <Compile Include="AspNetMvc4TrackerEnvironment.cs" />
+    <Compile Include="AspNetMvc5TrackerEnvironment.cs" />
     <Compile Include="CookieBasedAnalyticsSession.cs" />
     <Compile Include="HttpContextBaseExtensions.cs" />
     <Compile Include="PageViewTrackerExtensions.cs" />

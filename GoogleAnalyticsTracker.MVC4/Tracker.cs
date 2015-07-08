@@ -25,7 +25,7 @@ namespace GoogleAnalyticsTracker.Mvc4
         }
 
 
-        public Tracker(string trackingAccount, string trackingDomain, ITrackerEnvironment trackerEnvironment) 
+        public Tracker(string trackingAccount, string trackingDomain, ITrackerEnvironment trackerEnvironment)
             : base(trackingAccount, trackingDomain, trackerEnvironment)
         {
             PopulateUserAgentPropertiesFromHttpContext();
@@ -39,18 +39,28 @@ namespace GoogleAnalyticsTracker.Mvc4
 
         private void PopulateUserAgentPropertiesFromHttpContext()
         {
-            if (IsHttpRequestAvailable())
-            {
-                UserAgent = System.Web.HttpContext.Current.Request.UserAgent;
-                Language = System.Web.HttpContext.Current.Request.UserLanguages != null
-                    ? string.Join(";", System.Web.HttpContext.Current.Request.UserLanguages)
-                    : string.Empty;
-            }
+            if (!IsHttpRequestAvailable()) return;
+
+            UserAgent = System.Web.HttpContext.Current.Request.UserAgent;
+            Language = System.Web.HttpContext.Current.Request.UserLanguages != null
+                ? string.Join(";", System.Web.HttpContext.Current.Request.UserLanguages)
+                : string.Empty;
         }
 
         protected bool IsHttpRequestAvailable()
         {
-            return System.Web.HttpContext.Current != null;
+            if (System.Web.HttpContext.Current == null)            
+                return false;
+
+            try
+            {
+                // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+                return System.Web.HttpContext.Current.Request == null;
+            }
+            catch (System.Web.HttpException ex)
+            {
+                return false;
+            }
         }
     }
 }

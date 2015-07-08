@@ -27,7 +27,18 @@ namespace GoogleAnalyticsTracker.Mvc4
 
         protected bool IsHttpRequestAvailable()
         {
-            return System.Web.HttpContext.Current != null;
+            if (System.Web.HttpContext.Current == null)
+                return false;
+
+            try
+            {
+                // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+                return System.Web.HttpContext.Current.Request == null;
+            }
+            catch (System.Web.HttpException ex)
+            {
+                return false;
+            }
         }
     }
 }

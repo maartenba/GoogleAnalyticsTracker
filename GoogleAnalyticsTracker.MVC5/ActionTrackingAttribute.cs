@@ -54,7 +54,7 @@ namespace GoogleAnalyticsTracker.MVC5
             }
             catch { /* intended */ }
 
-            Tracker = new Tracker(trackingAccount, trackingDomain, new CookieBasedAnalyticsSession(), new AspNetMvc4TrackerEnvironment());
+            Tracker = new Tracker(trackingAccount, trackingDomain, new CookieBasedAnalyticsSession(), new AspNetMvc5TrackerEnvironment());
             ActionDescription = actionDescription;
             ActionUrl = actionUrl;
         }
@@ -72,7 +72,7 @@ namespace GoogleAnalyticsTracker.MVC5
 
         public ActionTrackingAttribute(string trackingAccount, string trackingDomain, Func<ActionDescriptor, bool> isTrackableAction)
         {
-            Tracker = new Tracker(trackingAccount, trackingDomain, new CookieBasedAnalyticsSession(), new AspNetMvc4TrackerEnvironment());
+            Tracker = new Tracker(trackingAccount, trackingDomain, new CookieBasedAnalyticsSession(), new AspNetMvc5TrackerEnvironment());
             IsTrackableAction = isTrackableAction;
         }
 
