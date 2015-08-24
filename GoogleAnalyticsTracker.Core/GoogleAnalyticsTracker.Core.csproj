@@ -55,6 +55,7 @@
     <Compile Include="AnalyticsSession.cs" />
     <Compile Include="EnumExtensions.cs" />
     <Compile Include="TrackerParameters\AppTracking.cs" />
+    <Compile Include="TrackerParameters\ContentExperiments.cs" />
     <Compile Include="TrackerParameters\ECommerceItem.cs" />
     <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="TrackerParameters\Beacon.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="TrackerParameters\Interface\IEventTrackingParameters.cs" />
     <Compile Include="TrackerParameters\Interface\IAppTrackingParameters.cs" />
     <Compile Include="TrackerParameters\Interface\IContentInformationParameters.cs" />
+    <Compile Include="TrackerParameters\Interface\IContentExperimentsParameters.cs" />
     <Compile Include="TrackerParameters\Interface\IGeneralParameters.cs" />
     <Compile Include="TrackerParameters\Interface\IHitParameters.cs" />
     <Compile Include="TrackerParameters\Interface\ISessionParameters.cs" />
