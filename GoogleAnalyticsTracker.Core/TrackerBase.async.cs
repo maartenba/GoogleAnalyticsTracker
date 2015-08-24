@@ -109,5 +109,14 @@ namespace GoogleAnalyticsTracker.Core
 
             return await RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, userTimings.UserAgent ?? UserAgent);
         }
+
+        public async Task<TrackingResult> TrackContentExperimentAsync(ContentExperiments contentExperiments)
+        {
+            SetRequired(contentExperiments);
+
+            var parameters = GetParametersDictionary(contentExperiments);
+
+            return await RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, contentExperiments.UserAgent ?? UserAgent);
+        }
     }
 }
