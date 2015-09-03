@@ -55,7 +55,9 @@
     <Compile Include="AnalyticsSession.cs" />
     <Compile Include="EnumExtensions.cs" />
     <Compile Include="TrackerParameters\ContentExperiments.cs" />
+    <Compile Include="TrackerParameters\ExceptionTracking.cs" />
     <Compile Include="TrackerParameters\Interface\IContentExperimentsParameters.cs" />
+    <Compile Include="TrackerParameters\Interface\IExceptionParameters.cs" />
     <Compile Include="TrackerParameters\ScreenviewTracking.cs" />
     <Compile Include="TrackerParameters\ECommerceItem.cs" />
     <Compile Include="DateTimeExtensions.cs" />
