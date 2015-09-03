@@ -24,7 +24,7 @@ namespace GoogleAnalyticsTracker.WebAPI2
                 CacheBuster = tracker.AnalyticsSession.GenerateCacheBuster()
             };
 
-            return await tracker.TrackUserTimingAsync(userTimingParameters);
+            return await tracker.TrackAsync(userTimingParameters);
         }
     }
 }

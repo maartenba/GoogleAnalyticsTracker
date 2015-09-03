@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using GoogleAnalyticsTracker.Core.Interface;
 
 namespace GoogleAnalyticsTracker.Core
-{
-    public partial class TrackerBase : IDisposable, ITrackEvents, ITrackPageViews, ITrackUserTiming, ITrackECommerceTransaction, ITrackECommerceItem
+{    
+    public partial class TrackerBase : IDisposable
     {
         public const string TrackingAccountConfigurationKey = "GoogleAnalyticsTracker.TrackingAccount";
         public const string TrackingDomainConfigurationKey = "GoogleAnalyticsTracker.TrackingDomain";

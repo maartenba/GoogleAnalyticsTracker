@@ -36,7 +36,7 @@ namespace GoogleAnalyticsTracker.Owin
                 UserId = _context.Authentication.User.Identity.Name
             };
 
-            await base.TrackEventAsync(eventTrackingParameters);
+            await TrackAsync(eventTrackingParameters);
         }
 
         public async Task TrackPageViewAsync()
@@ -53,7 +53,7 @@ namespace GoogleAnalyticsTracker.Owin
                 UserId = _context.Authentication.User.Identity.Name
             };
 
-            await base.TrackPageViewAsync(pageviewTrackingParameters);
+            await TrackAsync(pageviewTrackingParameters);
         }
 
         private string GetRelativeUrl()

@@ -57,7 +57,7 @@ namespace GoogleAnalyticsTracker.MVC5
                 // ReSharper disable once ConditionIsAlwaysTrueOrFalse
                 return System.Web.HttpContext.Current.Request == null;
             }
-            catch (System.Web.HttpException ex)
+            catch (System.Web.HttpException)
             {
                 return false;
             }

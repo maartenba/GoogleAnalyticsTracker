@@ -2,7 +2,7 @@ using GoogleAnalyticsTracker.Core.TrackerParameters.Interface;
 
 namespace GoogleAnalyticsTracker.Core.TrackerParameters
 {
-    public class AppTracking : GeneralParameters, IAppTrackingParameters
+    public class ScreenviewTracking : GeneralParameters, IAppTrackingParameters
     {
         #region Overrides of GeneralParameters
 
