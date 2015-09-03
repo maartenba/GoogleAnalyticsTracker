@@ -63,51 +63,15 @@ namespace GoogleAnalyticsTracker.Core
         {
             parameters.TrackingId = TrackingAccount;
             parameters.ClientId = AnalyticsSession.GenerateSessionId();
-        }
+        }        
 
-        public async Task<TrackingResult> TrackPageViewAsync(PageView pageView)
+        public async Task<TrackingResult> TrackAsync(IGeneralParameters generalParameters)
         {
-            SetRequired(pageView);
+            SetRequired(generalParameters);
 
-            var parameters = GetParametersDictionary(pageView);
+            var parameters = GetParametersDictionary(generalParameters);
 
-            return await RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, pageView.UserAgent ?? UserAgent);
-        }
-
-        public async Task<TrackingResult> TrackEventAsync(EventTracking eventTracking)
-        {
-            SetRequired(eventTracking);
-
-            var parameters = GetParametersDictionary(eventTracking);
-
-            return await RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, eventTracking.UserAgent ?? UserAgent);
-        }
-
-        public async Task<TrackingResult> TrackTransactionAsync(ECommerceTransaction eCommerceTransaction)
-        {
-            SetRequired(eCommerceTransaction);
-
-            var parameters = GetParametersDictionary(eCommerceTransaction);
-
-            return await RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, eCommerceTransaction.UserAgent ?? UserAgent);
-        }
-
-        public async Task<TrackingResult> TrackTransactionItemAsync(ECommerceItem eCommerceItem)
-        {
-            SetRequired(eCommerceItem);
-
-            var parameters = GetParametersDictionary(eCommerceItem);
-
-            return await RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, eCommerceItem.UserAgent ?? UserAgent);
-        }
-
-        public async Task<TrackingResult> TrackUserTimingAsync(UserTimings userTimings)
-        {
-            SetRequired(userTimings);
-
-            var parameters = GetParametersDictionary(userTimings);
-
-            return await RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, userTimings.UserAgent ?? UserAgent);
+            return await RequestUrlAsync(UseSsl ? BeaconUrlSsl : BeaconUrl, parameters, generalParameters.UserAgent ?? UserAgent);
         }
     }
 }

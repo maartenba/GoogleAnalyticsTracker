@@ -21,7 +21,7 @@ namespace GoogleAnalyticsTracker.Simple
                 CacheBuster = tracker.AnalyticsSession.GenerateCacheBuster()
             };
 
-            return await tracker.TrackPageViewAsync(pageViewParameters);
+            return await tracker.TrackAsync(pageViewParameters);
         }
     }
 }

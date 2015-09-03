@@ -20,7 +20,7 @@ namespace GoogleAnalyticsTracker.Mvc4
                 CacheBuster = tracker.AnalyticsSession.GenerateCacheBuster()
             };
 
-            return await tracker.TrackPageViewAsync(pageViewParameters);
+            return await tracker.TrackAsync(pageViewParameters);
         }
     }
 }

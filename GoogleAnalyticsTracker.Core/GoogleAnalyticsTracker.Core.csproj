@@ -54,7 +54,9 @@
     </Compile>
     <Compile Include="AnalyticsSession.cs" />
     <Compile Include="EnumExtensions.cs" />
-    <Compile Include="TrackerParameters\AppTracking.cs" />
+    <Compile Include="TrackerParameters\ContentExperiments.cs" />
+    <Compile Include="TrackerParameters\Interface\IContentExperimentsParameters.cs" />
+    <Compile Include="TrackerParameters\ScreenviewTracking.cs" />
     <Compile Include="TrackerParameters\ECommerceItem.cs" />
     <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="TrackerParameters\Beacon.cs" />
@@ -68,11 +70,6 @@
     <Compile Include="HttpWebRequestExtensions.cs" />
     <Compile Include="Interface\IAnalyticsSession.cs" />
     <Compile Include="Interface\ITrackerEnvironment.cs" />
-    <Compile Include="Interface\ITrackEvents.cs" />
-    <Compile Include="Interface\ITrackPageViews.cs" />
-    <Compile Include="Interface\ITrackTransactionItems.cs" />
-    <Compile Include="Interface\ITrackTransactions.cs" />
-    <Compile Include="Interface\ITrackUserTiming.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TrackerBase.async.cs">
       <DependentUpon>TrackerBase.cs</DependentUpon>

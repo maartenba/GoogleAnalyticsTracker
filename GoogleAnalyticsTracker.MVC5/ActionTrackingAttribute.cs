@@ -5,8 +5,7 @@ using GoogleAnalyticsTracker.Core;
 
 namespace GoogleAnalyticsTracker.MVC5
 {
-    public class ActionTrackingAttribute
-        : ActionFilterAttribute
+    public class ActionTrackingAttribute : ActionFilterAttribute
     {
         private Func<ActionDescriptor, bool> _isTrackableAction;
 
