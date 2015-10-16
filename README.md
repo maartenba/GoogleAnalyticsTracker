@@ -1,4 +1,4 @@
-[![GoogleAnalyticsTracker Nightly Build Status](https://www.myget.org/BuildSource/Badge/googleanalyticstracker?identifier=479ff619-28f2-47c0-9574-2774ed0cd855)](https://www.myget.org/gallery/googleanalyticstracker)
+[![googleanalyticstracker MyGet Build Status](https://www.myget.org/BuildSource/Badge/googleanalyticstracker?identifier=9b038848-c290-4123-bc35-c8cd67b40052)](https://www.myget.org/gallery/googleanalyticstracker)
 
 # GoogleAnalyticsTracker
 GoogleAnalyticsTracker - A C# library for tracking Google Analytics.
