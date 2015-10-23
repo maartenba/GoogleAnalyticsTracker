@@ -112,7 +112,7 @@ public class HelloModule : NancyModule
             return null;
         };
 
-        Get["/ping"] = _ => Response.AsJson(new { Value="Pong" });
+        Get["/ping"] = _ => Response.AsJson(new { Value = "Pong" });
         Get["Index","/"] = _ => "Hello World";
     }
 }
