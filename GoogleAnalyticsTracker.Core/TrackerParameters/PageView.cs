@@ -1,12 +1,7 @@
 namespace GoogleAnalyticsTracker.Core.TrackerParameters
 {
     public class PageView : GeneralParameters
-    {
-        public PageView()
-        {
-            NonInteractionHit = GoogleBoolean.False;
-        }
-
+    {        
         #region Overrides of GeneralParameters
 
         /// <summary>

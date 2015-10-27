@@ -3,12 +3,7 @@ using GoogleAnalyticsTracker.Core.TrackerParameters.Interface;
 namespace GoogleAnalyticsTracker.Core.TrackerParameters
 {
     public abstract class GeneralParameters : IGeneralParameters
-    {
-        protected GeneralParameters()
-        {
-            NonInteractionHit = GoogleBoolean.False;
-        }
-
+    {        
         public string UserAgent { get; set; }
         public string ReferralUrl { get; set; }
 
