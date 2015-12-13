@@ -15,7 +15,8 @@ namespace GoogleAnalyticsTracker.Simple
                 ApplicationId = appId,
                 ApplicationVersion = appVersion,
                 ApplicationInstallerId = appInstallerId,
-                ScreenName =screenName
+                ScreenName = screenName,
+                CacheBuster = tracker.AnalyticsSession.GenerateCacheBuster()
             };
 
             return await tracker.TrackAsync(screenviewParamenters);
