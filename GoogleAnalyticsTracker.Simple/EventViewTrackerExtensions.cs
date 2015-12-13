@@ -5,9 +5,9 @@ using GoogleAnalyticsTracker.Core.TrackerParameters;
 
 namespace GoogleAnalyticsTracker.Simple
 {
-    public static class PageViewTrackerExtensions
+    public static class EventTrackerExtensions
     {
-        public static async Task<TrackingResult> TrackEventViewAsync(this SimpleTracker tracker, string category, string action, string label, long value = 1)
+        public static async Task<TrackingResult> TrackEventAsync(this SimpleTracker tracker, string category, string action, string label, long value = 1)
         {
             var eventTrackingParameters = new EventTracking
             {
