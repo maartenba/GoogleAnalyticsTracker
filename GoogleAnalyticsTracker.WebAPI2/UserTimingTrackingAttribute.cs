@@ -56,7 +56,7 @@ namespace GoogleAnalyticsTracker.WebAPI2
             return Task.FromResult(new object());
         }
 
-        public async override Task OnActionExecutedAsync(HttpActionExecutedContext actionExecutedContext, CancellationToken cancellationToken)
+        public override async Task OnActionExecutedAsync(HttpActionExecutedContext actionExecutedContext, CancellationToken cancellationToken)
         {
             if (IsTrackableAction(actionExecutedContext.ActionContext))
                 await OnTrackingUserTiming(actionExecutedContext.ActionContext);

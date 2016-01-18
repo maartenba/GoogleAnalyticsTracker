@@ -35,17 +35,7 @@ namespace GoogleAnalyticsTracker.Core
         {
             return ++SessionCount;
         }
-
-        public virtual string GenerateCookieValue()
-        {
-            //__utma cookie syntax: domain-hash.unique-id.FirstVisitTime.PreviousVisitTime.CurrentVisitTime.session-counter
-            return Cookie ??
-                   (Cookie = string.Format(
-                       "__utma=1.{0}.{1}.{2}.{3}.{4};+__utmz=1.{3}.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none);",
-                       GetUniqueVisitorId(), GetFirstVisitTime(), GetPreviousVisitTime(), GetCurrentVisitTime(),
-                       GetSessionCount()));
-        }
-
+        
         public virtual string GenerateSessionId()
         {
             return SessionId ?? (SessionId = Guid.NewGuid().ToString());

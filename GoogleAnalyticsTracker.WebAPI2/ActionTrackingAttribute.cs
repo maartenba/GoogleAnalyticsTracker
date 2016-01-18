@@ -70,7 +70,7 @@ namespace GoogleAnalyticsTracker.WebAPI2
             IsTrackableAction = isTrackableAction;
         }
 
-        public async override Task OnActionExecutingAsync(HttpActionContext actionContext, CancellationToken cancellationToken)
+        public override async Task OnActionExecutingAsync(HttpActionContext actionContext, CancellationToken cancellationToken)
         {
             if (IsTrackableAction(actionContext))
             {

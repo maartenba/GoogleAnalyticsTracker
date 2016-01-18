@@ -55,7 +55,9 @@ namespace GoogleAnalyticsTracker.Core
             // Create GET string
             var data = new StringBuilder();
             foreach (var parameter in parameters)
+            {
                 data.Append(string.Format("{0}={1}&", parameter.Key, Uri.EscapeDataString(parameter.Value)));
+            }
 
             // Build TrackingResult
             var returnValue = new TrackingResult
@@ -66,9 +68,11 @@ namespace GoogleAnalyticsTracker.Core
 
             // Determine referer URL
             var referer = string.Format("http://{0}/", TrackingDomain);
-            if (parameters.ContainsKey("ReferralUrl"))            
+            if (parameters.ContainsKey("ReferralUrl"))
+            {
                 referer = parameters["ReferralUrl"];
-            
+            }
+
             // Create request
             HttpWebRequest request;
             try
