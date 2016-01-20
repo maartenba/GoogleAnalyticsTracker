@@ -86,11 +86,11 @@ namespace GoogleAnalyticsTracker.Mvc4
             GlobalFilters.Filters.Add(new ActionTrackingAttribute(tracker));
         }
 
-        public override async void OnActionExecuting(ActionExecutingContext filterContext)
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if (IsTrackableAction(filterContext.ActionDescriptor))
             {
-                await OnTrackingAction(filterContext);
+                AsyncHelper.RunSync(() => OnTrackingAction(filterContext));
             }
         }
 
