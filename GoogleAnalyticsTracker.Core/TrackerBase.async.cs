@@ -63,6 +63,12 @@ namespace GoogleAnalyticsTracker.Core
         {
             parameters.TrackingId = TrackingAccount;
             parameters.ClientId = AnalyticsSession.GenerateSessionId();
+
+            if (string.IsNullOrWhiteSpace(parameters.UserLanguage))
+            {
+                // Note: another way could be CultureInfo.CurrentCulture
+                parameters.UserLanguage = "en-US";
+            }
         }        
 
         public async Task<TrackingResult> TrackAsync(IGeneralParameters generalParameters)
