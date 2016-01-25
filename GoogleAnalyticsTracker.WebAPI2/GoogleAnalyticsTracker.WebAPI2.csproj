@@ -55,6 +55,7 @@
     <Compile Include="AsyncActionFilterAttribute.cs" />
     <Compile Include="ConfigurationHelper.cs" />
     <Compile Include="CookieBasedAnalyticsSession.cs" />
+    <Compile Include="Helpers\WebApiHelper.cs" />
     <Compile Include="HttpRequestMessageExtensions.cs" />
     <Compile Include="Interface\IRequireRequestAndResponse.cs" />
     <Compile Include="PageViewTrackerExtensions.cs" />
