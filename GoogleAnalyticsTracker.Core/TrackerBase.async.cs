@@ -19,23 +19,37 @@ namespace GoogleAnalyticsTracker.Core
             {
                 var attr = p.GetCustomAttribute(typeof(BeaconAttribute), true) as BeaconAttribute;
 
-                if (attr == null) continue;
+                if (attr == null)
+                {
+                    continue;
+                }
 
                 object value;
 
                 if ((p.PropertyType.GetTypeInfo().IsEnum || p.PropertyType.IsNullableEnum()) && attr.IsEnumByValueBased)
+                {
                     value = GetValueFromEnum(p, parameters) ?? p.GetMethod.Invoke(parameters, null);
+                }
                 else if (p.PropertyType.GetTypeInfo().IsEnum || p.PropertyType.IsNullableEnum())
+                {
                     value = GetLowerCaseValueFromEnum(p, parameters) ?? p.GetMethod.Invoke(parameters, null);
+                }
                 else
+                {
                     value = p.GetMethod.Invoke(parameters, null);
+                }
 
                 if (value != null)
+                {
                     beaconList.Add(attr.Name, value.ToString());
+                }
             }
 
             beaconList.ShiftToLast("z");
-            return beaconList.OrderBy(k => k.Item1, new BeaconComparer()).ToDictionary(key => key.Item1, value => value.Item2);
+
+            return beaconList
+                .OrderBy(k => k.Item1, new BeaconComparer())
+                .ToDictionary(key => key.Item1, value => value.Item2);
         }
 
         private static object GetValueFromEnum(PropertyInfo propertyInfo, IGeneralParameters parameters)
@@ -56,13 +70,19 @@ namespace GoogleAnalyticsTracker.Core
         {
             var value = propertyInfo.GetMethod.Invoke(parameters, null);
 
-            return value == null ? null : value.ToString().ToLowerInvariant();
+            return value == null 
+                ? null 
+                : value.ToString().ToLowerInvariant();
         }
 
         private void SetRequired(IGeneralParameters parameters)
         {
             parameters.TrackingId = TrackingAccount;
-            parameters.ClientId = AnalyticsSession.GenerateSessionId();
+
+            if (string.IsNullOrWhiteSpace(parameters.ClientId))
+            {
+                parameters.ClientId = AnalyticsSession.GenerateSessionId();
+            }
 
             if (string.IsNullOrWhiteSpace(parameters.UserLanguage))
             {
