@@ -30,6 +30,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>GoogleAnalyticsTracker.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
@@ -69,6 +75,7 @@
     <Compile Include="ConfigurationHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="GoogleAnalyticsTracker.snk" />
     <None Include="GoogleAnalyticsTracker.WebAPI.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
