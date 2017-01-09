@@ -57,3 +57,4 @@ copy GoogleAnalyticsTracker.WP8\bin\%config%\Google*.dll Build\assemblies
 copy GoogleAnalyticsTracker.WP8\bin\%config%\Google*.pdb Build\assemblies
 copy GoogleAnalyticsTracker.Owin\bin\%config%\Google*.dll Build\assemblies
 copy GoogleAnalyticsTracker.Owin\bin\%config%\Google*.pdb Build\assemblies
+
