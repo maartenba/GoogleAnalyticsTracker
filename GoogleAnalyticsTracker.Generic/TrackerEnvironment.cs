@@ -4,9 +4,9 @@ using GoogleAnalyticsTracker.Core.Interface;
 
 namespace GoogleAnalyticsTracker.Generic
 {
-  public class SimpleTrackerEnvironment : ITrackerEnvironment
+  public class TrackerEnvironment : ITrackerEnvironment
   {
-    public SimpleTrackerEnvironment (string Hostname,string OsPlatform, string OsVersion, string OsVersionString)
+    public TrackerEnvironment (string Hostname,string OsPlatform, string OsVersion, string OsVersionString)
     {
       this.Hostname = Hostname;//Dns.GetHostName();
       this.OsPlatform = OsPlatform;//Environment.OSVersion.Platform.ToString ();

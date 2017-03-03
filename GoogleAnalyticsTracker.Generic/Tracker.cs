@@ -6,11 +6,9 @@ using GoogleAnalyticsTracker.Core.TrackerParameters;
 
 namespace GoogleAnalyticsTracker.Generic
 {
-  public class SimpleTracker : TrackerBase
+  public class Tracker : TrackerBase
   {
-    static SimpleTracker instance;
-    public GeneralParameters Parameters;
-
+    static Tracker instance;
 
     public string appName;
     public string appId;
@@ -18,9 +16,19 @@ namespace GoogleAnalyticsTracker.Generic
     public string ScreenResolution;
     public string ViewportSize;
     public string ClientId;
+    public string UserId;
 
+    public string MergedIds {
+      get {
+        if (string.IsNullOrEmpty(UserId))
+        {
+          return ClientId;
+        }
+        return $"{UserId}:{ClientId}";
+      }
+    }
 
-    public static SimpleTracker Instance {
+    public static Tracker Instance {
       get {
         if (instance == null) {
 #if DEBUG
@@ -31,13 +39,13 @@ namespace GoogleAnalyticsTracker.Generic
       }
     }
 
-    public SimpleTracker (string trackingAccount,
+    public Tracker (string trackingAccount,
                           string trackingDomain,
                           string Hostname,
                           string OsPlatform,
                           string OsVersion,
                           string OsVersionString)
-        : base (trackingAccount, trackingDomain, new AnalyticsSession (), new SimpleTrackerEnvironment (Hostname, OsPlatform, OsVersion, OsVersionString))
+        : base (trackingAccount, trackingDomain, new AnalyticsSession (), new TrackerEnvironment (Hostname, OsPlatform, OsVersion, OsVersionString))
     {
     }
 
@@ -48,7 +56,7 @@ namespace GoogleAnalyticsTracker.Generic
                                   string OsVersion,
                                   string OsVersionString)
     {
-      instance = new SimpleTracker (trackingAccount,
+      instance = new Tracker (trackingAccount,
                                     trackingDomain,
                                     Hostname,
                                     OsPlatform,
@@ -67,7 +75,8 @@ namespace GoogleAnalyticsTracker.Generic
         CacheBuster = AnalyticsSession.GenerateCacheBuster (),
         ViewportSize = ViewportSize,
         ScreenResolution = ScreenResolution,
-        ClientId = ClientId
+        ClientId = MergedIds,
+        UserId = UserId
       };
       return await TrackAsync (screenviewParamenters);
     }

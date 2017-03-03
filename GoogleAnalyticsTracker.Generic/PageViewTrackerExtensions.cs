@@ -6,7 +6,7 @@ namespace GoogleAnalyticsTracker.Generic
 {
     public static class PageViewTrackerExtensions
     {        
-        public static async Task<TrackingResult> TrackPageViewAsync(this SimpleTracker tracker, string pageTitle, string pageUrl)
+        public static async Task<TrackingResult> TrackPageViewAsync(this Tracker tracker, string pageTitle, string pageUrl)
         {
             var pageViewParameters = new PageView
             {

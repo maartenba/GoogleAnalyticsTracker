@@ -7,7 +7,7 @@ namespace GoogleAnalyticsTracker.Generic
 {
     public static class EventTrackerExtensions
     {
-        public static async Task<TrackingResult> TrackEventAsync(this SimpleTracker tracker, string category, string action, string label, long value = 1)
+        public static async Task<TrackingResult> TrackEventAsync(this Tracker tracker, string category, string action, string label, long value = 1)
         {
             var eventTrackingParameters = new EventTracking
             {
