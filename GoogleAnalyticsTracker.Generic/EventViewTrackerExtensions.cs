@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using GoogleAnalyticsTracker.Core;
 using GoogleAnalyticsTracker.Core.TrackerParameters;
 
-namespace GoogleAnalyticsTracker.Simple
+namespace GoogleAnalyticsTracker.Generic
 {
     public static class EventTrackerExtensions
     {
