@@ -2,7 +2,7 @@ using System;
 using System.Net;
 using GoogleAnalyticsTracker.Core.Interface;
 
-namespace GoogleAnalyticsTracker.Simple
+namespace GoogleAnalyticsTracker.Generic
 {
   public class SimpleTrackerEnvironment : ITrackerEnvironment
   {

@@ -4,7 +4,7 @@ using GoogleAnalyticsTracker.Core;
 using GoogleAnalyticsTracker.Core.Interface;
 using GoogleAnalyticsTracker.Core.TrackerParameters;
 
-namespace GoogleAnalyticsTracker.Simple
+namespace GoogleAnalyticsTracker.Generic
 {
   public class SimpleTracker : TrackerBase
   {
