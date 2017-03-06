@@ -19,14 +19,6 @@ Windows applications (WinForms, WPF, Console):
 
     Install-Package GoogleAnalyticsTracker.Simple
 
-Windows Store (8 and 8.1) applications:
-
-    Install-Package GoogleAnalyticsTracker.RT
-
-Windows Phone (8 and 8.1) applications:
-
-    Install-Package GoogleAnalyticsTracker.WP8
-
 ASP.NET MVC 4 applications:
 
     Install-Package GoogleAnalyticsTracker.MVC4
@@ -50,6 +42,14 @@ OWIN applications:
 Nancy applications:
 
     Install-Package GoogleAnalyticsTracker.Nancy
+
+(deprecated) Windows Store (8 and 8.1) application:
+
+    Install-Package GoogleAnalyticsTracker.RT
+
+(deprecated) Windows Phone (8 and 8.1) applications:
+
+    Install-Package GoogleAnalyticsTracker.WP8
 	
 ## Example usage
 
