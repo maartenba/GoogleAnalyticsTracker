@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyProduct("GoogleAnalyticsTracker")]
 [assembly: AssemblyCompany("GoogleAnalyticsTracker")]
-[assembly: AssemblyCopyright("Copyright © GoogleAnalyticsTracker 2012 - 2015")]
+[assembly: AssemblyCopyright("Copyright © GoogleAnalyticsTracker 2012 - 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]

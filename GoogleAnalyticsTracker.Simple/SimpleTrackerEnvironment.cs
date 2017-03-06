@@ -1,15 +1,36 @@
+using System;
 using GoogleAnalyticsTracker.Core.Interface;
 
 namespace GoogleAnalyticsTracker.Simple
 {
     public class SimpleTrackerEnvironment : ITrackerEnvironment
     {
-        public SimpleTrackerEnvironment(string Hostname, string OsPlatform, string OsVersion, string OsVersionString)
+        /// <summary>
+        /// Create a new SimpleTrackerEnvironment.
+        /// </summary>
+        /// <param name="hostname">Machine hostname, e.g. Dns.GetHostName()</param>
+        /// <param name="osPlatform">OS platform, e.g. Environment.OSVersion.Platform.ToString()</param>
+        /// <param name="osVersion">OS version, e.g. Environment.OSVersion.Version.ToString()</param>
+        /// <param name="osVersionString">OS version string, e.g. Environment.OSVersion.VersionString</param>
+        /// <example>
+        /// var simpleTrackerEnvironment = new SimpleTrackerEnvironment(
+        ///     Dns.GetHostName(),
+        ///     Environment.OSVersion.Platform.ToString(),
+        ///     Environment.OSVersion.Version.ToString(),
+        ///     Environment.OSVersion.VersionString
+        /// );
+        /// </example>
+        public SimpleTrackerEnvironment(string hostname, string osPlatform, string osVersion, string osVersionString)
         {
-            this.Hostname = Hostname;
-            this.OsPlatform = OsPlatform;
-            this.OsVersion = OsVersion;
-            this.OsVersionString = OsVersionString;
+            if (hostname == null) throw new ArgumentNullException(nameof(hostname));
+            if (osPlatform == null) throw new ArgumentNullException(nameof(osPlatform));
+            if (osVersion == null) throw new ArgumentNullException(nameof(osVersion));
+            if (osVersionString == null) throw new ArgumentNullException(nameof(osVersionString));
+
+            Hostname = hostname;
+            OsPlatform = osPlatform;
+            OsVersion = osVersion;
+            OsVersionString = osVersionString;
         }
 
         public string Hostname { get; set; }
