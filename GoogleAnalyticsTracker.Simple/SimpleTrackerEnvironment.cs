@@ -1,17 +1,15 @@
-using System;
-using System.Net;
 using GoogleAnalyticsTracker.Core.Interface;
 
 namespace GoogleAnalyticsTracker.Simple
 {
     public class SimpleTrackerEnvironment : ITrackerEnvironment
     {
-        public SimpleTrackerEnvironment()
+        public SimpleTrackerEnvironment(string Hostname, string OsPlatform, string OsVersion, string OsVersionString)
         {
-            Hostname = Dns.GetHostName();
-            OsPlatform = Environment.OSVersion.Platform.ToString();
-            OsVersion = Environment.OSVersion.Version.ToString();
-            OsVersionString = Environment.OSVersion.VersionString;
+            this.Hostname = Hostname;
+            this.OsPlatform = OsPlatform;
+            this.OsVersion = OsVersion;
+            this.OsVersionString = OsVersionString;
         }
 
         public string Hostname { get; set; }
