@@ -1,0 +1,79 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleAnalyticsTracker.iOS", "GoogleAnalyticsTracker.iOS\GoogleAnalyticsTracker.iOS.csproj", "{B8E48218-AA61-4F23-A59B-042A17D0FB74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleAnalyticsTracker.Android", "GoogleAnalyticsTracker.Android\GoogleAnalyticsTracker.Android.csproj", "{E4C90D59-09F9-4C73-806F-0B8830231051}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		CI|Any CPU = CI|Any CPU
+		CI|ARM = CI|ARM
+		CI|x64 = CI|x64
+		CI|x86 = CI|x86
+		Debug|Any CPU = Debug|Any CPU
+		Debug|ARM = Debug|ARM
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|ARM = Release|ARM
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B8E48218-AA61-4F23-A59B-042A17D0FB74}.CI|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8E48218-AA61-4F23-A59B-042A17D0FB74}.CI|Any CPU.Build.0 = Debug|Any CPU
+		{B8E48218-AA61-4F23-A59B-042A17D0FB74}.CI|ARM.ActiveCfg = Debug|Any CPU
+		{B8E48218-AA61-4F23-A59B-042A17D0FB74}.CI|ARM.Build.0 = Debug|Any CPU
+		{B8E48218-AA61-4F23-A59B-042A17D0FB74}.CI|x64.ActiveCfg = Debug|Any CPU
+		{B8E48218-AA61-4F23-A59B-042A17D0FB74}.CI|x64.Build.0 = Debug|Any CPU
+		{B8E48218-AA61-4F23-A59B-042A17D0FB74}.CI|x86.ActiveCfg = Debug|Any CPU
+		{B8E48218-AA61-4F23-A59B-042A17D0FB74}.CI|x86.Build.0 = Debug|Any CPU
+		{B8E48218-AA61-4F23-A59B-042A17D0FB74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8E48218-AA61-4F23-A59B-042A17D0FB74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8E48218-AA61-4F23-A59B-042A17D0FB74}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{B8E48218-AA61-4F23-A59B-042A17D0FB74}.Debug|ARM.Build.0 = Debug|Any CPU
+		{B8E48218-AA61-4F23-A59B-042A17D0FB74}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B8E48218-AA61-4F23-A59B-042A17D0FB74}.Debug|x64.Build.0 = Debug|Any CPU
+		{B8E48218-AA61-4F23-A59B-042A17D0FB74}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B8E48218-AA61-4F23-A59B-042A17D0FB74}.Debug|x86.Build.0 = Debug|Any CPU
+		{B8E48218-AA61-4F23-A59B-042A17D0FB74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8E48218-AA61-4F23-A59B-042A17D0FB74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8E48218-AA61-4F23-A59B-042A17D0FB74}.Release|ARM.ActiveCfg = Release|Any CPU
+		{B8E48218-AA61-4F23-A59B-042A17D0FB74}.Release|ARM.Build.0 = Release|Any CPU
+		{B8E48218-AA61-4F23-A59B-042A17D0FB74}.Release|x64.ActiveCfg = Release|Any CPU
+		{B8E48218-AA61-4F23-A59B-042A17D0FB74}.Release|x64.Build.0 = Release|Any CPU
+		{B8E48218-AA61-4F23-A59B-042A17D0FB74}.Release|x86.ActiveCfg = Release|Any CPU
+		{B8E48218-AA61-4F23-A59B-042A17D0FB74}.Release|x86.Build.0 = Release|Any CPU
+		{E4C90D59-09F9-4C73-806F-0B8830231051}.CI|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4C90D59-09F9-4C73-806F-0B8830231051}.CI|Any CPU.Build.0 = Debug|Any CPU
+		{E4C90D59-09F9-4C73-806F-0B8830231051}.CI|ARM.ActiveCfg = Debug|Any CPU
+		{E4C90D59-09F9-4C73-806F-0B8830231051}.CI|ARM.Build.0 = Debug|Any CPU
+		{E4C90D59-09F9-4C73-806F-0B8830231051}.CI|x64.ActiveCfg = Debug|Any CPU
+		{E4C90D59-09F9-4C73-806F-0B8830231051}.CI|x64.Build.0 = Debug|Any CPU
+		{E4C90D59-09F9-4C73-806F-0B8830231051}.CI|x86.ActiveCfg = Debug|Any CPU
+		{E4C90D59-09F9-4C73-806F-0B8830231051}.CI|x86.Build.0 = Debug|Any CPU
+		{E4C90D59-09F9-4C73-806F-0B8830231051}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4C90D59-09F9-4C73-806F-0B8830231051}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4C90D59-09F9-4C73-806F-0B8830231051}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{E4C90D59-09F9-4C73-806F-0B8830231051}.Debug|ARM.Build.0 = Debug|Any CPU
+		{E4C90D59-09F9-4C73-806F-0B8830231051}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E4C90D59-09F9-4C73-806F-0B8830231051}.Debug|x64.Build.0 = Debug|Any CPU
+		{E4C90D59-09F9-4C73-806F-0B8830231051}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E4C90D59-09F9-4C73-806F-0B8830231051}.Debug|x86.Build.0 = Debug|Any CPU
+		{E4C90D59-09F9-4C73-806F-0B8830231051}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4C90D59-09F9-4C73-806F-0B8830231051}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4C90D59-09F9-4C73-806F-0B8830231051}.Release|ARM.ActiveCfg = Release|Any CPU
+		{E4C90D59-09F9-4C73-806F-0B8830231051}.Release|ARM.Build.0 = Release|Any CPU
+		{E4C90D59-09F9-4C73-806F-0B8830231051}.Release|x64.ActiveCfg = Release|Any CPU
+		{E4C90D59-09F9-4C73-806F-0B8830231051}.Release|x64.Build.0 = Release|Any CPU
+		{E4C90D59-09F9-4C73-806F-0B8830231051}.Release|x86.ActiveCfg = Release|Any CPU
+		{E4C90D59-09F9-4C73-806F-0B8830231051}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = GoogleAnalyticsTracker.iOS\GoogleAnalyticsTracker.iOS.csproj
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

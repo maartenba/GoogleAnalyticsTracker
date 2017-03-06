@@ -15,3 +15,7 @@
 obj/
 bin/
 *.suo
+
+#MonoDevelop/Mac stuff
+*.userprefs
+.DS_Store

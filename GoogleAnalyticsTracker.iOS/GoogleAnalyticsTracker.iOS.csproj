@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B8E48218-AA61-4F23-A59B-042A17D0FB74}</ProjectGuid>
+    <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>GoogleAnalyticsTracker.iOS</RootNamespace>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <AssemblyName>GoogleAnalyticsTracker.iOS</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;WINDOWS_PHONE;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <DefineConstants>NETFX_CORE;WINDOWS_PHONE;</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="monotouch" />
+    <Reference Include="System.Web.Services" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Compile Include="..\GoogleAnalyticsTracker\AnalyticsSession.cs">
+      <Link>AnalyticsSession.cs</Link>
+    </Compile>
+    <Compile Include="..\GoogleAnalyticsTracker\CustomVariable.cs">
+      <Link>CustomVariable.cs</Link>
+    </Compile>
+    <Compile Include="..\GoogleAnalyticsTracker\DateTimeExtensions.cs">
+      <Link>DateTimeExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\GoogleAnalyticsTracker\EventTrackerExtensions.cs">
+      <Link>EventTrackerExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\GoogleAnalyticsTracker\IAnalyticsSession.cs">
+      <Link>IAnalyticsSession.cs</Link>
+    </Compile>
+    <Compile Include="..\GoogleAnalyticsTracker\Tracker.async.cs">
+      <Link>Tracker.async.cs</Link>
+    </Compile>
+    <Compile Include="..\GoogleAnalyticsTracker\Tracker.cs">
+      <Link>Tracker.cs</Link>
+    </Compile>
+    <Compile Include="..\GoogleAnalyticsTracker\Tracker.tracking.cs">
+      <Link>Tracker.tracking.cs</Link>
+    </Compile>
+    <Compile Include="..\GoogleAnalyticsTracker\TrackingResult.cs">
+      <Link>TrackingResult.cs</Link>
+    </Compile>
+    <Compile Include="..\GoogleAnalyticsTracker\UtmeGenerator.cs">
+      <Link>UtmeGenerator.cs</Link>
+    </Compile>
+  </ItemGroup>
+</Project>
