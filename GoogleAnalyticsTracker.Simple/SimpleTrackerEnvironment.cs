@@ -1,5 +1,6 @@
 using System;
 using GoogleAnalyticsTracker.Core.Interface;
+using GoogleAnalyticsTracker.Core.TrackerParameters.Interface;
 
 namespace GoogleAnalyticsTracker.Simple
 {
@@ -37,5 +38,6 @@ namespace GoogleAnalyticsTracker.Simple
         public string OsPlatform { get; set; }
         public string OsVersion { get; set; }
         public string OsVersionString { get; set; }
+
     }
 }

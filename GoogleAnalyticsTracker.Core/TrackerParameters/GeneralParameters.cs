@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 using GoogleAnalyticsTracker.Core.TrackerParameters.Interface;
 
 namespace GoogleAnalyticsTracker.Core.TrackerParameters
@@ -323,6 +325,88 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         [Beacon("dclid")]
         public string GoogleDisplayAdsId { get; set; }
 
+        #endregion
+
+
+        #region Implementation of ICustomDimensionParameters
+        /// <summary>
+        /// Any custom dimensions are set here.
+        /// </summary>
+
+        public void SetCustomDimensions(IDictionary<int, string> customDimensions)
+        {
+            if (customDimensions == null || customDimensions.Count <= 0) return;
+            foreach (var dimension in customDimensions)
+            {
+                if (dimension.Value == null) continue;
+                var value = dimension.Value;
+
+                //max length of 150 bytes for custom dimensions
+                if (value.Length > 149) value = value.Substring(0, 149);
+
+                if (dimension.Key == 1) CustomDimension1 = value;
+                else if (dimension.Key == 2) CustomDimension2 = value;
+                else if (dimension.Key == 3) CustomDimension3 = value;
+                else if (dimension.Key == 4) CustomDimension4 = value;
+                else if (dimension.Key == 5) CustomDimension5 = value;
+                else if (dimension.Key == 6) CustomDimension6 = value;
+                else if (dimension.Key == 7) CustomDimension7 = value;
+                else if (dimension.Key == 8) CustomDimension8 = value;
+                else if (dimension.Key == 9) CustomDimension9 = value;
+                else if (dimension.Key == 10) CustomDimension10 = value;
+                else if (dimension.Key == 11) CustomDimension11 = value;
+                else if (dimension.Key == 12) CustomDimension12 = value;
+                else if (dimension.Key == 13) CustomDimension13 = value;
+                else if (dimension.Key == 14) CustomDimension14 = value;
+                else if (dimension.Key == 15) CustomDimension15 = value;
+                else if (dimension.Key == 16) CustomDimension16 = value;
+                else if (dimension.Key == 17) CustomDimension17 = value;
+                else if (dimension.Key == 18) CustomDimension18 = value;
+                else if (dimension.Key == 19) CustomDimension19 = value;
+                else if (dimension.Key == 20) CustomDimension20 = value;
+            }
+        }
+
+        [Beacon("cd1")]
+        public string CustomDimension1 { get; set; }
+        [Beacon("cd2")]
+        public string CustomDimension2 { get; set; }
+        [Beacon("cd3")]
+        public string CustomDimension3 { get; set; }
+        [Beacon("cd4")]
+        public string CustomDimension4 { get; set; }
+        [Beacon("cd5")]
+        public string CustomDimension5 { get; set; }
+        [Beacon("cd6")]
+        public string CustomDimension6 { get; set; }
+        [Beacon("cd7")]
+        public string CustomDimension7 { get; set; }
+        [Beacon("cd8")]
+        public string CustomDimension8 { get; set; }
+        [Beacon("cd9")]
+        public string CustomDimension9 { get; set; }
+        [Beacon("cd10")]
+        public string CustomDimension10 { get; set; }
+        [Beacon("cd11")]
+        public string CustomDimension11 { get; set; }
+        [Beacon("cd12")]
+        public string CustomDimension12 { get; set; }
+        [Beacon("cd13")]
+        public string CustomDimension13 { get; set; }
+        [Beacon("cd14")]
+        public string CustomDimension14 { get; set; }
+        [Beacon("cd15")]
+        public string CustomDimension15 { get; set; }
+        [Beacon("cd16")]
+        public string CustomDimension16 { get; set; }
+        [Beacon("cd17")]
+        public string CustomDimension17 { get; set; }
+        [Beacon("cd18")]
+        public string CustomDimension18 { get; set; }
+        [Beacon("cd19")]
+        public string CustomDimension19 { get; set; }
+        [Beacon("cd20")]
+        public string CustomDimension20 { get; set; }
         #endregion
     }
 }
