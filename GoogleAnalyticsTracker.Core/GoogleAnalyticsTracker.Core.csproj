@@ -98,7 +98,6 @@
     <Compile Include="TrackerParameters\UserTimings.cs" />
     <Compile Include="TrackingResult.cs" />
     <Compile Include="TrackerParameters\BeaconAttribute.cs" />
-    <Compile Include="WebRequestExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GoogleAnalyticsTracker.snk" />
