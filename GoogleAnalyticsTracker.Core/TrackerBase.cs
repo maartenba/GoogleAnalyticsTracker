@@ -31,6 +31,9 @@ namespace GoogleAnalyticsTracker.Core
         public bool ThrowOnErrors { get; set; }        
         public string EndpointUrl { get; set; }
 
+        /// <summary> Use HTTP GET (not recommended) instead of POST.</summary>
+        public bool UseHttpGet { get; set; }
+
         public TrackerBase(string trackingAccount, string trackingDomain, ITrackerEnvironment trackerEnvironment)
             : this(trackingAccount, trackingDomain, new AnalyticsSession(), trackerEnvironment)
         {
@@ -82,15 +85,19 @@ namespace GoogleAnalyticsTracker.Core
             HttpWebRequest request;
             try
             {
-                request = (HttpWebRequest)WebRequest.Create(string.Format("{0}?{1}", url, data));                
+                if (UseHttpGet)
+                    request = CreateGetWebRequest(url, data.ToString());
+                else
+                    request = CreatePostWebRequest(url, data.ToString());
+
                 request.SetHeader("Referer", referer);
                 request.SetHeader("User-Agent", userAgent ?? UserAgent);
             }
             catch (Exception ex)
             {
-                if (ThrowOnErrors)                
-                    throw;                
-                
+                if (ThrowOnErrors)
+                    throw;
+
                 returnValue.Success = false;
                 returnValue.Exception = ex;
                 return returnValue;
@@ -100,7 +107,7 @@ namespace GoogleAnalyticsTracker.Core
             WebResponse response = null;
             try
             {
-                response = await Task.Factory.FromAsync<WebResponse>(request.BeginGetResponse, request.EndGetResponse, null);
+                response = await Task.Factory.FromAsync(request.BeginGetResponse, request.EndGetResponse, null);
                 returnValue.Success = true;
             }
             catch (Exception ex)
@@ -120,6 +127,26 @@ namespace GoogleAnalyticsTracker.Core
             }
 
             return returnValue;
+        }
+
+        private HttpWebRequest CreateGetWebRequest(string url, string data)
+        {
+            HttpWebRequest request = WebRequest.CreateHttp(string.Format("{0}?{1}", url, data));
+            return request;
+        }
+
+        private HttpWebRequest CreatePostWebRequest(string url, string data)
+        {
+            HttpWebRequest request = WebRequest.CreateHttp(url);
+            request.Method = "POST";
+            byte[] dataBytes = Encoding.UTF8.GetBytes(data.ToString());
+            using (var stream = request.GetRequestStreamAsync().Result)
+            {
+                stream.Write(dataBytes, 0, dataBytes.Length);
+                stream.Flush();
+                stream.Dispose();
+            }
+            return request;
         }
 
         #region IDisposable Members
