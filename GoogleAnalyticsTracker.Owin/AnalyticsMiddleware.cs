@@ -31,8 +31,7 @@ namespace GoogleAnalyticsTracker.Owin
         {
             using (var tracker = new Tracker(context, _trackingId, _baseUri)
                                      {
-                                         ThrowOnErrors = true,
-                                         UseSsl = true
+                                         ThrowOnErrors = true
                                      })
             {
                 // Run the original request

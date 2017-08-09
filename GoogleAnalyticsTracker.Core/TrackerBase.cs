@@ -12,8 +12,12 @@ namespace GoogleAnalyticsTracker.Core
         public const string TrackingAccountConfigurationKey = "GoogleAnalyticsTracker.TrackingAccount";
         public const string TrackingDomainConfigurationKey = "GoogleAnalyticsTracker.TrackingDomain";
 
-        const string BeaconUrl = "http://www.google-analytics.com/collect";
-        const string BeaconUrlSsl = "https://ssl.google-analytics.com/collect";        
+        /// <summary> Default Google Endpoint URL. </summary>
+        public const string GoogleEndpointUrl = "https://www.google-analytics.com/collect";
+        /// <summary> Non-secure Google Endpoint URL, not recommended. </summary>
+        public const string GoogleEndpointNonSecureUrl = "http://www.google-analytics.com/collect";
+        /// <summary> Debug, validating Google Endpoint. </summary>
+        public const string GoogleEndpointDebugUrl = "https://www.google-analytics.com/debug/collect";
 
         public string TrackingAccount { get; set; }
         public string TrackingDomain { get; set; }
@@ -25,7 +29,7 @@ namespace GoogleAnalyticsTracker.Core
         public string CharacterSet { get; set; }        
 
         public bool ThrowOnErrors { get; set; }        
-        public bool UseSsl { get; set; }
+        public string EndpointUrl { get; set; }
 
         public TrackerBase(string trackingAccount, string trackingDomain, ITrackerEnvironment trackerEnvironment)
             : this(trackingAccount, trackingDomain, new AnalyticsSession(), trackerEnvironment)
@@ -40,6 +44,7 @@ namespace GoogleAnalyticsTracker.Core
 
             Hostname = trackerEnvironment.Hostname;
             Language = "en";
+            EndpointUrl = GoogleEndpointUrl;
             UserAgent = string.Format("GoogleAnalyticsTracker/3.0 ({0}; {1}; {2})", trackerEnvironment.OsPlatform, trackerEnvironment.OsVersion, trackerEnvironment.OsVersionString);
 
             InitializeCharset();                  
