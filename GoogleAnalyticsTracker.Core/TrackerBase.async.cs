@@ -97,11 +97,7 @@ namespace GoogleAnalyticsTracker.Core
 
             var parameters = GetParametersDictionary(generalParameters);
 
-            var url = UseSsl
-                ? BeaconUrlSsl
-                : BeaconUrl;
-
-            return await RequestUrlAsync(url, parameters, generalParameters.UserAgent ?? UserAgent);
+            return await RequestUrlAsync(EndpointUrl, parameters, generalParameters.UserAgent ?? UserAgent);
         }
     }
 }
