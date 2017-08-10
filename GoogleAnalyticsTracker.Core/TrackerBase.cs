@@ -82,14 +82,9 @@ namespace GoogleAnalyticsTracker.Core
             HttpWebRequest request;
             try
             {
-                if (UseHttpGet)
-                {
-                    request = CreateGetWebRequest(url, data.ToString());
-                }
-                else
-                {
-                    request = CreatePostWebRequest(url, data.ToString());
-                }
+                request = UseHttpGet
+                    ? CreateGetWebRequest(url, data.ToString())
+                    : CreatePostWebRequest(url, data.ToString());
 
                 if (!string.IsNullOrEmpty(referer))
                 {
@@ -145,7 +140,7 @@ namespace GoogleAnalyticsTracker.Core
 
         private HttpWebRequest CreateGetWebRequest(string url, string data)
         {
-            return (HttpWebRequest)WebRequest.CreateHttp(string.Format("{0}?{1}", url, data));
+            return WebRequest.CreateHttp(string.Format("{0}?{1}", url, data));
         }
 
         private HttpWebRequest CreatePostWebRequest(string url, string data)

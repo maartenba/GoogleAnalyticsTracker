@@ -1,18 +1,17 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
-namespace GoogleAnalyticsTracker.WebApi 
+namespace GoogleAnalyticsTracker.WebApi
 {
-	public static class HttpRequestMessageExtensions 
+    public static class HttpRequestMessageExtensions 
     {
 		public static string GetDeserializedCookieValue(this HttpRequestMessage request, string key)
         {
 			if (request != null)
             {
 				var cookies = request.Headers.GetCookies(key);
-				return cookies.Where(c=>!String.IsNullOrEmpty(c[key].Value)).Select(c=>c[key].Value).FirstOrDefault();
+				return cookies.Where(c=>!string.IsNullOrEmpty(c[key].Value)).Select(c=>c[key].Value).FirstOrDefault();
 			}
 			return null;
 		}

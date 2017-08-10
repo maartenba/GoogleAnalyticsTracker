@@ -4,19 +4,14 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
 {
     public class ContentExperiments : GeneralParameters, IContentExperimentsParameters
     {
-        private readonly HitType _hitType;
-
         public ContentExperiments(HitType hitType)
         {
-            _hitType = hitType;
+            HitType = hitType;
         }
 
         #region Overrides of GeneralParameters
 
-        public override HitType HitType
-        {
-            get { return _hitType; }
-        }
+        public override HitType HitType { get; }
 
         #endregion
 

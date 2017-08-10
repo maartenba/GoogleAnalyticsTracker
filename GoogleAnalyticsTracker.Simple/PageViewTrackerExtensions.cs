@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using GoogleAnalyticsTracker.Core;
 using GoogleAnalyticsTracker.Core.TrackerParameters;
-using GoogleAnalyticsTracker.Core.TrackerParameters.Interface;
 
 namespace GoogleAnalyticsTracker.Simple
 {

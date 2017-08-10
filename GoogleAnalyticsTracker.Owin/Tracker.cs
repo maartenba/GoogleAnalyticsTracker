@@ -32,7 +32,9 @@ namespace GoogleAnalyticsTracker.Owin
                 UserAgent = _context.Request.Headers["User-Agent"],
                 UserLanguage = _context.Request.Headers["Accept-Language"],
                 DocumentReferrer = _context.Request.Headers["Referrer"],
-                IpOverride = _context.Request.Environment["server.RemoteIpAddress"] != null ? _context.Request.Environment["server.RemoteIpAddress"].ToString() : null,
+                IpOverride = _context.Request.Environment["server.RemoteIpAddress"] != null 
+                    ? _context.Request.Environment["server.RemoteIpAddress"].ToString() 
+                    : null,
                 UserId = _context.Authentication.User.Identity.Name
             };
 
@@ -49,7 +51,9 @@ namespace GoogleAnalyticsTracker.Owin
                 UserAgent = _context.Request.Headers["User-Agent"],
                 UserLanguage = _context.Request.Headers["Accept-Language"],
                 DocumentReferrer = _context.Request.Headers["Referrer"],
-                IpOverride = _context.Request.Environment["server.RemoteIpAddress"] != null ? _context.Request.Environment["server.RemoteIpAddress"].ToString() : null,
+                IpOverride = _context.Request.Environment["server.RemoteIpAddress"] != null 
+                    ? _context.Request.Environment["server.RemoteIpAddress"].ToString() 
+                    : null,
                 UserId = _context.Authentication.User.Identity.Name
             };
 

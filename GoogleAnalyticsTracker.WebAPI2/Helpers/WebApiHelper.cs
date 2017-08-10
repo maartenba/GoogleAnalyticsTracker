@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using System.Web;
 
-namespace GoogleAnalyticsTracker.WebAPI2
+namespace GoogleAnalyticsTracker.WebAPI2.Helpers
 {
     internal static class WebApiHelper
     {

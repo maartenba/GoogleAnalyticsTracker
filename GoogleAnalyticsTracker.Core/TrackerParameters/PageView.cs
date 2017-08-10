@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace GoogleAnalyticsTracker.Core.TrackerParameters
 {
     public class PageView : GeneralParameters

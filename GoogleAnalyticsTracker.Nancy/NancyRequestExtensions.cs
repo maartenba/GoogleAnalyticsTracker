@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Nancy;
 
 namespace GoogleAnalyticsTracker.Nancy
@@ -11,7 +10,7 @@ namespace GoogleAnalyticsTracker.Nancy
             if (request != null)
             {
                 var cookies = request.Cookies.Where(c => c.Key == key).ToList();
-                return cookies.Where(c => !String.IsNullOrEmpty(c.Value)).Select(c => c.Value).FirstOrDefault();
+                return cookies.Where(c => !string.IsNullOrEmpty(c.Value)).Select(c => c.Value).FirstOrDefault();
             }
             return null;
         }

@@ -2,6 +2,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using GoogleAnalyticsTracker.Core;
 using GoogleAnalyticsTracker.Core.TrackerParameters;
+using GoogleAnalyticsTracker.WebAPI2.Helpers;
 
 namespace GoogleAnalyticsTracker.WebAPI2
 {

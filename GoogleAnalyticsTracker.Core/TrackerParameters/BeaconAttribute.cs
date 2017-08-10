@@ -8,15 +8,17 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <summary>
         /// Beacon name
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; }
+
         /// <summary>
         /// Indicates that beacon is a Enum and must use its value.
         /// </summary>
-        public bool IsEnumByValueBased { get; private set; }
+        public bool IsEnumByValueBased { get; }
+
         /// <summary>
         /// Indicates whether is required or not.
         /// </summary>
-        public bool IsRequired { get; private set; }        
+        public bool IsRequired { get; }        
 
         /// <summary>
         /// ctor

@@ -13,9 +13,9 @@ namespace GoogleAnalyticsTracker.WebAPI2
         Func<HttpActionContext, bool> _isTrackableAction;
         public Tracker Tracker { get; set; }
 
-        public string Category { get; private set; }
-        public string Var { get; private set; }
-        public string Label { get; private set; }
+        public string Category { get; }
+        public string Var { get; }
+        public string Label { get; }
 
         public UserTimingTrackingAttribute(string trackingAccount, string category, string var, string label = null)
             : this(trackingAccount, null, category, var, label)
