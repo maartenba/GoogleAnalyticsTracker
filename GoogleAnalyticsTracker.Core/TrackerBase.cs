@@ -6,18 +6,11 @@ using System.Threading.Tasks;
 using GoogleAnalyticsTracker.Core.Interface;
 
 namespace GoogleAnalyticsTracker.Core
-{    
+{
     public partial class TrackerBase : IDisposable
     {
         public const string TrackingAccountConfigurationKey = "GoogleAnalyticsTracker.TrackingAccount";
         public const string TrackingDomainConfigurationKey = "GoogleAnalyticsTracker.TrackingDomain";
-
-        /// <summary> Default Google Endpoint URL. </summary>
-        public const string GoogleEndpointUrl = "https://www.google-analytics.com/collect";
-        /// <summary> Non-secure Google Endpoint URL, not recommended. </summary>
-        public const string GoogleEndpointNonSecureUrl = "http://www.google-analytics.com/collect";
-        /// <summary> Debug, validating Google Endpoint. </summary>
-        public const string GoogleEndpointDebugUrl = "https://www.google-analytics.com/debug/collect";
 
         public string TrackingAccount { get; set; }
         public string TrackingDomain { get; set; }
@@ -47,7 +40,7 @@ namespace GoogleAnalyticsTracker.Core
 
             Hostname = trackerEnvironment.Hostname;
             Language = "en";
-            EndpointUrl = GoogleEndpointUrl;
+            EndpointUrl = GoogleAnalyticsEndpoints.Default;
             UserAgent = string.Format("GoogleAnalyticsTracker/3.0 ({0}; {1}; {2})", trackerEnvironment.OsPlatform, trackerEnvironment.OsVersion, trackerEnvironment.OsVersionString);
 
             InitializeCharset();                  
@@ -90,23 +83,33 @@ namespace GoogleAnalyticsTracker.Core
             try
             {
                 if (UseHttpGet)
+                {
                     request = CreateGetWebRequest(url, data.ToString());
+                }
                 else
+                {
                     request = CreatePostWebRequest(url, data.ToString());
+                }
 
-                request = (HttpWebRequest)WebRequest.Create(string.Format("{0}?{1}", url, data));                
                 if (!string.IsNullOrEmpty(referer))
+                {
                     request.SetHeader("Referer", referer);
+                }
                 if (!string.IsNullOrEmpty(userAgent))
+                {
                     request.SetHeader("User-Agent", userAgent);
+                }
             }
             catch (Exception ex)
             {
                 if (ThrowOnErrors)
+                {
                     throw;
+                }
 
                 returnValue.Success = false;
                 returnValue.Exception = ex;
+
                 return returnValue;
             }
 
@@ -119,8 +122,10 @@ namespace GoogleAnalyticsTracker.Core
             }
             catch (Exception ex)
             {
-                if (ThrowOnErrors)                
-                    throw;                
+                if (ThrowOnErrors)
+                {
+                    throw;
+                }
                 else
                 {
                     returnValue.Success = false;
@@ -129,8 +134,10 @@ namespace GoogleAnalyticsTracker.Core
             }
             finally
             {
-                if (response != null)                
-                    response.Dispose();                
+                if (response != null)
+                {
+                    response.Dispose();
+                }
             }
 
             return returnValue;
@@ -138,15 +145,14 @@ namespace GoogleAnalyticsTracker.Core
 
         private HttpWebRequest CreateGetWebRequest(string url, string data)
         {
-            HttpWebRequest request = WebRequest.CreateHttp(string.Format("{0}?{1}", url, data));
-            return request;
+            return (HttpWebRequest)WebRequest.CreateHttp(string.Format("{0}?{1}", url, data));
         }
 
         private HttpWebRequest CreatePostWebRequest(string url, string data)
         {
-            HttpWebRequest request = WebRequest.CreateHttp(url);
+            var request = WebRequest.CreateHttp(url);
             request.Method = "POST";
-            byte[] dataBytes = Encoding.UTF8.GetBytes(data.ToString());
+            var dataBytes = Encoding.UTF8.GetBytes(data);
             using (var stream = request.GetRequestStreamAsync().Result)
             {
                 stream.Write(dataBytes, 0, dataBytes.Length);

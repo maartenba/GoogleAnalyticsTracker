@@ -55,6 +55,7 @@
     <Compile Include="AnalyticsSession.cs" />
     <Compile Include="AsyncHelper.cs" />
     <Compile Include="EnumExtensions.cs" />
+    <Compile Include="GoogleAnalyticsEndpoints.cs" />
     <Compile Include="TrackerParameters\ContentExperiments.cs" />
     <Compile Include="TrackerParameters\ExceptionTracking.cs" />
     <Compile Include="TrackerParameters\Interface\IContentExperimentsParameters.cs" />
