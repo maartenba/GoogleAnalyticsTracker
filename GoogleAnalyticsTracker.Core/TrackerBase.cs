@@ -50,7 +50,7 @@ namespace GoogleAnalyticsTracker.Core
             CharacterSet = "UTF-8";
         }
 
-        private async Task<TrackingResult> RequestUrlAsync(string url, IDictionary<string, string> parameters, string userAgent = null)
+        private async Task<TrackingResult> RequestUrlAsync(string url, IDictionary<string, string> parameters, string userAgent)
         {
             // Create GET string
             var data = new StringBuilder();
@@ -67,10 +67,14 @@ namespace GoogleAnalyticsTracker.Core
             };
 
             // Determine referer URL
-            var referer = string.Format("http://{0}/", TrackingDomain);
+            string referer = null;
             if (parameters.ContainsKey("ReferralUrl"))
             {
                 referer = parameters["ReferralUrl"];
+            }
+            else if (!string.IsNullOrEmpty(TrackingDomain))
+            {
+                referer = string.Format("http://{0}/", TrackingDomain);
             }
 
             // Create request
@@ -78,8 +82,10 @@ namespace GoogleAnalyticsTracker.Core
             try
             {
                 request = (HttpWebRequest)WebRequest.Create(string.Format("{0}?{1}", url, data));                
-                request.SetHeader("Referer", referer);
-                request.SetHeader("User-Agent", userAgent ?? UserAgent);
+                if (!string.IsNullOrEmpty(referer))
+                    request.SetHeader("Referer", referer);
+                if (!string.IsNullOrEmpty(userAgent))
+                    request.SetHeader("User-Agent", userAgent);
             }
             catch (Exception ex)
             {
