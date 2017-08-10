@@ -13,6 +13,7 @@
     <summary>GoogleAnalyticsTracker was created to have a means of tracking specific URL's directly from C#. For example, it enables you to log API calls to Google Analytics.</summary>
     <copyright>$copyright$</copyright>
     <tags>google analytics ga winrt win8 windows8 api rest client tracker stats statistics</tags>
+    <releaseNotes>THIS PACKAGE IS DEPRECATED! USE GoogleAnalyticsTracker.Simple INSTEAD! NO NEW VERSIONS OF THIS PACKAGE WILL BE RELEASED!</releaseNotes>
     <dependencies>
       <dependency id="GoogleAnalyticsTracker.Core" version="$version$" />
     </dependencies>
