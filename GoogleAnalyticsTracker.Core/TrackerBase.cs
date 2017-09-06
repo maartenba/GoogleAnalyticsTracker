@@ -4,6 +4,8 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using GoogleAnalyticsTracker.Core.Interface;
+using GoogleAnalyticsTracker.Core.TrackerParameters;
+using System.Linq;
 
 namespace GoogleAnalyticsTracker.Core
 {
@@ -55,7 +57,7 @@ namespace GoogleAnalyticsTracker.Core
         {
             // Create GET string
             var data = new StringBuilder();
-            foreach (var parameter in parameters)
+            foreach (var parameter in parameters.OrderBy(p => p.Key, new BeaconComparer()))
             {
                 data.Append(string.Format("{0}={1}&", parameter.Key, Uri.EscapeDataString(parameter.Value)));
             }
