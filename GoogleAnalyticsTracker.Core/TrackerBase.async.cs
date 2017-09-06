@@ -45,11 +45,7 @@ namespace GoogleAnalyticsTracker.Core
                 }
             }
 
-            beaconList.ShiftToLast("z");
-
-            return beaconList
-                .OrderBy(k => k.Item1, new BeaconComparer())
-                .ToDictionary(key => key.Item1, value => value.Item2);
+            return beaconList.ToDictionary(key => key.Item1, value => value.Item2);
         }
 
         private static object GetValueFromEnum(PropertyInfo propertyInfo, IGeneralParameters parameters)

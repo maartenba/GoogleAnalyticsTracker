@@ -2,22 +2,28 @@ using System.Collections.Generic;
 
 namespace GoogleAnalyticsTracker.Core.TrackerParameters
 {
-    class BeaconComparer : IComparer<string>
+    public class BeaconComparer : IComparer<string>
     {
-        static readonly List<string> Ordered = new List<string> { "t", "cid", "tid", "v" };
+        private static readonly List<string> Ordered = new List<string> { "t", "cid", "tid", "v" }; // reverse order
+        private static readonly List<string> LastOrdered = new List<string> { "z" }; // direct order
 
         public int Compare(string x, string y)
         {
             var xi = Ordered.IndexOf(x);
             var yi = Ordered.IndexOf(y);
-
             if (xi > yi)
                 return -1;
-
             if (xi < yi)
                 return 1;
 
-            return 0;
+            xi = LastOrdered.IndexOf(x);
+            yi = LastOrdered.IndexOf(y);
+            if (xi > yi)
+                return 1;
+            if (xi < yi)
+                return -1;
+
+            return string.CompareOrdinal(x, y);
         }
 
         public bool Equals(string x, string y)

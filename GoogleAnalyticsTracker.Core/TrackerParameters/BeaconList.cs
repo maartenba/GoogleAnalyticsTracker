@@ -1,17 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace GoogleAnalyticsTracker.Core.TrackerParameters
 {
-    class BeaconList<TKey, TValue> : IList<Beacon<TKey, TValue>>
-    {        
-        readonly IList<Beacon<TKey, TValue>> _list;
+    internal class BeaconList<TKey, TValue> : IList<Beacon<TKey, TValue>>
+    {
+        private readonly IList<Beacon<TKey, TValue>> _list;
 
         public BeaconList()
         {
             _list = new List<Beacon<TKey, TValue>>();
-        } 
+        }
 
         #region Implementation of IEnumerable
 
@@ -37,7 +36,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
             return GetEnumerator();
         }
 
-        #endregion
+        #endregion Implementation of IEnumerable
 
         #region Implementation of ICollection<Beacon<TKey,TValue>>
 
@@ -98,7 +97,8 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <returns>
         /// The number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1"/>.
         /// </returns>
-        public int Count {
+        public int Count
+        {
             get { return _list.Count; }
         }
 
@@ -108,11 +108,12 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <returns>
         /// true if the <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only; otherwise, false.
         /// </returns>
-        public bool IsReadOnly {
+        public bool IsReadOnly
+        {
             get { return _list.IsReadOnly; }
         }
 
-        #endregion
+        #endregion Implementation of ICollection<Beacon<TKey,TValue>>
 
         #region Implementation of IList<Beacon<TKey,TValue>>
 
@@ -159,28 +160,11 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
             set { _list[index] = value; }
         }
 
-        #endregion
+        #endregion Implementation of IList<Beacon<TKey,TValue>>
 
         public void Add(TKey key, TValue value)
         {
             _list.Add(new Beacon<TKey, TValue>(key, value));
         }
-
-        public void ShiftToLast(Beacon<TKey, TValue> item)
-        {
-            if (item == null) return;
-
-            var contains = _list.Contains(item);
-            if (!contains) return;
-
-            _list.Remove(item);
-            _list.Add(item);
-        }       
-
-        public void ShiftToLast(TKey key)
-        {            
-            var beacon = _list.FirstOrDefault(k => k.Item1.Equals(key));
-            ShiftToLast(beacon);
-        }                
     }
 }
