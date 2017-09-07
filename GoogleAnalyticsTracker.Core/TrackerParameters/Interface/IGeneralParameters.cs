@@ -2,7 +2,8 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
 {
     public interface IGeneralParameters : IHitParameters, IUserParameters, ISystemInfoParameters,
                                           IContentInformationParameters,
-                                          ISessionParameters, ITrafficSourcesParameters
+                                          ISessionParameters, ITrafficSourcesParameters,
+                                          IAppTrackingParameters, ICustomDimensionParameters
     {
         /// <summary>
         /// The Protocol version. The current value is '1'. This will only change when there are changes made that are not backwards compatible.

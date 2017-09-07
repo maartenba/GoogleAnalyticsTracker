@@ -1,7 +1,8 @@
-using System.Collections.Generic;
-
 namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
 {
+    /// <summary>
+    /// Custom dimension parameters. Currently, 20 indices for the standard GA account is supported only.
+    /// </summary>
     public interface ICustomDimensionParameters
     {
         string CustomDimension1 { get; set; }
@@ -43,6 +44,5 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         string CustomDimension19 { get; set; }
 
         string CustomDimension20 { get; set; }
-
     }
 }
