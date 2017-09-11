@@ -26,7 +26,11 @@ namespace GoogleAnalyticsTracker.Core
         public bool ThrowOnErrors { get; set; }        
         public string EndpointUrl { get; set; }
 
-        /// <summary> Use HTTP GET (not recommended) instead of POST.</summary>
+        /// <summary> 
+        /// Use HTTP GET (not recommended) instead of POST.
+        /// When switched on, the <see cref="AmendParameters(TrackerParameters.Interface.IGeneralParameters)"/>
+        /// sets the <see cref="TrackerParameters.Interface.IGeneralParameters.CacheBuster"/>, too.
+        /// </summary>
         public bool UseHttpGet { get; set; }
 
         public TrackerBase(string trackingAccount, string trackingDomain, ITrackerEnvironment trackerEnvironment)

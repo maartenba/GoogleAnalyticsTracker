@@ -23,7 +23,6 @@ namespace GoogleAnalyticsTracker.Nancy
                 DocumentHostName = httpRequest.Url.HostName,
                 UserLanguage = httpRequest.Headers.AcceptLanguage.ToString().ToLower(),
                 ReferralUrl = httpRequest.Headers.Referrer,
-                CacheBuster = tracker.AnalyticsSession.GenerateCacheBuster()
             };
 
             return await tracker.TrackAsync(pageViewParameters);

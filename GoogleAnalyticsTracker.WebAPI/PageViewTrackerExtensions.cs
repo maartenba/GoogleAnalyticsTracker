@@ -17,7 +17,6 @@ namespace GoogleAnalyticsTracker.WebApi
                 DocumentHostName = httpRequest.RequestUri.Host,
                 UserLanguage = httpRequest.Headers.AcceptLanguage.ToString().ToLower(),
                 ReferralUrl = httpRequest.Headers.Referrer != null ? httpRequest.Headers.Referrer.ToString() : null,
-                CacheBuster = tracker.AnalyticsSession.GenerateCacheBuster()
             };
 
             return await tracker.TrackAsync(pageViewParameters);

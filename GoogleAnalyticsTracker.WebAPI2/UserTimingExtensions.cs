@@ -21,7 +21,6 @@ namespace GoogleAnalyticsTracker.WebAPI2
                 UserTimingVariable = var,
                 UserTimingTime = value,
                 UserTimingLabel = label,                
-                CacheBuster = tracker.AnalyticsSession.GenerateCacheBuster()
             };
 
             return await tracker.TrackAsync(userTimingParameters);

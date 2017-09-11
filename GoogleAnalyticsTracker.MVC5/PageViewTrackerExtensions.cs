@@ -17,7 +17,6 @@ namespace GoogleAnalyticsTracker.MVC5
                 DocumentHostName = httpContext.Request.UserHostName,
                 UserLanguage = httpContext.Request.UserLanguages != null ? string.Join(";",  httpContext.Request.UserLanguages).ToLower() : null,
                 ReferralUrl = httpContext.Request.UrlReferrer != null ? httpContext.Request.UrlReferrer.ToString() : null,
-                CacheBuster = tracker.AnalyticsSession.GenerateCacheBuster()
             };
 
             return await tracker.TrackAsync(pageViewParameters);

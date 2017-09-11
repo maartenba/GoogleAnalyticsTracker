@@ -71,25 +71,53 @@ namespace GoogleAnalyticsTracker.Core
                 : value.ToString().ToLowerInvariant();
         }
 
-        private void SetRequired(IGeneralParameters parameters)
+        /// <summary>
+        /// Set base, required parameters if they are empty: TrackingId, ClientId.
+        /// </summary>
+        /// <param name="parameters">GA request parameters.</param>
+        private void SetRequiredParameters(IGeneralParameters parameters)
         {
-            parameters.TrackingId = TrackingAccount;
+            if (string.IsNullOrEmpty(parameters.ProtocolVersion))
+            {
+                throw new ArgumentException("No ProtocolVersion", nameof(parameters));
+            }
 
-            if (string.IsNullOrWhiteSpace(parameters.ClientId))
+            if (string.IsNullOrEmpty(parameters.TrackingId))
+            {
+                parameters.TrackingId = TrackingAccount;
+            }
+
+            if (string.IsNullOrEmpty(parameters.ClientId))
             {
                 parameters.ClientId = AnalyticsSession.GenerateSessionId();
             }
+        }
 
-            if (string.IsNullOrWhiteSpace(parameters.UserLanguage))
+        /// <summary>
+        /// Set additional properties in parameters if they are empty: CacheBuster.
+        /// The CacheBuster is set when UseHttpGet flag is set.
+        /// <para>
+        /// Override to change other properties.</para>
+        /// </summary>
+        /// <param name="parameters">GA request parameters.</param>
+        protected virtual void AmendParameters(IGeneralParameters parameters)
+        {
+            if (UseHttpGet && string.IsNullOrEmpty(parameters.CacheBuster))
             {
-                // Note: another way could be CultureInfo.CurrentCulture
-                parameters.UserLanguage = "en-US";
+                parameters.CacheBuster = AnalyticsSession.GenerateCacheBuster();
             }
-        }        
+        }
 
+        /// <summary>
+        /// Send parameters to GA endpoint.
+        /// </summary>
+        /// <param name="generalParameters">GA request parameters.</param>
+        /// <returns>Result of the request.</returns>
         public async Task<TrackingResult> TrackAsync(IGeneralParameters generalParameters)
         {
-            SetRequired(generalParameters);
+            AmendParameters(generalParameters);
+            // Set required must come after amend.
+            SetRequiredParameters(generalParameters);
 
             var parameters = GetParametersDictionary(generalParameters);
 
