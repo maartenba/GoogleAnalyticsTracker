@@ -42,7 +42,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         /// <remarks>Optional</remarks>
         /// <example>GoogleBoolean.True</example>
         /// </summary>        
-        GoogleBoolean? JavaEnabled { get; set; }
+        bool? JavaEnabled { get; set; }
 
         /// <summary>
         /// Specifies the flash version.

@@ -11,9 +11,9 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
 
         /// <summary>
         /// Specifies whether the exception was fatal.
-        /// <remarks>Optional</remarks>
-        /// <example>0</example>
+        /// <remarks>Optional, null value means the exception is fatal.</remarks>
+        /// <example>false</example>
         /// </summary>  
-        GoogleBoolean IsFatal { get; set; }
+        bool? IsFatal { get; set; }
     }
 }

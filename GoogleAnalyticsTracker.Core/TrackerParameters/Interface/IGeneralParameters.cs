@@ -24,7 +24,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         /// <remarks>Optional</remarks>
         /// <example>GoogleBoolean.True</example>
         /// </summary>        
-        GoogleBoolean? AnonymizeIp { get; set; }
+        bool? AnonymizeIp { get; set; }
 
         /// <summary>
         /// Used to collect offline / latent hits. 

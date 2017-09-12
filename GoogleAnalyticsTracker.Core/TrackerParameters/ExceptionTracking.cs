@@ -25,16 +25,16 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <remarks>Optional</remarks>
         /// <example>DatabaseError</example>
         /// </summary>   
-        [Beacon("exd", false, true)]
+        [Beacon("exd")]
         public string Description { get; set; }
 
         /// <summary>
         /// Specifies whether the exception was fatal.
-        /// <remarks>Optional</remarks>
-        /// <example>0</example>
+        /// <remarks>Optional, null value means the exception is fatal.</remarks>
+        /// <example>false</example>
         /// </summary> 
-        [Beacon("exf", false, true)] 
-        public GoogleBoolean IsFatal { get; set; }
+        [Beacon("exf")] 
+        public bool? IsFatal { get; set; }
 
         #endregion
     }

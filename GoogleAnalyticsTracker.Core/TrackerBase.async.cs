@@ -34,6 +34,12 @@ namespace GoogleAnalyticsTracker.Core
                 {
                     value = GetLowerCaseValueFromEnum(p, parameters) ?? p.GetMethod.Invoke(parameters, null);
                 }
+                else if (p.PropertyType == typeof(bool) || Nullable.GetUnderlyingType(p.PropertyType) != null)
+                {
+                    value = p.GetMethod.Invoke(parameters, null);
+                    if (value != null)
+                        value = (bool)value ? "1" : "0";
+                }
                 else
                 {
                     value = p.GetMethod.Invoke(parameters, null);

@@ -70,7 +70,6 @@
     <Compile Include="TrackerParameters\ECommerceTransaction.cs" />
     <Compile Include="TrackerParameters\EventTracking.cs" />
     <Compile Include="TrackerParameters\GeneralParameters.cs" />
-    <Compile Include="TrackerParameters\GoogleBoolean.cs" />
     <Compile Include="TrackerParameters\HitType.cs" />
     <Compile Include="HttpWebRequestExtensions.cs" />
     <Compile Include="Interface\IAnalyticsSession.cs" />
