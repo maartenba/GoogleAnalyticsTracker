@@ -28,6 +28,6 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         /// <remarks>Optional</remarks>
         /// <example>55</example>
         /// </summary>        
-        long Value { get; set; }
+        long? Value { get; set; }
     }
 }

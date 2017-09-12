@@ -46,11 +46,10 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
 
         /// <summary>
         /// Specifies the event value. Values must be non-negative.
-        /// <remarks>Required for event hit type</remarks>
         /// <example>55</example>
         /// </summary>
-        [Beacon("ev", true)]
-        public long Value { get; set; }
+        [Beacon("ev")]
+        public long? Value { get; set; }
 
         #endregion
     }
