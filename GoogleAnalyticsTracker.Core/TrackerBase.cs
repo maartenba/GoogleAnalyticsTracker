@@ -18,10 +18,8 @@ namespace GoogleAnalyticsTracker.Core
         public string TrackingDomain { get; set; }
         public IAnalyticsSession AnalyticsSession { get; set; }
 
-        public string Hostname { get; set; }
         public string Language { get; set; }
         public string UserAgent { get; set; }
-        public string CharacterSet { get; set; }        
 
         public bool ThrowOnErrors { get; set; }        
         public string EndpointUrl { get; set; }
@@ -44,17 +42,9 @@ namespace GoogleAnalyticsTracker.Core
             TrackingDomain = trackingDomain;
             AnalyticsSession = analyticsSession;
 
-            Hostname = trackerEnvironment.Hostname;
             Language = "en";
             EndpointUrl = GoogleAnalyticsEndpoints.Default;
             UserAgent = string.Format("GoogleAnalyticsTracker/3.0 ({0}; {1}; {2})", trackerEnvironment.OsPlatform, trackerEnvironment.OsVersion, trackerEnvironment.OsVersionString);
-
-            InitializeCharset();                  
-        }
-
-        private void InitializeCharset()
-        {
-            CharacterSet = "UTF-8";
         }
 
         private async Task<TrackingResult> RequestUrlAsync(string url, IDictionary<string, string> parameters, string userAgent)
