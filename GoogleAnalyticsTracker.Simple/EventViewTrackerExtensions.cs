@@ -17,7 +17,6 @@ namespace GoogleAnalyticsTracker.Simple
                 Label = label,
                 Value = value,
                 DocumentHostName = tracker.Hostname,
-                CacheBuster = tracker.AnalyticsSession.GenerateCacheBuster()
             };
 
             eventTrackingParameters.SetCustomDimensions(customDimensions);
