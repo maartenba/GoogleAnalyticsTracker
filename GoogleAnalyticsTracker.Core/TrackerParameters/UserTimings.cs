@@ -6,7 +6,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
     {
         public UserTimings()
         {
-            NonInteractionHit = GoogleBoolean.True;
+            NonInteractionHit = true;
         }
 
         #region Overrides of GeneralParameters

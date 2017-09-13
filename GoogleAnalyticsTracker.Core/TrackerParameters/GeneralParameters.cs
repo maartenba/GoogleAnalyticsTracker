@@ -35,8 +35,8 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <remarks>Optional</remarks>
         /// <example>GoogleBoolean.True</example>
         /// </summary>         
-        [Beacon("aip", false, true)]
-        public GoogleBoolean? AnonymizeIp { get; set; }
+        [Beacon("aip")]
+        public bool? AnonymizeIp { get; set; }
 
         /// <summary>
         /// Used to collect offline / latent hits. 
@@ -74,8 +74,8 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <remarks>Optional</remarks>
         /// <example>GoogleBoolean.True</example>
         /// </summary>                
-        [Beacon("ni", false, true)]
-        public GoogleBoolean? NonInteractionHit { get; set; }
+        [Beacon("ni")]
+        public bool? NonInteractionHit { get; set; }
 
         #endregion
 
@@ -150,8 +150,8 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <remarks>Optional</remarks>
         /// <example>GoogleBoolean.True</example>
         /// </summary>                
-        [Beacon("je", false, true)]
-        public GoogleBoolean? JavaEnabled { get; set; }
+        [Beacon("je")]
+        public bool? JavaEnabled { get; set; }
 
         /// <summary>
         /// Specifies the flash version.

@@ -14,6 +14,6 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         /// <remarks>Optional</remarks>
         /// <example>GoogleBoolean.True</example>
         /// </summary>        
-        GoogleBoolean? NonInteractionHit { get; set; }
+        bool? NonInteractionHit { get; set; }
     }
 }
