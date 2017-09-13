@@ -1,11 +1,15 @@
 ﻿using System.Configuration;
 using GoogleAnalyticsTracker.Core;
 using GoogleAnalyticsTracker.Core.Interface;
+using System.Linq;
+using GoogleAnalyticsTracker.Core.TrackerParameters.Interface;
 
 namespace GoogleAnalyticsTracker.Mvc4
 {
     public class Tracker : TrackerBase
     {
+        public string UserLanguage { get; set; }
+
         public Tracker()
             : this(new AnalyticsSession())
         {
@@ -37,14 +41,21 @@ namespace GoogleAnalyticsTracker.Mvc4
             PopulateUserAgentPropertiesFromHttpContext();
         }
 
+        protected override void AmendParameters(IGeneralParameters parameters)
+        {
+            base.AmendParameters(parameters);
+            if (string.IsNullOrEmpty(parameters.UserLanguage))
+            {
+                parameters.UserLanguage = UserLanguage;
+            }
+        }
+
         private void PopulateUserAgentPropertiesFromHttpContext()
         {
             if (!IsHttpRequestAvailable()) return;
 
             UserAgent = System.Web.HttpContext.Current.Request.UserAgent;
-            Language = System.Web.HttpContext.Current.Request.UserLanguages != null
-                ? string.Join(";", System.Web.HttpContext.Current.Request.UserLanguages)
-                : string.Empty;
+            UserLanguage = System.Web.HttpContext.Current.Request.UserLanguages?.FirstOrDefault();
         }
 
         protected bool IsHttpRequestAvailable()

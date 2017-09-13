@@ -18,7 +18,6 @@ namespace GoogleAnalyticsTracker.Core
         public string TrackingDomain { get; set; }
         public IAnalyticsSession AnalyticsSession { get; set; }
 
-        public string Language { get; set; }
         public string UserAgent { get; set; }
 
         public bool ThrowOnErrors { get; set; }        
@@ -42,7 +41,6 @@ namespace GoogleAnalyticsTracker.Core
             TrackingDomain = trackingDomain;
             AnalyticsSession = analyticsSession;
 
-            Language = "en";
             EndpointUrl = GoogleAnalyticsEndpoints.Default;
             UserAgent = string.Format("GoogleAnalyticsTracker/3.0 ({0}; {1}; {2})", trackerEnvironment.OsPlatform, trackerEnvironment.OsVersion, trackerEnvironment.OsVersionString);
         }
