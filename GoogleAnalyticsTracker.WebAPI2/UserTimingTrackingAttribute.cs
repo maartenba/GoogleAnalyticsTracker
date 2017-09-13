@@ -18,13 +18,8 @@ namespace GoogleAnalyticsTracker.WebAPI2
         public string Label { get; }
 
         public UserTimingTrackingAttribute(string trackingAccount, string category, string var, string label = null)
-            : this(trackingAccount, null, category, var, label)
         {
-        }
-
-        public UserTimingTrackingAttribute(string trackingAccount, string trackingDomain, string category, string var, string label = null)
-        {
-            Tracker = new Tracker(trackingAccount, trackingDomain, new CookieBasedAnalyticsSession(), new AspNetWebApiTrackerEnvironment());
+            Tracker = new Tracker(trackingAccount, new CookieBasedAnalyticsSession(), new AspNetWebApiTrackerEnvironment());
 
             Category = category;
             Var = var;

@@ -17,26 +17,26 @@ namespace GoogleAnalyticsTracker.Mvc4
         }
 
         public Tracker(IAnalyticsSession analyticsSession)
-            : this(ConfigurationManager.AppSettings[TrackingAccountConfigurationKey], ConfigurationManager.AppSettings[TrackingDomainConfigurationKey], analyticsSession, new AspNetMvc4TrackerEnvironment())
+            : this(ConfigurationManager.AppSettings[TrackingAccountConfigurationKey], analyticsSession, new AspNetMvc4TrackerEnvironment())
         {
             PopulateUserAgentPropertiesFromHttpContext();
         }
 
-        public Tracker(string trackingAccount, string trackingDomain)
-            : this(trackingAccount, trackingDomain, new AnalyticsSession(), new AspNetMvc4TrackerEnvironment())
+        public Tracker(string trackingAccount)
+            : this(trackingAccount, new AnalyticsSession(), new AspNetMvc4TrackerEnvironment())
         {
             PopulateUserAgentPropertiesFromHttpContext();
         }
 
 
-        public Tracker(string trackingAccount, string trackingDomain, ITrackerEnvironment trackerEnvironment)
-            : base(trackingAccount, trackingDomain, trackerEnvironment)
+        public Tracker(string trackingAccount, ITrackerEnvironment trackerEnvironment)
+            : base(trackingAccount, trackerEnvironment)
         {
             PopulateUserAgentPropertiesFromHttpContext();
         }
 
-        public Tracker(string trackingAccount, string trackingDomain, IAnalyticsSession analyticsSession, ITrackerEnvironment trackerEnvironment)
-            : base(trackingAccount, trackingDomain, analyticsSession, trackerEnvironment)
+        public Tracker(string trackingAccount, IAnalyticsSession analyticsSession, ITrackerEnvironment trackerEnvironment)
+            : base(trackingAccount, analyticsSession, trackerEnvironment)
         {
             PopulateUserAgentPropertiesFromHttpContext();
         }

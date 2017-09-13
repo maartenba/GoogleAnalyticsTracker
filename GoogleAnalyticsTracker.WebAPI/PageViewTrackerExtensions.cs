@@ -16,7 +16,6 @@ namespace GoogleAnalyticsTracker.WebApi
                 UserAgent = httpRequest.Headers.UserAgent.ToString(),
                 DocumentHostName = httpRequest.RequestUri.Host,
                 UserLanguage = httpRequest.Headers.AcceptLanguage.ToString().ToLower(),
-                ReferralUrl = httpRequest.Headers.Referrer != null ? httpRequest.Headers.Referrer.ToString() : null,
             };
 
             return await tracker.TrackAsync(pageViewParameters);

@@ -7,7 +7,6 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
     public abstract class GeneralParameters : IGeneralParameters
     {        
         public string UserAgent { get; set; }
-        public string ReferralUrl { get; set; }
 
         #region Implementation of IGeneralParameters
 

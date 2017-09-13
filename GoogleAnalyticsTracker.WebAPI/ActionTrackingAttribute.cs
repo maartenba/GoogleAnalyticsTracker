@@ -25,32 +25,18 @@ namespace GoogleAnalyticsTracker.WebApi
         }
         
         public ActionTrackingAttribute()
-            : this(null, null, null, null)
-        {
-        }
-
-        public ActionTrackingAttribute(string trackingAccount, string trackingDomain)
-            : this(trackingAccount, trackingDomain, null, null)
+            : this(null, null, null)
         {
         }
 
         public ActionTrackingAttribute(string trackingAccount)
-            : this(trackingAccount, null, null, null)
+            : this(trackingAccount, null, null)
         {
         }
 
-        public ActionTrackingAttribute(string trackingAccount, string trackingDomain, string actionDescription, string actionUrl)
+        public ActionTrackingAttribute(string trackingAccount, string actionDescription, string actionUrl)
         {
-            try
-            {
-                if (string.IsNullOrEmpty(trackingDomain) && System.Web.HttpContext.Current != null)
-                {
-                    trackingDomain = System.Web.HttpContext.Current.Request.Url.Host;
-                }
-            }
-            catch { /* intended */ }
-
-            Tracker = new Tracker(trackingAccount, trackingDomain, new CookieBasedAnalyticsSession(), new AspNetWebApiTrackerEnvironment());
+            Tracker = new Tracker(trackingAccount, new CookieBasedAnalyticsSession(), new AspNetWebApiTrackerEnvironment());
             ActionDescription = actionDescription;
             ActionUrl = actionUrl;
         }
@@ -66,9 +52,9 @@ namespace GoogleAnalyticsTracker.WebApi
             IsTrackableAction = isTrackableAction;
         }
 
-        public ActionTrackingAttribute(string trackingAccount, string trackingDomain, Func<HttpActionContext, bool> isTrackableAction)
+        public ActionTrackingAttribute(string trackingAccount, Func<HttpActionContext, bool> isTrackableAction)
         {
-            Tracker = new Tracker(trackingAccount, trackingDomain, new CookieBasedAnalyticsSession(), new AspNetWebApiTrackerEnvironment());
+            Tracker = new Tracker(trackingAccount, new CookieBasedAnalyticsSession(), new AspNetWebApiTrackerEnvironment());
             IsTrackableAction = isTrackableAction;
         }
 

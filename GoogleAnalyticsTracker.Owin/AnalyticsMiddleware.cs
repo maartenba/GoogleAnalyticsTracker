@@ -8,9 +8,7 @@ namespace GoogleAnalyticsTracker.Owin
     {
         private readonly string _trackingId;
 
-        private readonly string _baseUri;
-
-        public AnalyticsMiddleware(OwinMiddleware next, string trackingId, string baseUri)
+        public AnalyticsMiddleware(OwinMiddleware next, string trackingId)
             : base(next)
         {
             if (next == null)
@@ -24,12 +22,11 @@ namespace GoogleAnalyticsTracker.Owin
             }
 
             _trackingId = trackingId;
-            _baseUri = baseUri;
         }
 
         public override async Task Invoke(IOwinContext context)
         {
-            using (var tracker = new Tracker(context, _trackingId, _baseUri)
+            using (var tracker = new Tracker(context, _trackingId)
                                      {
                                          ThrowOnErrors = true
                                      })
