@@ -43,19 +43,11 @@ Nancy applications:
 
     Install-Package GoogleAnalyticsTracker.Nancy
 
-(deprecated) Windows Store (8 and 8.1) application:
-
-    Install-Package GoogleAnalyticsTracker.RT
-
-(deprecated) Windows Phone (8 and 8.1) applications:
-
-    Install-Package GoogleAnalyticsTracker.WP8
-	
 ## Example usage
 
 Using GoogleAnalyticsTracker is very straightforward. In your code, add the following structure wherever you want to track page views (note: when using `GoogleAnalyticsTracker.Simple`, the class to use is `SimpleTracker`):
 ```csharp
-using (Tracker tracker = new Tracker("UA-XXXXXX-XX", "www.example.org"))
+using (Tracker tracker = new Tracker("UA-XXXXXX-XX", simpleTrackerEnvironment))
 {
     await tracker.TrackPageViewAsync("My API - Create", "api/create");
     await tracker.TrackPageViewAsync("MY API - List", "api/list");
@@ -63,17 +55,17 @@ using (Tracker tracker = new Tracker("UA-XXXXXX-XX", "www.example.org"))
 ```
 Or without a using block:
 ```csharp
-Tracker tracker = new Tracker("UA-XXXXXX-XX", "www.example.org");
+Tracker tracker = new Tracker("UA-XXXXXX-XX", simpleTrackerEnvironment);
 await tracker.TrackPageViewAsync("My API - Create", "api/create");
 ```
 A number of extension methods are available which use the provided `HttpContext` as the source for URL and user properties:
 ```csharp
-Tracker tracker = new Tracker("UA-XXXXXX-XX", "www.example.org");
+Tracker tracker = new Tracker("UA-XXXXXX-XX", simpleTrackerEnvironment);
 await tracker.TrackPageViewAsync(HttpContext, "My API - Create");
 ```
 Finally, an `ActionFilter` for use with ASP.NET MVC is available:
 ```csharp
-[ActionTracking("UA-XXXXXX-XX", "www.example.org")]
+[ActionTracking("UA-XXXXXX-XX")]
 public class ApiController  : Controller
 {
     public JsonResult Create()
@@ -90,7 +82,7 @@ public class MvcApplication : System.Web.HttpApplication
     {
         filters.Add(new HandleErrorAttribute());
         filters.Add(new ActionTrackingAttribute(
-            "UA-XXXXXX-XX", "www.example.org",
+            "UA-XXXXXX-XX",
             action => action.ControllerContext.ControllerDescriptor.ControllerName == "Api")
         );
     }
@@ -102,7 +94,7 @@ An hook is also available for NancyFx:
 ```csharp
 public class HelloModule : NancyModule
 {
-    private readonly ActionTrackingHookAsync actionTrackingHook = new ActionTrackingHookAsync("UA-XXXXXX-XX", "www.example.org");
+    private readonly ActionTrackingHookAsync actionTrackingHook = new ActionTrackingHookAsync("UA-XXXXXX-XX");
 
     public HelloModule()
     {
@@ -124,7 +116,7 @@ Of course. GoogleAnalyticsTracker sends some data that can be inferred from usag
 Sessions are also untracked: every event that is tracked counts as a new unique visitor to Google Analytics.
 
 * If you do need to track user sessions, implement a custom `IAnalyticsSession` and pass it to the constructor of the `Tracker` object.
-* If you do need to track actual user data, it can be set on the Tracker object using its properties like `Hostname`, `Language`, `UserAgent` and so on.
+* If you do need to set common data for all tracking hits, subclass the `Tracker` or `TrackerBase` and override the `AmendParameters` method.
 
 ## License
 [MS-PL License](https://github.com/maartenba/GoogleAnalyticsTracker/blob/master/LICENSE.md)
