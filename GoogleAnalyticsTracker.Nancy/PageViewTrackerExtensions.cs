@@ -22,7 +22,6 @@ namespace GoogleAnalyticsTracker.Nancy
                 UserAgent = httpRequest.Headers.UserAgent,
                 DocumentHostName = httpRequest.Url.HostName,
                 UserLanguage = httpRequest.Headers.AcceptLanguage.ToString().ToLower(),
-                ReferralUrl = httpRequest.Headers.Referrer,
             };
 
             return await tracker.TrackAsync(pageViewParameters);

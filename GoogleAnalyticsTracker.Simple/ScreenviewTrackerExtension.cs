@@ -16,7 +16,6 @@ namespace GoogleAnalyticsTracker.Simple
                 ApplicationId = appId,
                 ApplicationVersion = appVersion,
                 ApplicationInstallerId = appInstallerId,
-                DocumentHostName = tracker.Hostname,
                 ScreenName = screenName,
             };
 

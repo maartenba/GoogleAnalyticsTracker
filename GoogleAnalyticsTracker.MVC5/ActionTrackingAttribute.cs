@@ -28,32 +28,18 @@ namespace GoogleAnalyticsTracker.MVC5
         public string ActionUrl { get; set; }
 
         public ActionTrackingAttribute()
-            : this(null, null, null, null)
-        {
-        }
-
-        public ActionTrackingAttribute(string trackingAccount, string trackingDomain)
-            : this(trackingAccount, trackingDomain, null, null)
+            : this(null, null, null)
         {
         }
 
         public ActionTrackingAttribute(string trackingAccount)
-            : this(trackingAccount, null, null, null)
+            : this(trackingAccount, null, null)
         {
         }
 
-        public ActionTrackingAttribute(string trackingAccount, string trackingDomain, string actionDescription, string actionUrl)
+        public ActionTrackingAttribute(string trackingAccount, string actionDescription, string actionUrl)
         {
-            try
-            {
-                if (string.IsNullOrEmpty(trackingDomain) && System.Web.HttpContext.Current != null)
-                {
-                    trackingDomain = System.Web.HttpContext.Current.Request.Url.Host;
-                }
-            }
-            catch { /* intended */ }
-
-            Tracker = new Tracker(trackingAccount, trackingDomain, new CookieBasedAnalyticsSession(), new AspNetMvc5TrackerEnvironment());
+            Tracker = new Tracker(trackingAccount, new CookieBasedAnalyticsSession(), new AspNetMvc5TrackerEnvironment());
             ActionDescription = actionDescription;
             ActionUrl = actionUrl;
         }
@@ -69,15 +55,15 @@ namespace GoogleAnalyticsTracker.MVC5
             IsTrackableAction = isTrackableAction;
         }
 
-        public ActionTrackingAttribute(string trackingAccount, string trackingDomain, Func<ActionDescriptor, bool> isTrackableAction)
+        public ActionTrackingAttribute(string trackingAccount, Func<ActionDescriptor, bool> isTrackableAction)
         {
-            Tracker = new Tracker(trackingAccount, trackingDomain, new CookieBasedAnalyticsSession(), new AspNetMvc5TrackerEnvironment());
+            Tracker = new Tracker(trackingAccount, new CookieBasedAnalyticsSession(), new AspNetMvc5TrackerEnvironment());
             IsTrackableAction = isTrackableAction;
         }
 
-        public static void RegisterGlobalFilter(string trackingAccount, string trackingDomain)
+        public static void RegisterGlobalFilter(string trackingAccount)
         {
-            GlobalFilters.Filters.Add(new ActionTrackingAttribute(trackingAccount, trackingDomain));
+            GlobalFilters.Filters.Add(new ActionTrackingAttribute(trackingAccount));
         }
 
         public static void RegisterGlobalFilter(Tracker tracker)

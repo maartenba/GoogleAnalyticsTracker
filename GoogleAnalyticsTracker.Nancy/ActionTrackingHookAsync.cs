@@ -29,23 +29,18 @@ namespace GoogleAnalyticsTracker.Nancy
         public string ActionUrl { get; set; }
 
         public ActionTrackingHookAsync()
-			: this(null, null, null, null) 
-        {
-		}
-
-		public ActionTrackingHookAsync(string trackingAccount, string trackingDomain)
-			: this(trackingAccount, trackingDomain, null, null)
+			: this(null, null, null) 
         {
 		}
 
 		public ActionTrackingHookAsync(string trackingAccount)
-			: this(trackingAccount, null, null, null)
+			: this(trackingAccount, null, null)
         {
 		}
 
-		public ActionTrackingHookAsync(string trackingAccount, string trackingDomain, string actionDescription, string actionUrl)
+		public ActionTrackingHookAsync(string trackingAccount, string actionDescription, string actionUrl)
         {
-            Tracker = new Tracker(trackingAccount, trackingDomain, new CookieBasedAnalyticsSession(), new NancyTrackerEnvironment());
+            Tracker = new Tracker(trackingAccount, new CookieBasedAnalyticsSession(), new NancyTrackerEnvironment());
 			ActionDescription = actionDescription;
 			ActionUrl = actionUrl;
 		}
@@ -61,9 +56,9 @@ namespace GoogleAnalyticsTracker.Nancy
 			IsTrackableAction = isTrackableAction;
 		}
 
-        public ActionTrackingHookAsync(string trackingAccount, string trackingDomain, Func<NancyContext, bool> isTrackableAction) 
+        public ActionTrackingHookAsync(string trackingAccount, Func<NancyContext, bool> isTrackableAction) 
         {
-            Tracker = new Tracker(trackingAccount, trackingDomain, new CookieBasedAnalyticsSession(), new NancyTrackerEnvironment());
+            Tracker = new Tracker(trackingAccount, new CookieBasedAnalyticsSession(), new NancyTrackerEnvironment());
 			IsTrackableAction = isTrackableAction;
 		}
 

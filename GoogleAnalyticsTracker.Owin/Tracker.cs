@@ -10,10 +10,9 @@ namespace GoogleAnalyticsTracker.Owin
     {
         private readonly IOwinContext _context;
 
-        public Tracker(IOwinContext context, string trackingAccount, string trackingDomain)
+        public Tracker(IOwinContext context, string trackingAccount)
             : base(
                 trackingAccount,
-                trackingDomain,
                 new CookieBasedAnalyticsSession(context),
                 new OwinTrackerEnvironment(context))
         {

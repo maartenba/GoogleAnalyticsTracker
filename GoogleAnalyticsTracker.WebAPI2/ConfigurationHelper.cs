@@ -4,9 +4,9 @@ namespace GoogleAnalyticsTracker.WebAPI2
 {
 	public static class ConfigurationHelper
     {
-		public static void RegisterTracker(this HttpConfiguration configuration, string trackingAccount, string trackingDomain = null)
+		public static void RegisterTracker(this HttpConfiguration configuration, string trackingAccount)
         {
-			configuration.Filters.Add(new ActionTrackingAttribute(trackingAccount, trackingDomain));
+			configuration.Filters.Add(new ActionTrackingAttribute(trackingAccount));
 		}
 
 		public static void RegisterTracker(this HttpConfiguration configuration, Tracker tracker)

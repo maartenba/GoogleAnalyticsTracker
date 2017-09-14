@@ -16,7 +16,6 @@ namespace GoogleAnalyticsTracker.Simple
                 Action = action,
                 Label = label,
                 Value = value,
-                DocumentHostName = tracker.Hostname,
             };
 
             eventTrackingParameters.SetCustomDimensions(customDimensions);

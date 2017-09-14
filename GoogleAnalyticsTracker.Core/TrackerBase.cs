@@ -12,16 +12,11 @@ namespace GoogleAnalyticsTracker.Core
     public partial class TrackerBase : IDisposable
     {
         public const string TrackingAccountConfigurationKey = "GoogleAnalyticsTracker.TrackingAccount";
-        public const string TrackingDomainConfigurationKey = "GoogleAnalyticsTracker.TrackingDomain";
 
         public string TrackingAccount { get; set; }
-        public string TrackingDomain { get; set; }
         public IAnalyticsSession AnalyticsSession { get; set; }
 
-        public string Hostname { get; set; }
-        public string Language { get; set; }
         public string UserAgent { get; set; }
-        public string CharacterSet { get; set; }        
 
         public bool ThrowOnErrors { get; set; }        
         public string EndpointUrl { get; set; }
@@ -33,28 +28,18 @@ namespace GoogleAnalyticsTracker.Core
         /// </summary>
         public bool UseHttpGet { get; set; }
 
-        public TrackerBase(string trackingAccount, string trackingDomain, ITrackerEnvironment trackerEnvironment)
-            : this(trackingAccount, trackingDomain, new AnalyticsSession(), trackerEnvironment)
+        public TrackerBase(string trackingAccount, ITrackerEnvironment trackerEnvironment)
+            : this(trackingAccount, new AnalyticsSession(), trackerEnvironment)
         {
         }
 
-        public TrackerBase(string trackingAccount, string trackingDomain, IAnalyticsSession analyticsSession, ITrackerEnvironment trackerEnvironment)
+        public TrackerBase(string trackingAccount, IAnalyticsSession analyticsSession, ITrackerEnvironment trackerEnvironment)
         {
             TrackingAccount = trackingAccount;
-            TrackingDomain = trackingDomain;
             AnalyticsSession = analyticsSession;
 
-            Hostname = trackerEnvironment.Hostname;
-            Language = "en";
             EndpointUrl = GoogleAnalyticsEndpoints.Default;
             UserAgent = string.Format("GoogleAnalyticsTracker/3.0 ({0}; {1}; {2})", trackerEnvironment.OsPlatform, trackerEnvironment.OsVersion, trackerEnvironment.OsVersionString);
-
-            InitializeCharset();                  
-        }
-
-        private void InitializeCharset()
-        {
-            CharacterSet = "UTF-8";
         }
 
         private async Task<TrackingResult> RequestUrlAsync(string url, IDictionary<string, string> parameters, string userAgent)
@@ -73,17 +58,6 @@ namespace GoogleAnalyticsTracker.Core
                 Parameters = parameters
             };
 
-            // Determine referer URL
-            string referer = null;
-            if (parameters.ContainsKey("ReferralUrl"))
-            {
-                referer = parameters["ReferralUrl"];
-            }
-            else if (!string.IsNullOrEmpty(TrackingDomain))
-            {
-                referer = string.Format("http://{0}/", TrackingDomain);
-            }
-
             // Create request
             HttpWebRequest request;
             try
@@ -92,10 +66,6 @@ namespace GoogleAnalyticsTracker.Core
                     ? CreateGetWebRequest(url, data.ToString())
                     : CreatePostWebRequest(url, data.ToString());
 
-                if (!string.IsNullOrEmpty(referer))
-                {
-                    request.SetHeader("Referer", referer);
-                }
                 if (!string.IsNullOrEmpty(userAgent))
                 {
                     request.SetHeader("User-Agent", userAgent);

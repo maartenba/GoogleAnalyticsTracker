@@ -16,7 +16,6 @@ namespace GoogleAnalyticsTracker.WebAPI2
                 UserAgent = httpRequest.Headers.UserAgent.ToString(),
                 DocumentHostName = httpRequest.RequestUri.Host,
                 UserLanguage = httpRequest.Headers.AcceptLanguage.ToString().ToLower(),
-                ReferralUrl = httpRequest.Headers.Referrer != null ? httpRequest.Headers.Referrer.ToString() : null,
                 UserTimingCategory = category,
                 UserTimingVariable = var,
                 UserTimingTime = value,

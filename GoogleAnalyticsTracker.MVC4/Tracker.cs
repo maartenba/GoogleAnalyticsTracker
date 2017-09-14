@@ -1,11 +1,15 @@
 ﻿using System.Configuration;
 using GoogleAnalyticsTracker.Core;
 using GoogleAnalyticsTracker.Core.Interface;
+using System.Linq;
+using GoogleAnalyticsTracker.Core.TrackerParameters.Interface;
 
 namespace GoogleAnalyticsTracker.Mvc4
 {
     public class Tracker : TrackerBase
     {
+        public string UserLanguage { get; set; }
+
         public Tracker()
             : this(new AnalyticsSession())
         {
@@ -13,28 +17,37 @@ namespace GoogleAnalyticsTracker.Mvc4
         }
 
         public Tracker(IAnalyticsSession analyticsSession)
-            : this(ConfigurationManager.AppSettings[TrackingAccountConfigurationKey], ConfigurationManager.AppSettings[TrackingDomainConfigurationKey], analyticsSession, new AspNetMvc4TrackerEnvironment())
+            : this(ConfigurationManager.AppSettings[TrackingAccountConfigurationKey], analyticsSession, new AspNetMvc4TrackerEnvironment())
         {
             PopulateUserAgentPropertiesFromHttpContext();
         }
 
-        public Tracker(string trackingAccount, string trackingDomain)
-            : this(trackingAccount, trackingDomain, new AnalyticsSession(), new AspNetMvc4TrackerEnvironment())
+        public Tracker(string trackingAccount)
+            : this(trackingAccount, new AnalyticsSession(), new AspNetMvc4TrackerEnvironment())
         {
             PopulateUserAgentPropertiesFromHttpContext();
         }
 
 
-        public Tracker(string trackingAccount, string trackingDomain, ITrackerEnvironment trackerEnvironment)
-            : base(trackingAccount, trackingDomain, trackerEnvironment)
+        public Tracker(string trackingAccount, ITrackerEnvironment trackerEnvironment)
+            : base(trackingAccount, trackerEnvironment)
         {
             PopulateUserAgentPropertiesFromHttpContext();
         }
 
-        public Tracker(string trackingAccount, string trackingDomain, IAnalyticsSession analyticsSession, ITrackerEnvironment trackerEnvironment)
-            : base(trackingAccount, trackingDomain, analyticsSession, trackerEnvironment)
+        public Tracker(string trackingAccount, IAnalyticsSession analyticsSession, ITrackerEnvironment trackerEnvironment)
+            : base(trackingAccount, analyticsSession, trackerEnvironment)
         {
             PopulateUserAgentPropertiesFromHttpContext();
+        }
+
+        protected override void AmendParameters(IGeneralParameters parameters)
+        {
+            base.AmendParameters(parameters);
+            if (string.IsNullOrEmpty(parameters.UserLanguage))
+            {
+                parameters.UserLanguage = UserLanguage;
+            }
         }
 
         private void PopulateUserAgentPropertiesFromHttpContext()
@@ -42,9 +55,7 @@ namespace GoogleAnalyticsTracker.Mvc4
             if (!IsHttpRequestAvailable()) return;
 
             UserAgent = System.Web.HttpContext.Current.Request.UserAgent;
-            Language = System.Web.HttpContext.Current.Request.UserLanguages != null
-                ? string.Join(";", System.Web.HttpContext.Current.Request.UserLanguages)
-                : string.Empty;
+            UserLanguage = System.Web.HttpContext.Current.Request.UserLanguages?.FirstOrDefault();
         }
 
         protected bool IsHttpRequestAvailable()
