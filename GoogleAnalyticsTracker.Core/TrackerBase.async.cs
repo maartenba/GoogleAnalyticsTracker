@@ -49,8 +49,8 @@ namespace GoogleAnalyticsTracker.Core
                 {
                     continue;
                 }
-                string strValue = Convert.ToString(value, CultureInfo.InvariantCulture);
-                beaconList.Add(attr.Name, strValue);
+
+                beaconList.Add(attr.Name, Convert.ToString(value, CultureInfo.InvariantCulture));
             }
 
             return beaconList.ToDictionary(key => key.Item1, value => value.Item2);
