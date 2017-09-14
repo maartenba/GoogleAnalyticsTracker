@@ -45,10 +45,12 @@ namespace GoogleAnalyticsTracker.Core
                     value = p.GetMethod.Invoke(parameters, null);
                 }
 
-                if (value != null)
+                if (value == null)
                 {
-                    beaconList.Add(attr.Name, value.ToString());
+                    continue;
                 }
+                string strValue = Convert.ToString(value, CultureInfo.InvariantCulture);
+                beaconList.Add(attr.Name, strValue);
             }
 
             return beaconList.ToDictionary(key => key.Item1, value => value.Item2);
