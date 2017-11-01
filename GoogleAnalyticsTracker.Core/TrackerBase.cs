@@ -64,7 +64,7 @@ namespace GoogleAnalyticsTracker.Core
             {
                 request = UseHttpGet
                     ? CreateGetWebRequest(url, data.ToString())
-                    : CreatePostWebRequest(url, data.ToString());
+                    : await CreatePostWebRequestAsync(url, data.ToString());
 
                 if (!string.IsNullOrEmpty(userAgent))
                 {
@@ -119,12 +119,12 @@ namespace GoogleAnalyticsTracker.Core
             return WebRequest.CreateHttp(string.Format("{0}?{1}", url, data));
         }
 
-        private HttpWebRequest CreatePostWebRequest(string url, string data)
+        private async Task<HttpWebRequest> CreatePostWebRequestAsync(string url, string data)
         {
             var request = WebRequest.CreateHttp(url);
             request.Method = "POST";
             var dataBytes = Encoding.UTF8.GetBytes(data);
-            using (var stream = request.GetRequestStreamAsync().Result)
+            using (var stream = await request.GetRequestStreamAsync())
             {
                 stream.Write(dataBytes, 0, dataBytes.Length);
                 stream.Flush();
