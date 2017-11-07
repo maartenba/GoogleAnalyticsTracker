@@ -25,6 +25,7 @@ namespace GoogleAnalyticsTracker.Core
                 }
 
                 object value;
+                var underlyingType = Nullable.GetUnderlyingType(p.PropertyType);
 
                 if ((p.PropertyType.GetTypeInfo().IsEnum || p.PropertyType.IsNullableEnum()) && attr.IsEnumByValueBased)
                 {
@@ -34,7 +35,7 @@ namespace GoogleAnalyticsTracker.Core
                 {
                     value = GetLowerCaseValueFromEnum(p, parameters) ?? p.GetMethod.Invoke(parameters, null);
                 }
-                else if (p.PropertyType == typeof(bool) || Nullable.GetUnderlyingType(p.PropertyType) != null)
+                else if (p.PropertyType == typeof(bool) || (underlyingType != null && underlyingType == typeof(bool)))
                 {
                     value = p.GetMethod.Invoke(parameters, null);
                     if (value != null)
