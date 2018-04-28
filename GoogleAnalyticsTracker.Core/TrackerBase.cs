@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using GoogleAnalyticsTracker.Core.Interface;
 using GoogleAnalyticsTracker.Core.TrackerParameters;
 using System.Linq;
+using System.Net.Http;
 
 namespace GoogleAnalyticsTracker.Core
 {
@@ -18,7 +19,7 @@ namespace GoogleAnalyticsTracker.Core
 
         public string UserAgent { get; set; }
 
-        public bool ThrowOnErrors { get; set; }        
+        public bool ThrowOnErrors { get; set; }
         public string EndpointUrl { get; set; }
 
         /// <summary> 
@@ -27,6 +28,8 @@ namespace GoogleAnalyticsTracker.Core
         /// sets the <see cref="TrackerParameters.Interface.IGeneralParameters.CacheBuster"/>, too.
         /// </summary>
         public bool UseHttpGet { get; set; }
+
+        private static HttpClient _httpClient = new HttpClient();
 
         public TrackerBase(string trackingAccount, ITrackerEnvironment trackerEnvironment)
             : this(trackingAccount, new AnalyticsSession(), trackerEnvironment)
@@ -59,16 +62,17 @@ namespace GoogleAnalyticsTracker.Core
             };
 
             // Create request
-            HttpWebRequest request;
+            HttpRequestMessage request;
             try
             {
                 request = UseHttpGet
                     ? CreateGetWebRequest(url, data.ToString())
-                    : await CreatePostWebRequestAsync(url, data.ToString());
+                    : CreatePostWebRequest(url, data.ToString());
 
                 if (!string.IsNullOrEmpty(userAgent))
                 {
-                    request.SetHeader("User-Agent", userAgent);
+
+                    request.Headers.Add("User-Agent", userAgent);
                 }
             }
             catch (Exception ex)
@@ -85,10 +89,10 @@ namespace GoogleAnalyticsTracker.Core
             }
 
             // Perform request
-            WebResponse response = null;
+            HttpResponseMessage response = null;
             try
             {
-                response = await Task.Factory.FromAsync(request.BeginGetResponse, request.EndGetResponse, null);
+                response = await _httpClient.SendAsync(request);
                 returnValue.Success = true;
             }
             catch (Exception ex)
@@ -114,22 +118,18 @@ namespace GoogleAnalyticsTracker.Core
             return returnValue;
         }
 
-        private HttpWebRequest CreateGetWebRequest(string url, string data)
+        private HttpRequestMessage CreateGetWebRequest(string url, string data)
         {
-            return WebRequest.CreateHttp(string.Format("{0}?{1}", url, data));
+            return new HttpRequestMessage(HttpMethod.Get, string.Format("{0}?{1}", url, data));
         }
 
-        private async Task<HttpWebRequest> CreatePostWebRequestAsync(string url, string data)
+        private HttpRequestMessage CreatePostWebRequest(string url, string data)
         {
-            var request = WebRequest.CreateHttp(url);
-            request.Method = "POST";
+            var request = new HttpRequestMessage(HttpMethod.Post, url);
+
             var dataBytes = Encoding.UTF8.GetBytes(data);
-            using (var stream = await request.GetRequestStreamAsync())
-            {
-                stream.Write(dataBytes, 0, dataBytes.Length);
-                stream.Flush();
-                stream.Dispose();
-            }
+            request.Content = new ByteArrayContent(dataBytes);
+
             return request;
         }
 
