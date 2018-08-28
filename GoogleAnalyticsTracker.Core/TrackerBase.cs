@@ -1,6 +1,5 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using GoogleAnalyticsTracker.Core.Interface;
@@ -22,6 +21,9 @@ namespace GoogleAnalyticsTracker.Core
         public bool ThrowOnErrors { get; set; }
         public string EndpointUrl { get; set; }
 
+        public string ProxyUrl { get; set; }
+        public int ProxyPort { get; set; }
+        
         /// <summary> 
         /// Use HTTP GET (not recommended) instead of POST.
         /// When switched on, the <see cref="AmendParameters(TrackerParameters.Interface.IGeneralParameters)"/>
@@ -29,7 +31,27 @@ namespace GoogleAnalyticsTracker.Core
         /// </summary>
         public bool UseHttpGet { get; set; }
 
-        private static HttpClient _httpClient = new HttpClient();
+        private HttpClient _httpClient
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(ProxyUrl))
+                {
+                    return new HttpClient();
+                }
+                else
+                {
+                    var proxy = new WebProxy(ProxyUrl, ProxyPort);
+
+                    var httpClientHandler = new HttpClientHandler
+                    {
+                        Proxy = proxy,
+                    };
+
+                    return new HttpClient(httpClientHandler, true);
+                }
+            }
+        }
 
         public TrackerBase(string trackingAccount, ITrackerEnvironment trackerEnvironment)
             : this(trackingAccount, new AnalyticsSession(), trackerEnvironment)
