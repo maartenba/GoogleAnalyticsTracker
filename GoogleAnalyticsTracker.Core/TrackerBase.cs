@@ -1,6 +1,5 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using GoogleAnalyticsTracker.Core.Interface;
@@ -12,6 +11,8 @@ namespace GoogleAnalyticsTracker.Core
 {
     public partial class TrackerBase : IDisposable
     {
+        private static readonly HttpClient _defaultHttpClient = new HttpClient();
+
         public const string TrackingAccountConfigurationKey = "GoogleAnalyticsTracker.TrackingAccount";
 
         public string TrackingAccount { get; set; }
@@ -21,7 +22,7 @@ namespace GoogleAnalyticsTracker.Core
 
         public bool ThrowOnErrors { get; set; }
         public string EndpointUrl { get; set; }
-
+        
         /// <summary> 
         /// Use HTTP GET (not recommended) instead of POST.
         /// When switched on, the <see cref="AmendParameters(TrackerParameters.Interface.IGeneralParameters)"/>
@@ -29,7 +30,16 @@ namespace GoogleAnalyticsTracker.Core
         /// </summary>
         public bool UseHttpGet { get; set; }
 
-        private static HttpClient _httpClient = new HttpClient();
+        private HttpClient _customHttpClient;
+
+        /// <summary>
+        /// Makes it possible to set a custom HTTP client. If not set, the internal, static default one will be used.
+        /// </summary>
+        public HttpClient HttpClient
+        {
+            get { return _customHttpClient ?? _defaultHttpClient; }
+            set { _customHttpClient = value; }
+        }
 
         public TrackerBase(string trackingAccount, ITrackerEnvironment trackerEnvironment)
             : this(trackingAccount, new AnalyticsSession(), trackerEnvironment)
@@ -92,7 +102,7 @@ namespace GoogleAnalyticsTracker.Core
             HttpResponseMessage response = null;
             try
             {
-                response = await _httpClient.SendAsync(request);
+                response = await HttpClient.SendAsync(request);
                 returnValue.Success = true;
             }
             catch (Exception ex)
