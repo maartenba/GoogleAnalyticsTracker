@@ -11,6 +11,8 @@ namespace GoogleAnalyticsTracker.Core
 {
     public partial class TrackerBase : IDisposable
     {
+        private static readonly HttpClient _defaultHttpClient = new HttpClient();
+
         public const string TrackingAccountConfigurationKey = "GoogleAnalyticsTracker.TrackingAccount";
 
         public string TrackingAccount { get; set; }
@@ -20,9 +22,6 @@ namespace GoogleAnalyticsTracker.Core
 
         public bool ThrowOnErrors { get; set; }
         public string EndpointUrl { get; set; }
-
-        public string ProxyUrl { get; set; }
-        public int ProxyPort { get; set; }
         
         /// <summary> 
         /// Use HTTP GET (not recommended) instead of POST.
@@ -31,26 +30,15 @@ namespace GoogleAnalyticsTracker.Core
         /// </summary>
         public bool UseHttpGet { get; set; }
 
-        private HttpClient _httpClient
+        private HttpClient _customHttpClient;
+
+        /// <summary>
+        /// Makes it possible to set a custom HTTP client. If not set, the internal, static default one will be used.
+        /// </summary>
+        public HttpClient HttpClient
         {
-            get
-            {
-                if (string.IsNullOrWhiteSpace(ProxyUrl))
-                {
-                    return new HttpClient();
-                }
-                else
-                {
-                    var proxy = new WebProxy(ProxyUrl, ProxyPort);
-
-                    var httpClientHandler = new HttpClientHandler
-                    {
-                        Proxy = proxy,
-                    };
-
-                    return new HttpClient(httpClientHandler, true);
-                }
-            }
+            get { return _customHttpClient ?? _defaultHttpClient; }
+            set { _customHttpClient = value; }
         }
 
         public TrackerBase(string trackingAccount, ITrackerEnvironment trackerEnvironment)
@@ -114,7 +102,7 @@ namespace GoogleAnalyticsTracker.Core
             HttpResponseMessage response = null;
             try
             {
-                response = await _httpClient.SendAsync(request);
+                response = await HttpClient.SendAsync(request);
                 returnValue.Success = true;
             }
             catch (Exception ex)
