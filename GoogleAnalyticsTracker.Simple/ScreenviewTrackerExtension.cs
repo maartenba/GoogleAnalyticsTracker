@@ -8,7 +8,7 @@ namespace GoogleAnalyticsTracker.Simple
     public static class ScreenviewTrackerExtension
     {
         public static async Task<TrackingResult> TrackScreenviewAsync(this SimpleTracker tracker, string appName,
-            string appId, string appVersion, string appInstallerId, string screenName, IDictionary<int, string> customDimensions)
+            string appId, string appVersion, string appInstallerId, string screenName, IDictionary<int, string> customDimensions, IDictionary<int,long?> customMetrics)
         {
             var screenviewParamenters = new ScreenviewTracking
             {
@@ -20,6 +20,7 @@ namespace GoogleAnalyticsTracker.Simple
             };
 
             screenviewParamenters.SetCustomDimensions(customDimensions);
+            screenviewParamenters.SetCustomMetrics(customMetrics);
 
             return await tracker.TrackAsync(screenviewParamenters);
         }
