@@ -60,6 +60,7 @@
     <Compile Include="TrackerParameters\ExceptionTracking.cs" />
     <Compile Include="TrackerParameters\Interface\IContentExperimentsParameters.cs" />
     <Compile Include="TrackerParameters\Interface\ICustomDimensionParameters.cs" />
+    <Compile Include="TrackerParameters\Interface\ICustomMetricParameters.cs" />
     <Compile Include="TrackerParameters\Interface\IExceptionParameters.cs" />
     <Compile Include="TrackerParameters\ScreenviewTracking.cs" />
     <Compile Include="TrackerParameters\ECommerceItem.cs" />

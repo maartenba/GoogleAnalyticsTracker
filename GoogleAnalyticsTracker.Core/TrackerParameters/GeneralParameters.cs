@@ -441,5 +441,82 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         [Beacon("cd20")]
         public string CustomDimension20 { get; set; }
         #endregion
+
+        #region Implementation of ICustomMetricParameters
+        /// <summary>
+        /// Any custom dimensions are set here.
+        /// </summary>
+        public void SetCustomMetrics(IDictionary<int, long?> customMetrics)
+        {
+            if (customMetrics == null || customMetrics.Count <= 0) return;
+            foreach (var metric in customMetrics)
+            {
+                if (metric.Value == null) continue;
+                var value = metric.Value.Value;
+
+                if (metric.Key == 1) CustomMetric1 = value;
+                else if (metric.Key == 2) CustomMetric2 = value;
+                else if (metric.Key == 3) CustomMetric3 = value;
+                else if (metric.Key == 4) CustomMetric4 = value;
+                else if (metric.Key == 5) CustomMetric5 = value;
+                else if (metric.Key == 6) CustomMetric6 = value;
+                else if (metric.Key == 7) CustomMetric7 = value;
+                else if (metric.Key == 8) CustomMetric8 = value;
+                else if (metric.Key == 9) CustomMetric9 = value;
+                else if (metric.Key == 10) CustomMetric10 = value;
+                else if (metric.Key == 11) CustomMetric11 = value;
+                else if (metric.Key == 12) CustomMetric12 = value;
+                else if (metric.Key == 13) CustomMetric13 = value;
+                else if (metric.Key == 14) CustomMetric14 = value;
+                else if (metric.Key == 15) CustomMetric15 = value;
+                else if (metric.Key == 16) CustomMetric16 = value;
+                else if (metric.Key == 17) CustomMetric17 = value;
+                else if (metric.Key == 18) CustomMetric18 = value;
+                else if (metric.Key == 19) CustomMetric19 = value;
+                else if (metric.Key == 20) CustomMetric20 = value;
+            }
+        }
+        
+        [Beacon("cm1")]
+        public long? CustomMetric1 { get; set; }
+        [Beacon("cm2")]
+        public long? CustomMetric2 { get; set; }
+        [Beacon("cm3")]
+        public long? CustomMetric3 { get; set; }
+        [Beacon("cm4")]
+        public long? CustomMetric4 { get; set; }
+        [Beacon("cm5")]
+        public long? CustomMetric5 { get; set; }
+        [Beacon("cm6")]
+        public long? CustomMetric6 { get; set; }
+        [Beacon("cm7")]
+        public long? CustomMetric7 { get; set; }
+        [Beacon("cm8")]
+        public long? CustomMetric8 { get; set; }
+        [Beacon("cm9")]
+        public long? CustomMetric9 { get; set; }
+        [Beacon("cm10")]
+        public long? CustomMetric10 { get; set; }
+        [Beacon("cm11")]
+        public long? CustomMetric11 { get; set; }
+        [Beacon("cm12")]
+        public long? CustomMetric12 { get; set; }
+        [Beacon("cm13")]
+        public long? CustomMetric13 { get; set; }
+        [Beacon("cm14")]
+        public long? CustomMetric14 { get; set; }
+        [Beacon("cm15")]
+        public long? CustomMetric15 { get; set; }
+        [Beacon("cm16")]
+        public long? CustomMetric16 { get; set; }
+        [Beacon("cm17")]
+        public long? CustomMetric17 { get; set; }
+        [Beacon("cm18")]
+        public long? CustomMetric18 { get; set; }
+        [Beacon("cm19")]
+        public long? CustomMetric19 { get; set; }
+        [Beacon("cm20")]
+        public long? CustomMetric20 { get; set; }
+        #endregion
     }
 }
