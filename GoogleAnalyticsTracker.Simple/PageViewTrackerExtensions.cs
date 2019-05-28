@@ -7,7 +7,7 @@ namespace GoogleAnalyticsTracker.Simple
 {
     public static class PageViewTrackerExtensions
     {        
-        public static async Task<TrackingResult> TrackPageViewAsync(this SimpleTracker tracker, string pageTitle, string pageUrl, IDictionary<int,string> customDimensions, IDictionary<int,long?> customMetrics)
+        public static async Task<TrackingResult> TrackPageViewAsync(this SimpleTracker tracker, string pageTitle, string pageUrl, IDictionary<int,string> customDimensions, IDictionary<int,long?> customMetrics = null)
         {
             var pageViewParameters = new PageView
             {
@@ -16,7 +16,9 @@ namespace GoogleAnalyticsTracker.Simple
             };
 
             pageViewParameters.SetCustomDimensions(customDimensions);
-            pageViewParameters.SetCustomMetrics(customMetrics);
+            if (customMetrics != null) {
+                pageViewParameters.SetCustomMetrics(customMetrics);
+            }
 
             return await tracker.TrackAsync(pageViewParameters);
         }
