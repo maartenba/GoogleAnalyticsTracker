@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleAnalyticsTracker.WebAPI", "GoogleAnalyticsTracker.WebAPI\GoogleAnalyticsTracker.WebAPI.csproj", "{C4C1095C-C197-48E2-8E56-CC49C06A758A}"
 EndProject
@@ -114,5 +114,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0F33A73B-8F9F-4E17-9B3A-C4E81D9D2C64}
 	EndGlobalSection
 EndGlobal
