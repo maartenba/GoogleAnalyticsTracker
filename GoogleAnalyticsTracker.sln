@@ -24,12 +24,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleAnalyticsTracker.AspN
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleAnalyticsTracker.SampleWebApplication", "GoogleAnalyticsTracker.SampleWebApplication\GoogleAnalyticsTracker.SampleWebApplication.csproj", "{19F074E8-0E15-4F10-B873-DE136644B0BA}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.csproj", "{C603D8E4-AC37-48A7-9BBD-AF3265FCA357}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C603D8E4-AC37-48A7-9BBD-AF3265FCA357}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C603D8E4-AC37-48A7-9BBD-AF3265FCA357}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{85300E06-1F96-4BE1-B267-DFB8874AD493}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{85300E06-1F96-4BE1-B267-DFB8874AD493}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{85300E06-1F96-4BE1-B267-DFB8874AD493}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -55,6 +59,7 @@ Global
 		{B1140D42-4CA4-4B24-A234-4BC32E623CDA} = {6B011824-80B7-4D62-9A51-EC319B8C1A12}
 		{EB1421F8-43B5-4448-8E79-C5BAFFB2E767} = {C6368727-D041-4D34-A107-26884AAD495B}
 		{19F074E8-0E15-4F10-B873-DE136644B0BA} = {525AB2FA-0C4E-4901-BDAA-50CBC64205AA}
+		{C603D8E4-AC37-48A7-9BBD-AF3265FCA357} = {D89FAD3E-2494-4C84-8A87-1E1D1B6A1E51}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F33A73B-8F9F-4E17-9B3A-C4E81D9D2C64}
