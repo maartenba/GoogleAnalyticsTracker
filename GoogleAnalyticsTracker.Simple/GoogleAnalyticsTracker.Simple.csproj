@@ -3,6 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Title>GoogleAnalyticsTracker.Simple</Title>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
 
   <ItemGroup>
