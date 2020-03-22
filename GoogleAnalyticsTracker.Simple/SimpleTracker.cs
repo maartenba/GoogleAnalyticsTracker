@@ -25,7 +25,7 @@ namespace GoogleAnalyticsTracker.Simple
         }
 
         /// <summary>
-        /// Creates a new SimpleTracker. See <see cref="SimpleTracker(string, string)"/> for details.
+        /// Creates a new SimpleTracker. See <see cref="SimpleTracker(string, ITrackerEnvironment)"/> for details.
         /// </summary>
         /// <param name="trackingAccount"></param>
         /// <param name="analyticsSession"></param>
