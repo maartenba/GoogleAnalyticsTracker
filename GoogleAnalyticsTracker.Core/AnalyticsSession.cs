@@ -7,7 +7,6 @@ namespace GoogleAnalyticsTracker.Core
     public class AnalyticsSession : IAnalyticsSession
     {
         protected string SessionId { get; set; }
-        protected string Cookie { get; set; }
         protected int SessionCount { get; set; }
 
         protected virtual string GetUniqueVisitorId()

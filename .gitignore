@@ -16,3 +16,4 @@ obj/
 bin/
 *.suo
 *.user
+.idea/*
