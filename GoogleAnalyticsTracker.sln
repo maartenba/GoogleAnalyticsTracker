@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleAnalyticsTracker.WebA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleAnalyticsTracker.MVC4", "GoogleAnalyticsTracker.MVC4\GoogleAnalyticsTracker.MVC4.csproj", "{9B6AA06C-85A9-45B9-BE39-0CDAE19D9FD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleAnalyticsTracker.Simple", "GoogleAnalyticsTracker.Simple\GoogleAnalyticsTracker.Simple.csproj", "{A0D5C5E5-5556-48B2-A3BF-86E219A15717}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoogleAnalyticsTracker.Simple", "GoogleAnalyticsTracker.Simple\GoogleAnalyticsTracker.Simple.csproj", "{A0D5C5E5-5556-48B2-A3BF-86E219A15717}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleAnalyticsTracker.Core", "GoogleAnalyticsTracker.Core\GoogleAnalyticsTracker.Core.csproj", "{E53B5981-6ADB-47D3-94AC-130F0B1C3FBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoogleAnalyticsTracker.Core", "GoogleAnalyticsTracker.Core\GoogleAnalyticsTracker.Core.csproj", "{E53B5981-6ADB-47D3-94AC-130F0B1C3FBB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleAnalyticsTracker.WebAPI2", "GoogleAnalyticsTracker.WebAPI2\GoogleAnalyticsTracker.WebAPI2.csproj", "{9691BB99-B55E-4448-90C6-9E1021460A72}"
 EndProject
