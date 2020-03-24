@@ -144,16 +144,13 @@ namespace GoogleAnalyticsTracker.Core
             return request;
         }
         
-        
-        private static IDictionary<string, string> GetParametersDictionary(IGeneralParameters parameters)
+        private static IDictionary<string, string> GetParametersDictionary(IProvideBeaconParameters parameters)
         {
             var beaconList = new BeaconList<string, string>();
 
             foreach (var p in parameters.GetType().GetRuntimeProperties())
             {
-                var attr = p.GetCustomAttribute(typeof(BeaconAttribute), true) as BeaconAttribute;
-
-                if (attr == null)
+                if (!(p.GetCustomAttribute(typeof(BeaconAttribute), true) is BeaconAttribute attr))
                 {
                     continue;
                 }
@@ -188,30 +185,53 @@ namespace GoogleAnalyticsTracker.Core
                 beaconList.Add(attr.Name, Convert.ToString(value, CultureInfo.InvariantCulture));
             }
 
+            if (parameters.GetType() == typeof(IEnhancedECommerceTransactionParameters))
+            {
+                var param = (IEnhancedECommerceTransactionParameters)parameters;
+
+                if (param.Products != null && param.Products.Any())
+                {
+                    var productIndex = 1;
+                    foreach (var product in param.Products)
+                    {
+                        var parameterList = GetParametersDictionary(product);
+                        foreach (var customDimension in product.CustomDimensions)
+                        {
+                            parameterList.Add(customDimension.Name, customDimension.Value);
+                        }
+
+                        parameterList = parameterList.ToDictionary(key => $"pr{productIndex}{key.Key}", value => value.Value);
+                        beaconList.AddRange(parameterList);
+                        productIndex++;
+                    }
+                }
+            }
+
             return beaconList.ToDictionary(key => key.Item1, value => value.Item2);
         }
 
-        private static object GetValueFromEnum(PropertyInfo propertyInfo, IGeneralParameters parameters)
+        private static object GetValueFromEnum(PropertyInfo propertyInfo, IProvideBeaconParameters parameters)
         {
             var value = propertyInfo.GetMethod.Invoke(parameters, null);
 
             if (value == null) return null;
 
-            var enumValue =
-                Enum.Parse(propertyInfo.PropertyType.IsNullableEnum()
-                        ? Nullable.GetUnderlyingType(propertyInfo.PropertyType)
-                        : propertyInfo.PropertyType, value.ToString());
+            var propertyType = propertyInfo.PropertyType.IsNullableEnum()
+                ? Nullable.GetUnderlyingType(propertyInfo.PropertyType)
+                : propertyInfo.PropertyType;
+
+            if (propertyType == null) return null;
+
+            var enumValue = Enum.Parse(propertyType, value.ToString());
 
             return enumValue.GetHashCode().ToString(CultureInfo.InvariantCulture);
         }
 
-        private static object GetLowerCaseValueFromEnum(PropertyInfo propertyInfo, IGeneralParameters parameters)
+        private static object GetLowerCaseValueFromEnum(PropertyInfo propertyInfo, IProvideBeaconParameters parameters)
         {
             var value = propertyInfo.GetMethod.Invoke(parameters, null);
 
-            return value == null 
-                ? null 
-                : value.ToString().ToLowerInvariant();
+            return value?.ToString().ToLowerInvariant();
         }
 
         /// <summary>
