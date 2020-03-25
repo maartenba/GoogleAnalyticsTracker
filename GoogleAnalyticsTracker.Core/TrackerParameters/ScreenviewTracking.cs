@@ -1,5 +1,8 @@
+using JetBrains.Annotations;
+
 namespace GoogleAnalyticsTracker.Core.TrackerParameters
 {
+    [PublicAPI]
     public class ScreenviewTracking : GeneralParameters
     {
         #region Overrides of GeneralParameters
@@ -9,10 +12,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <remarks>Required for all hit types</remarks>
         /// <example>HitType.Pageview</example>
         /// </summary>
-        public override HitType HitType
-        {
-            get { return HitType.Screenview; }
-        }
+        public override HitType HitType => HitType.Screenview;
 
         #endregion Overrides of GeneralParameters
     }

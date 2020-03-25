@@ -1,7 +1,9 @@
 using GoogleAnalyticsTracker.Core.TrackerParameters.Interface;
+using JetBrains.Annotations;
 
 namespace GoogleAnalyticsTracker.Core.TrackerParameters
 {
+    [PublicAPI]
     public class ExceptionTracking : GeneralParameters, IExceptionParameters
     {
         #region Overrides of GeneralParameters
@@ -11,10 +13,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <remarks>Required for all hit types</remarks>
         /// <example>HitType.Pageview</example>
         /// </summary>  
-        public override HitType HitType
-        {
-            get { return HitType.Exception; }
-        }
+        public override HitType HitType => HitType.Exception;
 
         #endregion
 

@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace GoogleAnalyticsTracker.Core.TrackerParameters
 {
+    [PublicAPI]
     public class BeaconComparer : IComparer<string>
     {
         private static readonly List<string> Ordered = new List<string> { "t", "cid", "tid", "v" }; // reverse order
@@ -29,8 +31,9 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         public bool Equals(string x, string y)
         {
             if (x != null)
-                return ((y != null) && x.Equals(y));
+                return y != null && x.Equals(y);
 
+            // ReSharper disable once ConvertIfStatementToReturnStatement
             if (y != null)
                 return false;
 

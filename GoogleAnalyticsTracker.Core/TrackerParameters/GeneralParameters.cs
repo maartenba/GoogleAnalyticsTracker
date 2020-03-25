@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 
 using GoogleAnalyticsTracker.Core.TrackerParameters.Interface;
+using JetBrains.Annotations;
 
 namespace GoogleAnalyticsTracker.Core.TrackerParameters
 {
+    [PublicAPI]
     public abstract class GeneralParameters : IGeneralParameters
     {        
         public string UserAgent { get; set; }
@@ -15,10 +17,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <remarks>Required for all hit types</remarks>
         /// </summary>        
         [Beacon("v", true)]
-        public string ProtocolVersion
-        {
-            get { return "1"; }
-        }
+        public string ProtocolVersion => "1";
 
         /// <summary>
         /// The tracking ID / web property ID. The format is UA-XXXX-Y. All collected data is associated by this ID.
@@ -377,6 +376,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
                 //max length of 150 bytes for custom dimensions
                 if (value.Length > 149) value = value.Substring(0, 149);
 
+                // ReSharper disable once ConvertIfStatementToSwitchStatement
                 if (dimension.Key == 1) CustomDimension1 = value;
                 else if (dimension.Key == 2) CustomDimension2 = value;
                 else if (dimension.Key == 3) CustomDimension3 = value;
@@ -454,6 +454,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
                 if (metric.Value == null) continue;
                 var value = metric.Value.Value;
 
+                // ReSharper disable once ConvertIfStatementToSwitchStatement
                 if (metric.Key == 1) CustomMetric1 = value;
                 else if (metric.Key == 2) CustomMetric2 = value;
                 else if (metric.Key == 3) CustomMetric3 = value;

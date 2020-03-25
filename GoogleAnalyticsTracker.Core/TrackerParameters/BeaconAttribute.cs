@@ -1,7 +1,9 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace GoogleAnalyticsTracker.Core.TrackerParameters
 {
+    [PublicAPI]
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Enum)]
     public class BeaconAttribute : Attribute
     {
@@ -24,13 +26,13 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// ctor
         /// </summary>
         /// <param name="name">Beacon name</param>
-        /// <param name="isRequried">Beacon is required?</param>
-        /// <param name="isEnumByValueBased">Beacon is a enum that muust be get by value?</param>
-        public BeaconAttribute(string name, bool isRequried = false, bool isEnumByValueBased = false)
+        /// <param name="isRequired">Beacon is required?</param>
+        /// <param name="isEnumByValueBased">Beacon is a enum that must be get by value?</param>
+        public BeaconAttribute(string name, bool isRequired = false, bool isEnumByValueBased = false)
         {
             Name = name;
             IsEnumByValueBased = isEnumByValueBased;
-            IsRequired = isRequried;
+            IsRequired = isRequired;
         }
     }
 }

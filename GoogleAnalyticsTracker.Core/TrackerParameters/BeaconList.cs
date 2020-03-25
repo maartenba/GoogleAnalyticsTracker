@@ -97,10 +97,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <returns>
         /// The number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1"/>.
         /// </returns>
-        public int Count
-        {
-            get { return _list.Count; }
-        }
+        public int Count => _list.Count;
 
         /// <summary>
         /// Gets a value indicating whether the <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only.
@@ -108,10 +105,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <returns>
         /// true if the <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only; otherwise, false.
         /// </returns>
-        public bool IsReadOnly
-        {
-            get { return _list.IsReadOnly; }
-        }
+        public bool IsReadOnly => _list.IsReadOnly;
 
         #endregion Implementation of ICollection<Beacon<TKey,TValue>>
 
@@ -125,9 +119,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// </returns>
         /// <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.IList`1"/>.</param>
         public int IndexOf(Beacon<TKey, TValue> item)
-        {
-            return _list.IndexOf(item);
-        }
+            => _list.IndexOf(item);
 
         /// <summary>
         /// Inserts an item to the <see cref="T:System.Collections.Generic.IList`1"/> at the specified index.
@@ -156,8 +148,8 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <param name="index">The zero-based index of the element to get or set.</param><exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/> is not a valid index in the <see cref="T:System.Collections.Generic.IList`1"/>.</exception><exception cref="T:System.NotSupportedException">The property is set and the <see cref="T:System.Collections.Generic.IList`1"/> is read-only.</exception>
         public Beacon<TKey, TValue> this[int index]
         {
-            get { return _list[index]; }
-            set { _list[index] = value; }
+            get => _list[index];
+            set => _list[index] = value;
         }
 
         #endregion Implementation of IList<Beacon<TKey,TValue>>
@@ -165,6 +157,14 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         public void Add(TKey key, TValue value)
         {
             _list.Add(new Beacon<TKey, TValue>(key, value));
+        }
+
+        public void AddRange(IDictionary<TKey, TValue> sourceList)
+        {
+            foreach (var parameter in sourceList)
+            {
+                Add(parameter.Key, parameter.Value);
+            }
         }
     }
 }

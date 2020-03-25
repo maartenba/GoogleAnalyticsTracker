@@ -1,8 +1,10 @@
 using GoogleAnalyticsTracker.Core;
 using GoogleAnalyticsTracker.Core.Interface;
+using JetBrains.Annotations;
 
 namespace GoogleAnalyticsTracker.Simple
 {
+    [PublicAPI]
     public class SimpleTracker : TrackerBase
     {
         /// <summary>
@@ -11,7 +13,7 @@ namespace GoogleAnalyticsTracker.Simple
         /// <param name="trackingAccount">Google Analytics tracking account</param>
         /// <param name="trackerEnvironment">Tracking environment</param>
         /// <example>
-        /// var tracker = new SimpleTracker("UA-XXXXX", "example.com", 
+        /// var tracker = new SimpleTracker("UA-XXXXX-XX", "example.com", 
         ///     new SimpleTrackerEnvironment(
         ///         Dns.GetHostName(),
         ///         Environment.OSVersion.Platform.ToString(),

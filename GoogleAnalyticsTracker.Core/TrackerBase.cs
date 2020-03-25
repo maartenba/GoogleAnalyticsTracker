@@ -9,9 +9,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using GoogleAnalyticsTracker.Core.TrackerParameters.Interface;
+using JetBrains.Annotations;
 
 namespace GoogleAnalyticsTracker.Core
 {
+    [PublicAPI]
     public class TrackerBase : IDisposable
     {
         private static readonly HttpClient DefaultHttpClient = new HttpClient();
@@ -38,8 +40,8 @@ namespace GoogleAnalyticsTracker.Core
         /// </summary>
         public HttpClient HttpClient
         {
-            get { return _customHttpClient ?? DefaultHttpClient; }
-            set { _customHttpClient = value; }
+            get => _customHttpClient ?? DefaultHttpClient;
+            set => _customHttpClient = value;
         }
 
         public TrackerBase(string trackingAccount, ITrackerEnvironment trackerEnvironment)
@@ -53,6 +55,8 @@ namespace GoogleAnalyticsTracker.Core
             AnalyticsSession = analyticsSession;
 
             EndpointUrl = GoogleAnalyticsEndpoints.Default;
+            
+            // ReSharper disable once UseStringInterpolation
             UserAgent = string.Format("GoogleAnalyticsTracker/6.0 ({0}; {1}; {2})", trackerEnvironment.OsPlatform, trackerEnvironment.OsVersion, trackerEnvironment.OsVersionString);
         }
 
@@ -62,6 +66,7 @@ namespace GoogleAnalyticsTracker.Core
             var data = new StringBuilder();
             foreach (var parameter in parameters.OrderBy(p => p.Key, new BeaconComparer()))
             {
+                // ReSharper disable once UseStringInterpolation
                 data.Append(string.Format("{0}={1}&", parameter.Key, Uri.EscapeDataString(parameter.Value)));
             }
 
@@ -120,21 +125,16 @@ namespace GoogleAnalyticsTracker.Core
             }
             finally
             {
-                if (response != null)
-                {
-                    response.Dispose();
-                }
+                response?.Dispose();
             }
 
             return returnValue;
         }
 
-        private HttpRequestMessage CreateGetWebRequest(string url, string data)
-        {
-            return new HttpRequestMessage(HttpMethod.Get, string.Format("{0}?{1}", url, data));
-        }
+        private static HttpRequestMessage CreateGetWebRequest(string url, string data)
+            => new HttpRequestMessage(HttpMethod.Get, $"{url}?{data}");
 
-        private HttpRequestMessage CreatePostWebRequest(string url, string data)
+        private static HttpRequestMessage CreatePostWebRequest(string url, string data)
         {
             var request = new HttpRequestMessage(HttpMethod.Post, url);
 
@@ -144,16 +144,13 @@ namespace GoogleAnalyticsTracker.Core
             return request;
         }
         
-        
-        private static IDictionary<string, string> GetParametersDictionary(IGeneralParameters parameters)
+        private static IDictionary<string, string> GetParametersDictionary(IProvideBeaconParameters parameters)
         {
             var beaconList = new BeaconList<string, string>();
 
             foreach (var p in parameters.GetType().GetRuntimeProperties())
             {
-                var attr = p.GetCustomAttribute(typeof(BeaconAttribute), true) as BeaconAttribute;
-
-                if (attr == null)
+                if (!(p.GetCustomAttribute(typeof(BeaconAttribute), true) is BeaconAttribute attr))
                 {
                     continue;
                 }
@@ -169,6 +166,7 @@ namespace GoogleAnalyticsTracker.Core
                 {
                     value = GetLowerCaseValueFromEnum(p, parameters) ?? p.GetMethod.Invoke(parameters, null);
                 }
+                // ReSharper disable once ArrangeRedundantParentheses
                 else if (p.PropertyType == typeof(bool) || (underlyingType != null && underlyingType == typeof(bool)))
                 {
                     value = p.GetMethod.Invoke(parameters, null);
@@ -188,30 +186,55 @@ namespace GoogleAnalyticsTracker.Core
                 beaconList.Add(attr.Name, Convert.ToString(value, CultureInfo.InvariantCulture));
             }
 
+            // ReSharper disable once InvertIf
+            if (parameters.GetType() == typeof(IEnhancedECommerceTransactionParameters))
+            {
+                var param = (IEnhancedECommerceTransactionParameters)parameters;
+
+                // ReSharper disable once InvertIf
+                if (param.Products != null && param.Products.Any())
+                {
+                    var productIndex = 1;
+                    foreach (var product in param.Products)
+                    {
+                        var parameterList = GetParametersDictionary(product);
+                        foreach (var customDimension in product.CustomDimensions)
+                        {
+                            parameterList.Add(customDimension.Name, customDimension.Value);
+                        }
+
+                        parameterList = parameterList.ToDictionary(key => $"pr{productIndex}{key.Key}", value => value.Value);
+                        beaconList.AddRange(parameterList);
+                        productIndex++;
+                    }
+                }
+            }
+
             return beaconList.ToDictionary(key => key.Item1, value => value.Item2);
         }
 
-        private static object GetValueFromEnum(PropertyInfo propertyInfo, IGeneralParameters parameters)
+        private static object GetValueFromEnum(PropertyInfo propertyInfo, IProvideBeaconParameters parameters)
         {
             var value = propertyInfo.GetMethod.Invoke(parameters, null);
 
             if (value == null) return null;
 
-            var enumValue =
-                Enum.Parse(propertyInfo.PropertyType.IsNullableEnum()
-                        ? Nullable.GetUnderlyingType(propertyInfo.PropertyType)
-                        : propertyInfo.PropertyType, value.ToString());
+            var propertyType = propertyInfo.PropertyType.IsNullableEnum()
+                ? Nullable.GetUnderlyingType(propertyInfo.PropertyType)
+                : propertyInfo.PropertyType;
+
+            if (propertyType == null) return null;
+
+            var enumValue = Enum.Parse(propertyType, value.ToString());
 
             return enumValue.GetHashCode().ToString(CultureInfo.InvariantCulture);
         }
 
-        private static object GetLowerCaseValueFromEnum(PropertyInfo propertyInfo, IGeneralParameters parameters)
+        private static object GetLowerCaseValueFromEnum(PropertyInfo propertyInfo, IProvideBeaconParameters parameters)
         {
             var value = propertyInfo.GetMethod.Invoke(parameters, null);
 
-            return value == null 
-                ? null 
-                : value.ToString().ToLowerInvariant();
+            return value?.ToString().ToLowerInvariant();
         }
 
         /// <summary>

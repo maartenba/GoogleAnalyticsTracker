@@ -1,7 +1,9 @@
 ﻿using GoogleAnalyticsTracker.Core.TrackerParameters.Interface;
+using JetBrains.Annotations;
 
 namespace GoogleAnalyticsTracker.Core.TrackerParameters
 {
+    [PublicAPI]
     public class ContentExperiments : GeneralParameters, IContentExperimentsParameters
     {
         public ContentExperiments(HitType hitType)

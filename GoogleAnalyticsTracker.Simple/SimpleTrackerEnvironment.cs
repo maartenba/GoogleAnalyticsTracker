@@ -1,8 +1,10 @@
 using GoogleAnalyticsTracker.Core.Interface;
 using System;
+using JetBrains.Annotations;
 
 namespace GoogleAnalyticsTracker.Simple
 {
+    [PublicAPI]
     public class SimpleTrackerEnvironment : ITrackerEnvironment
     {
         /// <summary>
@@ -20,13 +22,9 @@ namespace GoogleAnalyticsTracker.Simple
         /// </example>
         public SimpleTrackerEnvironment(string osPlatform, string osVersion, string osVersionString)
         {
-            if (osPlatform == null) throw new ArgumentNullException(nameof(osPlatform));
-            if (osVersion == null) throw new ArgumentNullException(nameof(osVersion));
-            if (osVersionString == null) throw new ArgumentNullException(nameof(osVersionString));
-
-            OsPlatform = osPlatform;
-            OsVersion = osVersion;
-            OsVersionString = osVersionString;
+            OsPlatform = osPlatform ?? throw new ArgumentNullException(nameof(osPlatform));
+            OsVersion = osVersion ?? throw new ArgumentNullException(nameof(osVersion));
+            OsVersionString = osVersionString ?? throw new ArgumentNullException(nameof(osVersionString));
         }
 
         public string OsPlatform { get; set; }

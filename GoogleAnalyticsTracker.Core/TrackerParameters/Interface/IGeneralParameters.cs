@@ -1,9 +1,13 @@
+using JetBrains.Annotations;
+
 namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
 {
+    [PublicAPI]
     public interface IGeneralParameters : IHitParameters, IUserParameters, ISystemInfoParameters,
                                           IContentInformationParameters,
                                           ISessionParameters, ITrafficSourcesParameters,
-                                          IAppTrackingParameters, ICustomDimensionParameters, ICustomMetricParameters
+                                          IAppTrackingParameters, ICustomDimensionParameters,
+                                          ICustomMetricParameters, IProvideBeaconParameters
     {
         /// <summary>
         /// The Protocol version. The current value is '1'. This will only change when there are changes made that are not backwards compatible.

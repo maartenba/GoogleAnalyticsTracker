@@ -71,6 +71,7 @@ namespace GoogleAnalyticsTracker.AspNet
             if (_contextAccessor.HttpContext == null) return v;
 
             // If visitor has cookie, return value from cookie. 
+            // ReSharper disable once InvertIf
             if (string.IsNullOrEmpty(_contextAccessor.HttpContext.Request.Cookies[StorageKeyUniqueId]))
             {
                 if (createCookie)
@@ -92,6 +93,7 @@ namespace GoogleAnalyticsTracker.AspNet
             // If no HTTP context available, bail out...
             if (_contextAccessor.HttpContext == null) return base.GetFirstVisitTime();
 
+            // ReSharper disable once InvertIf
             if (int.TryParse(_contextAccessor.HttpContext.Request.Cookies[StorageKeyFirstVisitTime], out var v) && v == 0)
             {
                 v = base.GetFirstVisitTime();
@@ -143,9 +145,10 @@ namespace GoogleAnalyticsTracker.AspNet
             if (!string.IsNullOrEmpty(_contextAccessor.HttpContext.Request.Cookies[StorageKeySessionId]) && 
                 _contextAccessor.HttpContext.Request.Cookies[StorageKeySessionId] != _contextAccessor.HttpContext.Session?.Id)
             {
-                v = v + 1;
+                v += 1;
             }
             
+            // ReSharper disable once InvertIf
             if (createCookie)
             {
                 _contextAccessor.HttpContext.Response.Cookies.Append(StorageKeySessionId, _contextAccessor.HttpContext.Session?.Id);
