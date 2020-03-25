@@ -1,6 +1,9 @@
+using JetBrains.Annotations;
+
 namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
 {
-    public interface ISocialInterationsParameters
+    [PublicAPI]
+    public interface ISocialInteractionsParameters
     {
         /// <summary>
         /// Specifies the social network, for example Facebook or Google Plus.

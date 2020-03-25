@@ -8,7 +8,7 @@ namespace GoogleAnalyticsTracker.Core
         public static bool IsNullableEnum(this Type t)
         {
             var u = Nullable.GetUnderlyingType(t);
-            return (u != null) && u.GetTypeInfo().IsEnum;
+            return u != null && u.GetTypeInfo().IsEnum;
         }
     }
 }

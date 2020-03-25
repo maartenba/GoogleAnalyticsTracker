@@ -1,5 +1,8 @@
-﻿namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
+﻿using JetBrains.Annotations;
+
+namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
 {
+    [PublicAPI]
     public interface ICustomDimension
     {
         /// <summary>

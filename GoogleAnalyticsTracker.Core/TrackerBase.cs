@@ -9,9 +9,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using GoogleAnalyticsTracker.Core.TrackerParameters.Interface;
+using JetBrains.Annotations;
 
 namespace GoogleAnalyticsTracker.Core
 {
+    [PublicAPI]
     public class TrackerBase : IDisposable
     {
         private static readonly HttpClient DefaultHttpClient = new HttpClient();
@@ -38,8 +40,8 @@ namespace GoogleAnalyticsTracker.Core
         /// </summary>
         public HttpClient HttpClient
         {
-            get { return _customHttpClient ?? DefaultHttpClient; }
-            set { _customHttpClient = value; }
+            get => _customHttpClient ?? DefaultHttpClient;
+            set => _customHttpClient = value;
         }
 
         public TrackerBase(string trackingAccount, ITrackerEnvironment trackerEnvironment)
@@ -53,6 +55,8 @@ namespace GoogleAnalyticsTracker.Core
             AnalyticsSession = analyticsSession;
 
             EndpointUrl = GoogleAnalyticsEndpoints.Default;
+            
+            // ReSharper disable once UseStringInterpolation
             UserAgent = string.Format("GoogleAnalyticsTracker/6.0 ({0}; {1}; {2})", trackerEnvironment.OsPlatform, trackerEnvironment.OsVersion, trackerEnvironment.OsVersionString);
         }
 
@@ -62,6 +66,7 @@ namespace GoogleAnalyticsTracker.Core
             var data = new StringBuilder();
             foreach (var parameter in parameters.OrderBy(p => p.Key, new BeaconComparer()))
             {
+                // ReSharper disable once UseStringInterpolation
                 data.Append(string.Format("{0}={1}&", parameter.Key, Uri.EscapeDataString(parameter.Value)));
             }
 
@@ -120,21 +125,16 @@ namespace GoogleAnalyticsTracker.Core
             }
             finally
             {
-                if (response != null)
-                {
-                    response.Dispose();
-                }
+                response?.Dispose();
             }
 
             return returnValue;
         }
 
-        private HttpRequestMessage CreateGetWebRequest(string url, string data)
-        {
-            return new HttpRequestMessage(HttpMethod.Get, string.Format("{0}?{1}", url, data));
-        }
+        private static HttpRequestMessage CreateGetWebRequest(string url, string data)
+            => new HttpRequestMessage(HttpMethod.Get, $"{url}?{data}");
 
-        private HttpRequestMessage CreatePostWebRequest(string url, string data)
+        private static HttpRequestMessage CreatePostWebRequest(string url, string data)
         {
             var request = new HttpRequestMessage(HttpMethod.Post, url);
 
@@ -166,6 +166,7 @@ namespace GoogleAnalyticsTracker.Core
                 {
                     value = GetLowerCaseValueFromEnum(p, parameters) ?? p.GetMethod.Invoke(parameters, null);
                 }
+                // ReSharper disable once ArrangeRedundantParentheses
                 else if (p.PropertyType == typeof(bool) || (underlyingType != null && underlyingType == typeof(bool)))
                 {
                     value = p.GetMethod.Invoke(parameters, null);
@@ -185,10 +186,12 @@ namespace GoogleAnalyticsTracker.Core
                 beaconList.Add(attr.Name, Convert.ToString(value, CultureInfo.InvariantCulture));
             }
 
+            // ReSharper disable once InvertIf
             if (parameters.GetType() == typeof(IEnhancedECommerceTransactionParameters))
             {
                 var param = (IEnhancedECommerceTransactionParameters)parameters;
 
+                // ReSharper disable once InvertIf
                 if (param.Products != null && param.Products.Any())
                 {
                     var productIndex = 1;

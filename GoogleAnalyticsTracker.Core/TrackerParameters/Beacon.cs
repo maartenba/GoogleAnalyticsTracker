@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GoogleAnalyticsTracker.Core.TrackerParameters
 {
-    class Beacon<TKey, TValue> : Tuple<TKey, TValue>
+    internal sealed class Beacon<TKey, TValue> : Tuple<TKey, TValue>
     {       
         /// <summary>
         /// Initializes a new instance of the <see cref="T:System.Tuple`2"/> class.
@@ -16,7 +16,8 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
             return Equals(other as Beacon<TKey, TValue>);
         }
 
-        public virtual bool Equals(Beacon<TKey, TValue> other)
+        // ReSharper disable once SuggestBaseTypeForParameter
+        private bool Equals(Beacon<TKey, TValue> other)
         {
             if (other == null) { return false; }
             if (ReferenceEquals(this, other)) { return true; }

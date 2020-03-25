@@ -1,10 +1,13 @@
-﻿namespace GoogleAnalyticsTracker.Core.TrackerParameters
+﻿using JetBrains.Annotations;
+
+namespace GoogleAnalyticsTracker.Core.TrackerParameters
 {
+    [PublicAPI]
     public enum HitType
     {                
-        Pageview,        
-        Event,        
-        Social,        
+        Pageview,
+        Event,
+        Social,
         Timing,
         Screenview,
         Transaction,

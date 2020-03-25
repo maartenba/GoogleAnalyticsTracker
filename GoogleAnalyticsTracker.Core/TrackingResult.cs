@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace GoogleAnalyticsTracker.Core
 {
+    [PublicAPI]
     public class TrackingResult
     {
         public string Url { get; set; }

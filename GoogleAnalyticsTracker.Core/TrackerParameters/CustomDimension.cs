@@ -1,8 +1,10 @@
 ﻿using System;
 using GoogleAnalyticsTracker.Core.TrackerParameters.Interface;
+using JetBrains.Annotations;
 
 namespace GoogleAnalyticsTracker.Core.TrackerParameters
 {
+    [PublicAPI]
     public class CustomDimension : ICustomDimension
     {
         public CustomDimension(int id, string value)

@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
 {
+    [PublicAPI]
     public interface IEnhancedECommerceTransactionParameters : IECommerceTransactionParameters
     {
         /// <summary>
