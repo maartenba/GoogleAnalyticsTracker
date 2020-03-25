@@ -12,8 +12,9 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         }
 
         private int _id;
-        public int Id 
-        { 
+        public int Id
+        {
+            get => _id;
             set
             {
                 if (value < 1 || value > 200)

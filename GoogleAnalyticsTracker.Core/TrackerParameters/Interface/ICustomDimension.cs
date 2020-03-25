@@ -5,7 +5,7 @@
         /// <summary>
         /// Index of custom dimension (from 1 to 200).
         /// </summary>
-        int Id { set; }
+        int Id { get; set; }
 
         /// <summary>
         /// Parameter name of the custom dimension.

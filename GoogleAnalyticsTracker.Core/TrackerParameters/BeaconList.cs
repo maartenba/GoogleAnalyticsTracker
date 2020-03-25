@@ -174,5 +174,13 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
                 Add(parameter.Key, parameter.Value);
             }
         }
+
+        public void AddRange(BeaconList<TKey, TValue> sourceList)
+        {
+            foreach (var parameter in sourceList)
+            {
+                Add(parameter);
+            }
+        }
     }
 }

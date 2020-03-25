@@ -68,7 +68,8 @@ namespace GoogleAnalyticsTracker.Core
             var returnValue = new TrackingResult
             {
                 Url = url,
-                Parameters = parameters
+                Parameters = parameters,
+                Query = data.ToString()
             };
 
             // Create request

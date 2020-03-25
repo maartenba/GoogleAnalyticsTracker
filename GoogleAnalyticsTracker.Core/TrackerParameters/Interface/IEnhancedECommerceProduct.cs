@@ -68,9 +68,16 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         int? Position { get; set; }
 
         /// <summary>
-        /// List of product-level custom dimensions.
-        /// <remarks>Optional</remarks>
+        /// Add a custom dimension value with check if this dimension value already set.
         /// </summary>
-        List<ICustomDimension> CustomDimensions { get; set; }
+        /// <param name="id"></param>
+        /// <param name="value"></param>
+        void AddCustomDimension(int id, string value);
+
+        /// <summary>
+        /// Get all custom dimensions of product
+        /// </summary>
+        /// <returns></returns>
+        List<ICustomDimension> GetCustomDimensions();
     }
 }
