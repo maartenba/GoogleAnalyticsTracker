@@ -52,22 +52,32 @@ namespace GoogleAnalyticsTracker.Core
                 beaconList.Add(attr.Name, Convert.ToString(value, CultureInfo.InvariantCulture));
             }
 
-            if (parameters.GetType() == typeof(EnhancedECommerceTransaction))
-            {
-                beaconList.AddRange(GetProductsParameters((EnhancedECommerceTransaction)parameters));
-            }
+            beaconList.AddRange(GetProductsParameters(parameters));
 
             return beaconList.ToDictionary(key => key.Item1, value => value.Item2);
         }
 
-        private static BeaconList<string, string> GetProductsParameters(IEnhancedECommerceTransactionParameters transaction)
+        private static BeaconList<string, string> GetProductsParameters(object parameters)
         {
             var result = new BeaconList<string, string>();
-            
-            if (transaction.Products == null || !transaction.Products.Any()) return result;
+
+            List<IEnhancedECommerceProduct> products = null;
+            if (parameters.GetType() == typeof(EnhancedECommerceTransaction))
+            {
+                products = ((IEnhancedECommerceTransactionParameters) parameters).Products;
+            }
+            else if (parameters.GetType() == typeof(RefundTracking))
+            {
+                products = ((IRefundTrackingParameters) parameters).Products;
+            }
+
+            if (products == null || !products.Any())
+            {
+                return result;
+            }
             
             var productIndex = 1;
-            foreach (var product in transaction.Products)
+            foreach (var product in products)
             {
                 var parameterList = GetParametersDictionary(product);
                 foreach (var customDimension in product.GetCustomDimensions())
