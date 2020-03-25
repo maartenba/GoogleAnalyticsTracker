@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using GoogleAnalyticsTracker.Core.TrackerParameters.Interface;
+using JetBrains.Annotations;
 
 namespace GoogleAnalyticsTracker.Core.TrackerParameters
 {
+    [PublicAPI]
     public class EnhancedECommerceProduct : IEnhancedECommerceProduct
     {
         public EnhancedECommerceProduct()

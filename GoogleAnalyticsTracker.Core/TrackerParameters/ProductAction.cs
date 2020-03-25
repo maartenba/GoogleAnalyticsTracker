@@ -1,5 +1,8 @@
-﻿namespace GoogleAnalyticsTracker.Core.TrackerParameters
+﻿using JetBrains.Annotations;
+
+namespace GoogleAnalyticsTracker.Core.TrackerParameters
 {
+    [PublicAPI]
     public enum ProductAction
     {
         Detail,

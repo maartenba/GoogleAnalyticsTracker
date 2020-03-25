@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
 {
+    [PublicAPI]
     public interface IEnhancedECommerceProduct : IProvideBeaconParameters
     {
         /// <summary>
@@ -28,7 +30,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         /// <summary>
         /// The category to which the product belongs.
         /// <remarks>Optional. Can be hierarchical with the "/" delimiter up to 5 levels.</remarks>
-        /// <example>Apparel/Mens/T-Shirts</example>
+        /// <example>Apparel/Men/T-Shirts</example>
         /// </summary>
         string Category { get; set; }
 

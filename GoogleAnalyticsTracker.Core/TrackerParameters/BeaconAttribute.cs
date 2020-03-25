@@ -1,7 +1,9 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace GoogleAnalyticsTracker.Core.TrackerParameters
 {
+    [PublicAPI]
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Enum)]
     public class BeaconAttribute : Attribute
     {

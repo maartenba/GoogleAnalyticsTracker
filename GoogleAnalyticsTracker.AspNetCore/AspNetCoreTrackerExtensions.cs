@@ -22,7 +22,7 @@ namespace GoogleAnalyticsTracker.AspNet
                 UserTimingCategory = category,
                 UserTimingVariable = var,
                 UserTimingTime = value,
-                UserTimingLabel = label,                
+                UserTimingLabel = label          
             };
 
             return await tracker.TrackAsync(userTimingParameters);
@@ -30,10 +30,7 @@ namespace GoogleAnalyticsTracker.AspNet
         
         public static async Task<TrackingResult> TrackPageViewAsync(this AspNetCoreTracker tracker, HttpContext httpContext, string pageTitle, string pageUrl = null)
         {
-            if (pageUrl == null)
-            {
-                pageUrl = httpContext.Request.Path;
-            }
+            pageUrl ??= httpContext.Request.Path;
 
             var pageViewParameters = new PageView
             {

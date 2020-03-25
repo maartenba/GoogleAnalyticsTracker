@@ -1,12 +1,14 @@
 using System.Net;
 using System.Reflection;
+using JetBrains.Annotations;
 
 namespace GoogleAnalyticsTracker.Core
 {
+    [PublicAPI]
     public static class HttpWebRequestExtensions
     {
         /// <summary>
-        /// Workaround for PCL's "Additional information: The '.....' header must be modified using the appropriate property or method." exception.
+        /// Workaround for PCL "Additional information: The '.....' header must be modified using the appropriate property or method." exception.
         /// </summary>
         /// <param name="request">Request</param>
         /// <param name="header">Header name</param>

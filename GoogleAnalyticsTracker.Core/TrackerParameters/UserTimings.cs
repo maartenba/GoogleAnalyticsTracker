@@ -1,7 +1,9 @@
 using GoogleAnalyticsTracker.Core.TrackerParameters.Interface;
+using JetBrains.Annotations;
 
 namespace GoogleAnalyticsTracker.Core.TrackerParameters
 {
+    [PublicAPI]
     public class UserTimings : GeneralParameters, ITimingParameters
     {
         public UserTimings()
@@ -16,10 +18,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <remarks>Required for all hit types</remarks>
         /// <example>HitType.Pageview</example>
         /// </summary>  
-        public override HitType HitType
-        {
-            get { return HitType.Timing; }
-        }
+        public override HitType HitType => HitType.Timing;
 
         #endregion
 

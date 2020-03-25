@@ -92,7 +92,7 @@ namespace GoogleAnalyticsTracker.AspNet
                 UserLanguage = _contextAccessor.HttpContext.Request.Headers["Accept-Language"],
                 DocumentReferrer = _contextAccessor.HttpContext.Request.Headers["Referrer"],
                 IpOverride = Environment.GetEnvironmentVariable("server.RemoteIpAddress"),
-                UserId = _contextAccessor.HttpContext.User.Identity.Name,
+                UserId = _contextAccessor.HttpContext.User.Identity.Name
             };
 
             await TrackAsync(pageviewTrackingParameters);
@@ -100,6 +100,7 @@ namespace GoogleAnalyticsTracker.AspNet
 
         private string GetRelativeUrl()
         {
+            // ReSharper disable once UseStringInterpolation
             return string.IsNullOrEmpty(_contextAccessor.HttpContext.Request.QueryString.ToString())
                 ? _contextAccessor.HttpContext.Request.Path.ToString()
                 : string.Format("{0}{1}", _contextAccessor.HttpContext.Request.Path, _contextAccessor.HttpContext.Request.QueryString);

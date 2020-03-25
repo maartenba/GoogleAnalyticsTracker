@@ -27,6 +27,7 @@ public static class Extensions
 
 [CheckBuildProjectConfigurations]
 [UnsetVisualStudioEnvironmentVariables]
+// ReSharper disable once ClassNeverInstantiated.Global
 class Build : NukeBuild
 {
     public static int Main () => Execute<Build>(x => x.Package);

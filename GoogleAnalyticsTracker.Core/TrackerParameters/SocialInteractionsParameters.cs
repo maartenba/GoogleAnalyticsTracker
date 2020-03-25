@@ -1,8 +1,10 @@
 using GoogleAnalyticsTracker.Core.TrackerParameters.Interface;
+using JetBrains.Annotations;
 
 namespace GoogleAnalyticsTracker.Core.TrackerParameters
 {
-    public class SocialInterationsParameters : GeneralParameters, ISocialInterationsParameters
+    [PublicAPI]
+    public class SocialInteractionsParameters : GeneralParameters, ISocialInteractionsParameters
     {
         #region Overrides of GeneralParameters
 
@@ -11,14 +13,11 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <remarks>Required for all hit types</remarks>
         /// <example>HitType.Pageview</example>
         /// </summary>  
-        public override HitType HitType
-        {
-            get { return HitType.Social; }
-        }
+        public override HitType HitType => HitType.Social;
 
         #endregion
 
-        #region Implementation of ISocialInterationsParameters
+        #region Implementation of ISocialInteractionsParameters
 
         /// <summary>
         /// Specifies the social network, for example Facebook or Google Plus.

@@ -1,4 +1,5 @@
-﻿using GoogleAnalyticsTracker.AspNet;
+﻿using System.Diagnostics.CodeAnalysis;
+using GoogleAnalyticsTracker.AspNet;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace GoogleAnalyticsTracker.SampleWebApplication
 {
+    [SuppressMessage("ReSharper", "ArgumentsStyleStringLiteral")]
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -15,6 +17,8 @@ namespace GoogleAnalyticsTracker.SampleWebApplication
             Configuration = configuration;
         }
 
+        // ReSharper disable once MemberCanBePrivate.Global
+        // ReSharper disable once UnusedAutoPropertyAccessor.Global
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -29,6 +33,7 @@ namespace GoogleAnalyticsTracker.SampleWebApplication
 
             services.AddGoogleAnalyticsTracker(options =>
             {
+                // ReSharper disable once StringLiteralTypo
                 options.TrackerId = "UA-XXXXXX-XX";
                 options.ShouldTrackRequestInMiddleware = TrackRequests.OnlyWhenNotYetTracked;
             });
