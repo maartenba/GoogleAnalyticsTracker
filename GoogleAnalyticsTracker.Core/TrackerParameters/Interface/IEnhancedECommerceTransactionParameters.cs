@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 
 namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
 {
     [PublicAPI]
-    public interface IEnhancedECommerceTransactionParameters : IECommerceTransactionParameters, IProvideBeaconParameters, IProvideProductsParameters
+    public interface IEnhancedECommerceTransactionParameters : IECommerceTransactionParameters, IProvideProductsParameters
     {
         /// <summary>
         /// Specifies the role of the products included in a hit.
@@ -41,11 +40,5 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         /// <example>Visa</example>
         /// </summary>
         string CheckoutStepOption { get; set; }
-
-        /// <summary>
-        /// List of products to send in scope of this transaction.
-        /// <remarks>Optional</remarks>
-        /// </summary>
-        List<IEnhancedECommerceProduct> Products { get; set; }
     }
 }
