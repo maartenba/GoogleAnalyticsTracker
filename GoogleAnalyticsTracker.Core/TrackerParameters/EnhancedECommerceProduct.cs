@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using GoogleAnalyticsTracker.Core.TrackerParameters.Interface;
 using JetBrains.Annotations;
 
@@ -9,7 +11,22 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
     {
         public EnhancedECommerceProduct()
         {
-            CustomDimensions = new List<ICustomDimension>();
+            _customDimensions = new List<ICustomDimension>();
+        }
+
+        public void AddCustomDimension(int id, string value)
+        {
+            if (_customDimensions.Any(cd => cd.Id == id))
+            {
+                throw new ArgumentException($"Product already have custom dimension with Id = {id}");
+            }
+
+            _customDimensions.Add(new CustomDimension(id, value));
+        }
+
+        public List<ICustomDimension> GetCustomDimensions()
+        {
+            return _customDimensions;
         }
 
         [Beacon("id")]
@@ -39,6 +56,6 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         [Beacon("ps")]
         public int? Position { get; set; }
 
-        public List<ICustomDimension> CustomDimensions { get; set; }
+        private readonly List<ICustomDimension> _customDimensions;
     }
 }
