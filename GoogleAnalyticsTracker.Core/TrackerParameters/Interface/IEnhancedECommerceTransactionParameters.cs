@@ -4,7 +4,7 @@ using JetBrains.Annotations;
 namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
 {
     [PublicAPI]
-    public interface IEnhancedECommerceTransactionParameters : IECommerceTransactionParameters
+    public interface IEnhancedECommerceTransactionParameters : IECommerceTransactionParameters, IProvideBeaconParameters, IProvideProductsParameters
     {
         /// <summary>
         /// Specifies the role of the products included in a hit.
