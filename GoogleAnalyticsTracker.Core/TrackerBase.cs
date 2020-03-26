@@ -74,7 +74,8 @@ namespace GoogleAnalyticsTracker.Core
             var returnValue = new TrackingResult
             {
                 Url = url,
-                Parameters = parameters
+                Parameters = parameters,
+                Query = data.ToString()
             };
 
             // Create request
@@ -186,31 +187,39 @@ namespace GoogleAnalyticsTracker.Core
                 beaconList.Add(attr.Name, Convert.ToString(value, CultureInfo.InvariantCulture));
             }
 
+            var parametersType = parameters.GetType();
             // ReSharper disable once InvertIf
-            if (parameters.GetType() == typeof(IEnhancedECommerceTransactionParameters))
+            if (typeof(IProvideProductsParameters).IsAssignableFrom(parametersType))
             {
-                var param = (IEnhancedECommerceTransactionParameters)parameters;
-
-                // ReSharper disable once InvertIf
-                if (param.Products != null && param.Products.Any())
-                {
-                    var productIndex = 1;
-                    foreach (var product in param.Products)
-                    {
-                        var parameterList = GetParametersDictionary(product);
-                        foreach (var customDimension in product.CustomDimensions)
-                        {
-                            parameterList.Add(customDimension.Name, customDimension.Value);
-                        }
-
-                        parameterList = parameterList.ToDictionary(key => $"pr{productIndex}{key.Key}", value => value.Value);
-                        beaconList.AddRange(parameterList);
-                        productIndex++;
-                    }
-                }
+                beaconList.AddRange(GetProductsParameters((IProvideProductsParameters)parameters));
             }
 
             return beaconList.ToDictionary(key => key.Item1, value => value.Item2);
+        }
+
+        private static BeaconList<string, string> GetProductsParameters(IProvideProductsParameters parameters)
+        {
+            var result = new BeaconList<string, string>();
+            
+            if (parameters.Products == null || !parameters.Products.Any()) return result;
+            
+            var productIndex = 1;
+            foreach (var product in parameters.Products)
+            {
+                var parameterList = GetParametersDictionary(product);
+                foreach (var customDimension in product.GetCustomDimensions())
+                {
+                    parameterList.Add(customDimension.Name, customDimension.Value);
+                }
+
+                parameterList =
+                    parameterList.ToDictionary(key => $"pr{productIndex}{key.Key}", value => value.Value);
+                result.AddRange(parameterList);
+
+                productIndex++;
+            }
+
+            return result;
         }
 
         private static object GetValueFromEnum(PropertyInfo propertyInfo, IProvideBeaconParameters parameters)
