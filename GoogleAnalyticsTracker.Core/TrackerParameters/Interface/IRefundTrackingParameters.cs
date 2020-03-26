@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
 {
     public interface IRefundTrackingParameters : IProvideProductsParameters
@@ -16,11 +14,5 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         /// <remarks>Required for refund</remarks>
         /// </summary>
         ProductAction ProductAction { get; }
-
-        /// <summary>
-        /// Specifies the product list to refund.
-        /// <remarks>Optional</remarks>
-        /// </summary>
-        List<IEnhancedECommerceProduct> Products { get; set; }
     }
 }
