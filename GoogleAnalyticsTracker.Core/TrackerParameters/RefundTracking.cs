@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using GoogleAnalyticsTracker.Core.TrackerParameters.Interface;
+using JetBrains.Annotations;
 
 namespace GoogleAnalyticsTracker.Core.TrackerParameters
 {
+    [PublicAPI]
     public class RefundTracking : EventTracking, IRefundTrackingParameters
     {
         public RefundTracking()
@@ -12,6 +14,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
             Action = "Refund";
             Products = new List<IEnhancedECommerceProduct>();
         }
+        
         #region Overrides of GeneralParameters
         
         public override HitType HitType => HitType.Event;
