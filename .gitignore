@@ -16,3 +16,6 @@ obj/
 bin/
 *.suo
 *.user
+.idea/*
+.tmp/*
+artifacts/*

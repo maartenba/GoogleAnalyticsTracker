@@ -1,5 +1,8 @@
+using JetBrains.Annotations;
+
 namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
 {
+    [PublicAPI]
     public interface IEventTrackingParameters
     {
         /// <summary>

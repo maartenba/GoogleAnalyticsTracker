@@ -1,19 +1,22 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
 using GoogleAnalyticsTracker.Core.Interface;
 using GoogleAnalyticsTracker.Core.TrackerParameters;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection;
+using GoogleAnalyticsTracker.Core.TrackerParameters.Interface;
+using JetBrains.Annotations;
 
 namespace GoogleAnalyticsTracker.Core
 {
-    public partial class TrackerBase : IDisposable
+    [PublicAPI]
+    public class TrackerBase : IDisposable
     {
-        private static readonly HttpClient _defaultHttpClient = new HttpClient();
-
-        public const string TrackingAccountConfigurationKey = "GoogleAnalyticsTracker.TrackingAccount";
+        private static readonly HttpClient DefaultHttpClient = new HttpClient();
 
         public string TrackingAccount { get; set; }
         public IAnalyticsSession AnalyticsSession { get; set; }
@@ -37,8 +40,8 @@ namespace GoogleAnalyticsTracker.Core
         /// </summary>
         public HttpClient HttpClient
         {
-            get { return _customHttpClient ?? _defaultHttpClient; }
-            set { _customHttpClient = value; }
+            get => _customHttpClient ?? DefaultHttpClient;
+            set => _customHttpClient = value;
         }
 
         public TrackerBase(string trackingAccount, ITrackerEnvironment trackerEnvironment)
@@ -52,7 +55,9 @@ namespace GoogleAnalyticsTracker.Core
             AnalyticsSession = analyticsSession;
 
             EndpointUrl = GoogleAnalyticsEndpoints.Default;
-            UserAgent = string.Format("GoogleAnalyticsTracker/3.0 ({0}; {1}; {2})", trackerEnvironment.OsPlatform, trackerEnvironment.OsVersion, trackerEnvironment.OsVersionString);
+            
+            // ReSharper disable once UseStringInterpolation
+            UserAgent = string.Format("GoogleAnalyticsTracker/6.0 ({0}; {1}; {2})", trackerEnvironment.OsPlatform, trackerEnvironment.OsVersion, trackerEnvironment.OsVersionString);
         }
 
         private async Task<TrackingResult> RequestUrlAsync(string url, IDictionary<string, string> parameters, string userAgent)
@@ -61,6 +66,7 @@ namespace GoogleAnalyticsTracker.Core
             var data = new StringBuilder();
             foreach (var parameter in parameters.OrderBy(p => p.Key, new BeaconComparer()))
             {
+                // ReSharper disable once UseStringInterpolation
                 data.Append(string.Format("{0}={1}&", parameter.Key, Uri.EscapeDataString(parameter.Value)));
             }
 
@@ -68,7 +74,8 @@ namespace GoogleAnalyticsTracker.Core
             var returnValue = new TrackingResult
             {
                 Url = url,
-                Parameters = parameters
+                Parameters = parameters,
+                Query = data.ToString()
             };
 
             // Create request
@@ -119,21 +126,16 @@ namespace GoogleAnalyticsTracker.Core
             }
             finally
             {
-                if (response != null)
-                {
-                    response.Dispose();
-                }
+                response?.Dispose();
             }
 
             return returnValue;
         }
 
-        private HttpRequestMessage CreateGetWebRequest(string url, string data)
-        {
-            return new HttpRequestMessage(HttpMethod.Get, string.Format("{0}?{1}", url, data));
-        }
+        private static HttpRequestMessage CreateGetWebRequest(string url, string data)
+            => new HttpRequestMessage(HttpMethod.Get, $"{url}?{data}");
 
-        private HttpRequestMessage CreatePostWebRequest(string url, string data)
+        private static HttpRequestMessage CreatePostWebRequest(string url, string data)
         {
             var request = new HttpRequestMessage(HttpMethod.Post, url);
 
@@ -141,6 +143,160 @@ namespace GoogleAnalyticsTracker.Core
             request.Content = new ByteArrayContent(dataBytes);
 
             return request;
+        }
+        
+        private static IDictionary<string, string> GetParametersDictionary(IProvideBeaconParameters parameters)
+        {
+            var beaconList = new BeaconList<string, string>();
+
+            foreach (var p in parameters.GetType().GetRuntimeProperties())
+            {
+                if (!(p.GetCustomAttribute(typeof(BeaconAttribute), true) is BeaconAttribute attr))
+                {
+                    continue;
+                }
+
+                object value;
+                var underlyingType = Nullable.GetUnderlyingType(p.PropertyType);
+
+                if ((p.PropertyType.GetTypeInfo().IsEnum || p.PropertyType.IsNullableEnum()) && attr.IsEnumByValueBased)
+                {
+                    value = GetValueFromEnum(p, parameters) ?? p.GetMethod.Invoke(parameters, null);
+                }
+                else if (p.PropertyType.GetTypeInfo().IsEnum || p.PropertyType.IsNullableEnum())
+                {
+                    value = GetLowerCaseValueFromEnum(p, parameters) ?? p.GetMethod.Invoke(parameters, null);
+                }
+                // ReSharper disable once ArrangeRedundantParentheses
+                else if (p.PropertyType == typeof(bool) || (underlyingType != null && underlyingType == typeof(bool)))
+                {
+                    value = p.GetMethod.Invoke(parameters, null);
+                    if (value != null)
+                        value = (bool)value ? "1" : "0";
+                }
+                else
+                {
+                    value = p.GetMethod.Invoke(parameters, null);
+                }
+
+                if (value == null)
+                {
+                    continue;
+                }
+
+                beaconList.Add(attr.Name, Convert.ToString(value, CultureInfo.InvariantCulture));
+            }
+
+            var parametersType = parameters.GetType();
+            // ReSharper disable once InvertIf
+            if (typeof(IProvideProductsParameters).IsAssignableFrom(parametersType))
+            {
+                beaconList.AddRange(GetProductsParameters((IProvideProductsParameters)parameters));
+            }
+
+            return beaconList.ToDictionary(key => key.Item1, value => value.Item2);
+        }
+
+        private static BeaconList<string, string> GetProductsParameters(IProvideProductsParameters parameters)
+        {
+            var result = new BeaconList<string, string>();
+            
+            if (parameters.Products == null || !parameters.Products.Any()) return result;
+            
+            var productIndex = 1;
+            foreach (var product in parameters.Products)
+            {
+                var parameterList = GetParametersDictionary(product);
+                foreach (var customDimension in product.GetCustomDimensions())
+                {
+                    parameterList.Add(customDimension.Name, customDimension.Value);
+                }
+
+                parameterList =
+                    parameterList.ToDictionary(key => $"pr{productIndex}{key.Key}", value => value.Value);
+                result.AddRange(parameterList);
+
+                productIndex++;
+            }
+
+            return result;
+        }
+
+        private static object GetValueFromEnum(PropertyInfo propertyInfo, IProvideBeaconParameters parameters)
+        {
+            var value = propertyInfo.GetMethod.Invoke(parameters, null);
+
+            if (value == null) return null;
+
+            var propertyType = propertyInfo.PropertyType.IsNullableEnum()
+                ? Nullable.GetUnderlyingType(propertyInfo.PropertyType)
+                : propertyInfo.PropertyType;
+
+            if (propertyType == null) return null;
+
+            var enumValue = Enum.Parse(propertyType, value.ToString());
+
+            return enumValue.GetHashCode().ToString(CultureInfo.InvariantCulture);
+        }
+
+        private static object GetLowerCaseValueFromEnum(PropertyInfo propertyInfo, IProvideBeaconParameters parameters)
+        {
+            var value = propertyInfo.GetMethod.Invoke(parameters, null);
+
+            return value?.ToString().ToLowerInvariant();
+        }
+
+        /// <summary>
+        /// Set base, required parameters if they are empty: TrackingId, ClientId.
+        /// </summary>
+        /// <param name="parameters">GA request parameters.</param>
+        private void SetRequiredParameters(IGeneralParameters parameters)
+        {
+            if (string.IsNullOrEmpty(parameters.ProtocolVersion))
+            {
+                throw new ArgumentException("No ProtocolVersion", nameof(parameters));
+            }
+
+            if (string.IsNullOrEmpty(parameters.TrackingId))
+            {
+                parameters.TrackingId = TrackingAccount;
+            }
+
+            if (string.IsNullOrEmpty(parameters.ClientId))
+            {
+                parameters.ClientId = AnalyticsSession.GenerateSessionId();
+            }
+        }
+
+        /// <summary>
+        /// Set additional properties in parameters if they are empty: CacheBuster.
+        /// The CacheBuster is set when UseHttpGet flag is set.
+        /// <para>
+        /// Override to change other properties.</para>
+        /// </summary>
+        /// <param name="parameters">GA request parameters.</param>
+        protected virtual void AmendParameters(IGeneralParameters parameters)
+        {
+            if (UseHttpGet && string.IsNullOrEmpty(parameters.CacheBuster))
+            {
+                parameters.CacheBuster = AnalyticsSession.GenerateCacheBuster();
+            }
+        }
+
+        /// <summary>
+        /// Send parameters to GA endpoint.
+        /// </summary>
+        /// <param name="generalParameters">GA request parameters.</param>
+        /// <returns>Result of the request.</returns>
+        public async Task<TrackingResult> TrackAsync(IGeneralParameters generalParameters)
+        {
+            AmendParameters(generalParameters);
+            // Set required must come after amend.
+            SetRequiredParameters(generalParameters);
+
+            var parameters = GetParametersDictionary(generalParameters);
+
+            return await RequestUrlAsync(EndpointUrl, parameters, generalParameters.UserAgent ?? UserAgent);
         }
 
         #region IDisposable Members
