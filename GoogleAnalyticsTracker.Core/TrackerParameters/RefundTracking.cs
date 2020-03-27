@@ -9,10 +9,10 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
     {
         public RefundTracking()
         {
-            NonInteractionHit = true;
             Category = "Ecommerce";
             Action = "Refund";
             Products = new List<IEnhancedECommerceProduct>();
+            ProductAction = ProductAction.Refund;
         }
         
         #region Overrides of GeneralParameters
@@ -27,7 +27,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         public string TransactionId { get; set; }
 
         [Beacon("pa", true)]
-        public ProductAction ProductAction => ProductAction.Refund;
+        public ProductAction ProductAction { get; set; }
 
         public List<IEnhancedECommerceProduct> Products { get; set; }
 
