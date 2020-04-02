@@ -15,5 +15,13 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         /// <remarks>Optional</remarks>
         /// </summary>
         List<IEnhancedECommerceProduct> Products { get; set; }
+
+        /// <summary>
+        /// Specifies the role of the products included in a hit.
+        /// If a product action is not specified, all product definitions included with the hit will be ignored.
+        /// <remarks>Optional</remarks>
+        /// <example>purchase</example>
+        /// </summary>        
+        ProductAction ProductAction { get; set; }
     }
 }
