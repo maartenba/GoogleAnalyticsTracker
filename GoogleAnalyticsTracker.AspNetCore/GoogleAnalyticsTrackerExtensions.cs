@@ -17,7 +17,6 @@ namespace Microsoft.AspNetCore.Builder
             services.AddOptions();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             
-            services.TryAddScoped<GoogleAnalyticsTrackerMiddleware>();
             services.TryAddScoped<AspNetCoreTracker>();
             
             if (configureOptions != null)
