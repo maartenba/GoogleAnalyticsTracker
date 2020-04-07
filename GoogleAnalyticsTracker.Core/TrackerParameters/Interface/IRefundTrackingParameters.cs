@@ -11,11 +11,5 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         /// <example>T12345</example>
         /// </summary>
         string TransactionId { get; set; }
-
-        /// <summary>
-        /// Specifies the product action. Must not be empty.
-        /// <remarks>Required for refund</remarks>
-        /// </summary>
-        ProductAction ProductAction { get; }
     }
 }
