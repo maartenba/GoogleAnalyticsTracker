@@ -63,12 +63,11 @@ namespace GoogleAnalyticsTracker.Core
         private async Task<TrackingResult> RequestUrlAsync(string url, IDictionary<string, string> parameters, string userAgent)
         {
             // Create GET string
-            var data = new StringBuilder();
-            foreach (var parameter in parameters.OrderBy(p => p.Key, new BeaconComparer()))
-            {
+            var data = string.Join("&", parameters
+                .OrderBy(p => p.Key, new BeaconComparer())
                 // ReSharper disable once UseStringInterpolation
-                data.Append(string.Format("{0}={1}&", parameter.Key, Uri.EscapeDataString(parameter.Value)));
-            }
+                .Select(p => string.Format("{0}={1}", p.Key, Uri.EscapeDataString(p.Value)))
+            );
 
             // Build TrackingResult
             var returnValue = new TrackingResult
