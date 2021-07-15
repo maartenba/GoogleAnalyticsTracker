@@ -74,7 +74,7 @@ namespace GoogleAnalyticsTracker.Core
             {
                 Url = url,
                 Parameters = parameters,
-                Query = data.ToString()
+                Query = data
             };
 
             // Create request
@@ -82,13 +82,13 @@ namespace GoogleAnalyticsTracker.Core
             try
             {
                 request = UseHttpGet
-                    ? CreateGetWebRequest(url, data.ToString())
-                    : CreatePostWebRequest(url, data.ToString());
+                    ? CreateGetWebRequest(url, data)
+                    : CreatePostWebRequest(url, data);
 
                 if (!string.IsNullOrEmpty(userAgent))
                 {
 
-                    request.Headers.Add("User-Agent", userAgent);
+                    request.Headers.TryAddWithoutValidation("User-Agent", userAgent);
                 }
             }
             catch (Exception ex)
