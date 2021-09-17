@@ -4,10 +4,6 @@
 
 GoogleAnalyticsTracker - A C# library for tracking Google Analytics.
 
-## Like this project?
-
-[<img src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif">](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=C8GLSG8E33NA4) via [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=C8GLSG8E33NA4).
-
 ## What can it be used for?
 
 GoogleAnalyticsTracker was created to have a means of tracking specific URLs directly from C#. For example, when creating an API using the ASP.NET MVC framework, GoogleAnalyticsTracker enables you to track usage of the API by calling directly into Google Analytics.
