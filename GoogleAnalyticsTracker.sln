@@ -27,6 +27,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleAnalyticsTracker.Samp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.csproj", "{C603D8E4-AC37-48A7-9BBD-AF3265FCA357}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".config", ".config", "{36F61956-6D6B-403E-ADFE-DCF7456FFAEC}"
+ProjectSection(SolutionItems) = preProject
+	.config\dotnet-tools.json = .config\dotnet-tools.json
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +66,7 @@ Global
 		{EB1421F8-43B5-4448-8E79-C5BAFFB2E767} = {C6368727-D041-4D34-A107-26884AAD495B}
 		{19F074E8-0E15-4F10-B873-DE136644B0BA} = {525AB2FA-0C4E-4901-BDAA-50CBC64205AA}
 		{C603D8E4-AC37-48A7-9BBD-AF3265FCA357} = {D89FAD3E-2494-4C84-8A87-1E1D1B6A1E51}
+		{36F61956-6D6B-403E-ADFE-DCF7456FFAEC} = {D89FAD3E-2494-4C84-8A87-1E1D1B6A1E51}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F33A73B-8F9F-4E17-9B3A-C4E81D9D2C64}
