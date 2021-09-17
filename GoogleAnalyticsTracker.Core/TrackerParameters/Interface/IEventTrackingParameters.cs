@@ -10,21 +10,21 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         /// <remarks>Optional</remarks>
         /// <example>Category</example>
         /// </summary>        
-        string Category { get; set; }
+        string? Category { get; set; }
 
         /// <summary>
         /// Specifies the event action. Must not be empty.
         /// <remarks>Optional</remarks>
         /// <example>Action</example>
         /// </summary>        
-        string Action { get; set; }
+        string? Action { get; set; }
 
         /// <summary>
         /// Specifies the event label.
         /// <remarks>Optional</remarks>
         /// <example>Label</example>
         /// </summary>        
-        string Label { get; set; }
+        string? Label { get; set; }
 
         /// <summary>
         /// Specifies the event value. Values must be non-negative.

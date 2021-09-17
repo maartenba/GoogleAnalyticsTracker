@@ -30,7 +30,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>category</example>
         /// </summary>
         [Beacon("utc", true)]
-        public string UserTimingCategory { get; set; }
+        public string? UserTimingCategory { get; set; }
 
         /// <summary>
         /// Specifies the user timing variable.
@@ -38,7 +38,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>lookup</example>
         /// </summary>
         [Beacon("utv", true)]
-        public string UserTimingVariable { get; set; }
+        public string? UserTimingVariable { get; set; }
 
         /// <summary>
         /// Specifies the user timing value. The value is in milliseconds.
@@ -54,7 +54,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>label</example>
         /// </summary>
         [Beacon("utl")]
-        public string UserTimingLabel { get; set; }
+        public string? UserTimingLabel { get; set; }
 
         /// <summary>
         /// Specifies the time it took for a page to load. The value is in milliseconds.

@@ -6,6 +6,22 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
     [PublicAPI]
     public class SocialInteractionsParameters : GeneralParameters, ISocialInteractionsParameters
     {
+        /// <summary>
+        /// Creates a new <see cref="SocialInteractionsParameters"/>.
+        /// </summary>
+        /// <param name="socialNetwork">Specifies the social network, for example Facebook or Google Plus.</param>
+        /// <param name="socialAction">Specifies the social interaction action. For example on Google Plus when a user clicks the +1 button, the social action is 'plus'.</param>
+        /// <param name="socialActionTarget">Specifies the target of a social interaction. This value is typically a URL but can be any text.</param>
+        public SocialInteractionsParameters(
+            string socialNetwork, 
+            string socialAction, 
+            string socialActionTarget)
+        {
+            SocialNetwork = socialNetwork;
+            SocialAction = socialAction;
+            SocialActionTarget = socialActionTarget;
+        }
+        
         #region Overrides of GeneralParameters
 
         /// <summary>

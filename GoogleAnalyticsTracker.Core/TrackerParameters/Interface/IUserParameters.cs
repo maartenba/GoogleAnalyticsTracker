@@ -12,7 +12,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         /// <remarks>Required for all hit types</remarks>
         /// <example>35009a79-1a05-49d7-b876-2b884d0f825b</example>
         /// </summary>        
-        string ClientId { get; set; }
+        string? ClientId { get; set; }
 
         /// <summary>
         /// This is intended to be a known identifier for a user provided by the site owner/tracking library user. 
@@ -21,6 +21,6 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         /// <remarks>Optional</remarks>
         /// <example>as8eknlll</example>
         /// </summary>        
-        string UserId { get; set; }
+        string? UserId { get; set; }
     }
 }

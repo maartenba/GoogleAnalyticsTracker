@@ -7,8 +7,9 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
     [PublicAPI]
     public class RefundTracking : EventTracking, IRefundTrackingParameters
     {
-        public RefundTracking()
+        public RefundTracking(string transactionId) 
         {
+            TransactionId = transactionId;
             Category = "Ecommerce";
             Action = "Refund";
             Products = new List<IEnhancedECommerceProduct>();

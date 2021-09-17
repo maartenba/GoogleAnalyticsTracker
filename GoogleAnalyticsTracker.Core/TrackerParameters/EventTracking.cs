@@ -25,7 +25,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>Category</example>
         /// </summary>
         [Beacon("ec", true)]
-        public string Category { get; set; }
+        public string? Category { get; set; }
 
         /// <summary>
         /// Specifies the event action. Must not be empty.
@@ -33,7 +33,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>Action</example>
         /// </summary>
         [Beacon("ea", true)]
-        public string Action { get; set; }
+        public string? Action { get; set; }
 
         /// <summary>
         /// Specifies the event label.
@@ -41,7 +41,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>Label</example>
         /// </summary>
         [Beacon("el")]
-        public string Label { get; set; }
+        public string? Label { get; set; }
 
         /// <summary>
         /// Specifies the event value. Values must be non-negative.

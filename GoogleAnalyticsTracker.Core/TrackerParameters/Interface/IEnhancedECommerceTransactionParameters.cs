@@ -10,14 +10,14 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         /// <remarks>Optional. Can be sent when Product Action is set to 'purchase' or 'refund'.</remarks>
         /// <example>SUMMER08</example>
         /// </summary> 
-        string CouponCode { get; set; }
+        string? CouponCode { get; set; }
 
         /// <summary>
         /// Specifies the list or collection from which a product action occurred.
         /// <remarks>Optional. Can be sent when Product Action is set to 'detail' or 'click'.</remarks>
         /// <example>Search Results</example>
         /// </summary> 
-        string ProductActionList { get; set; }
+        string? ProductActionList { get; set; }
 
         /// <summary>
         /// Specifies the list or collection from which a product action occurred.
@@ -31,6 +31,6 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         /// <remarks>Optional. Can be sent when Product Action is set to 'checkout'.</remarks>
         /// <example>Visa</example>
         /// </summary>
-        string CheckoutStepOption { get; set; }
+        string? CheckoutStepOption { get; set; }
     }
 }

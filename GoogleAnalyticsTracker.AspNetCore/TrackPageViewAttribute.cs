@@ -21,13 +21,7 @@ namespace GoogleAnalyticsTracker.AspNet
         /// <summary>
         /// Custom document title to track.
         /// </summary>
-        [CanBeNull]
-        public string CustomTitle { get; set; }
-        
-        /// <summary>
-        /// Description for this action.
-        /// </summary>
-        public string ActionDescription { get; set; }
+        public string? CustomTitle { get; set; }
         
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {

@@ -22,24 +22,17 @@ namespace GoogleAnalyticsTracker.AspNet
         /// <summary>
         /// Category for the event. Defaults to current controller.
         /// </summary>
-        [CanBeNull]
-        public string Category { get; set; }
+        public string? Category { get; set; }
         
         /// <summary>
         /// Action for the event. Defaults to current action name.
         /// </summary>
-        [CanBeNull]
-        public string Action { get; set; }
+        public string? Action { get; set; }
         
         /// <summary>
         /// Value for the event.
         /// </summary>
         public int Value { get; set; } = 1;
-        
-        /// <summary>
-        /// Description for this action.
-        /// </summary>
-        public string ActionDescription { get; set; }
         
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
@@ -50,7 +43,7 @@ namespace GoogleAnalyticsTracker.AspNet
                 var tracker = context.HttpContext.RequestServices.GetRequiredService<AspNetCoreTracker>();
                 await tracker.TrackEventAsync(
                     Category ?? context.Controller.GetType().Name.Replace("Controller", string.Empty),
-                    Action ?? (context.ActionDescriptor as ControllerActionDescriptor)?.ActionName ?? context.ActionDescriptor.DisplayName,
+                    Action ?? (context.ActionDescriptor as ControllerActionDescriptor)?.ActionName ?? context.ActionDescriptor.DisplayName ?? context.ActionDescriptor.Id,
                     Value);
             }
             

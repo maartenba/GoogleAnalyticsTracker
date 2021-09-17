@@ -9,7 +9,7 @@ namespace GoogleAnalyticsTracker.Simple
     [PublicAPI]
     public static class PageViewTrackerExtensions
     {        
-        public static async Task<TrackingResult> TrackPageViewAsync(this SimpleTracker tracker, string pageTitle, string pageUrl, IDictionary<int,string> customDimensions = null, IDictionary<int,long?> customMetrics = null)
+        public static async Task<TrackingResult> TrackPageViewAsync(this SimpleTracker tracker, string pageTitle, string pageUrl, IDictionary<int,string?>? customDimensions = null, IDictionary<int,long?>? customMetrics = null)
         {
             var pageViewParameters = new PageView
             {

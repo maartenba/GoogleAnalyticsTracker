@@ -19,6 +19,6 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         /// <remarks>Optional</remarks>
         /// <example>EUR</example>
         /// </summary>        
-        string CurrencyCode { get; set; } //TODO: Implement enum based
+        string? CurrencyCode { get; set; } //TODO: Implement enum based
     }
 }

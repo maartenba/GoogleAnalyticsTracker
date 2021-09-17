@@ -6,9 +6,20 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
     [PublicAPI]
     public class ContentExperiments : GeneralParameters, IContentExperimentsParameters
     {
-        public ContentExperiments(HitType hitType)
+        /// <summary>
+        /// Creates a new <see cref="ContentExperiments"/>.
+        /// </summary>
+        /// <param name="hitType">The type of hit. Must be one of 'pageview', 'screenview', 'event', 'transaction', 'item', 'social', 'exception', 'timing'.</param>
+        /// <param name="experimentId">Specifies the experiment id.</param>
+        /// <param name="experimentVariant">Specifies the experiment variant id.</param>
+        public ContentExperiments(
+            HitType hitType,
+            string experimentId, 
+            string experimentVariant)
         {
             HitType = hitType;
+            ExperimentId = experimentId;
+            ExperimentVariant = experimentVariant;
         }
 
         #region Overrides of GeneralParameters

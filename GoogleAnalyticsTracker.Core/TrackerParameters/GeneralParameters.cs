@@ -8,7 +8,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
     [PublicAPI]
     public abstract class GeneralParameters : IGeneralParameters
     {        
-        public string UserAgent { get; set; }
+        public string? UserAgent { get; set; }
 
         #region Implementation of IGeneralParameters
 
@@ -25,7 +25,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>UA-XXXX-Y</example>
         /// </summary>
         [Beacon("tid", true)]
-        public string TrackingId { get; set; }
+        public string? TrackingId { get; set; }
 
         /// <summary>
         /// When present, the IP address of the sender will be anonymized. 
@@ -53,7 +53,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>289372387623</example>
         /// </summary>   
         [Beacon("z")]
-        public string CacheBuster { get; set; }
+        public string? CacheBuster { get; set; }
 
         #endregion
 
@@ -87,7 +87,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>35009a79-1a05-49d7-b876-2b884d0f825b</example>
         /// </summary>
         [Beacon("cid", true)]
-        public string ClientId { get; set; }
+        public string? ClientId { get; set; }
 
         /// <summary>
         /// This is intended to be a known identifier for a user provided by the site owner/tracking library user. 
@@ -97,7 +97,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>as8eknlll</example>
         /// </summary>   
         [Beacon("uid")]
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
 
         #endregion
 
@@ -109,7 +109,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>800x600</example>
         /// </summary>        
         [Beacon("sr")]
-        public string ScreenResolution { get; set; }
+        public string? ScreenResolution { get; set; }
 
         /// <summary>
         /// Specifies the viewable area of the browser / device.
@@ -117,7 +117,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>123x456</example>
         /// </summary>        
         [Beacon("vp")]
-        public string ViewportSize { get; set; }
+        public string? ViewportSize { get; set; }
 
         /// <summary>
         /// Specifies the character set used to encode the page / document.
@@ -125,7 +125,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>UTF-8</example>
         /// </summary>        
         [Beacon("de")]
-        public string DocumentEncoding { get; set; }
+        public string? DocumentEncoding { get; set; }
 
         /// <summary>
         /// Specifies the screen color depth.
@@ -133,7 +133,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>24-bits</example>
         /// </summary>        
         [Beacon("sd")]
-        public string ScreenColors { get; set; }
+        public string? ScreenColors { get; set; }
 
         /// <summary>
         /// Specifies the language.
@@ -141,7 +141,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>en-us</example>        
         /// </summary>      
         [Beacon("ul")]
-        public string UserLanguage { get; set; }
+        public string? UserLanguage { get; set; }
 
         /// <summary>
         /// Specifies whether Java was enabled.
@@ -157,7 +157,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>10 1 r103</example>
         /// </summary>       
         [Beacon("fl")]
-        public string FlashVersion { get; set; }
+        public string? FlashVersion { get; set; }
 
         #endregion
 
@@ -172,7 +172,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>http://foo.com/home?a=b</example>
         /// </summary>
         [Beacon("dl", true)]
-        public string DocumentLocationUrl { get; set; }
+        public string? DocumentLocationUrl { get; set; }
 
         /// <summary>
         /// Specifies the hostname from which content was hosted.
@@ -180,7 +180,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>foo.com</example>
         /// </summary>
         [Beacon("dh")]
-        public string DocumentHostName { get; set; }
+        public string? DocumentHostName { get; set; }
 
         /// <summary>
         /// he path portion of the page URL.
@@ -188,7 +188,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>/foo</example>
         /// </summary>
         [Beacon("dp", true)]
-        public string DocumentPath { get; set; }
+        public string? DocumentPath { get; set; }
 
         /// <summary>
         /// The title of the page / document.
@@ -196,7 +196,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>Settings</example>
         /// </summary>
         [Beacon("dt")]
-        public string DocumentTitle { get; set; }
+        public string? DocumentTitle { get; set; }
 
         /// <summary>
         /// If not specified, this will default to the unique URL of the page by either using the &amp;dl parameter as-is or assembling it from &amp;dh and &amp;dp. 
@@ -205,7 +205,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>High Scores</example>
         /// </summary>
         [Beacon("cd")]
-        public string ScreenName { get; set; }
+        public string? ScreenName { get; set; }
 
         /// <summary>
         /// The ID of a clicked DOM element, used to disambiguate multiple links to the same URL in In-Page Analytics reports when Enhanced Link Attribution is enabled for the property.
@@ -213,7 +213,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>nav_bar</example>
         /// </summary>
         [Beacon("linkid")]
-        public string LinkId { get; set; }
+        public string? LinkId { get; set; }
 
         #endregion
 
@@ -235,7 +235,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>1.2.3.4</example>
         /// </summary>
         [Beacon("uip")]
-        public string IpOverride { get; set; }
+        public string? IpOverride { get; set; }
 
         /// <summary>
         /// The User Agent of the browser. Note that Google has libraries to identify real user agents. 
@@ -244,7 +244,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>Opera/9.80 (Windows NT 6.0) Presto/2.12.388 Version/12.14</example>
         /// </summary>
         [Beacon("ua")]
-        public string UserAgentOverride { get; set; }
+        public string? UserAgentOverride { get; set; }
 
         #endregion
 
@@ -257,7 +257,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>http://example.com</example>
         /// </summary>
         [Beacon("dr")]
-        public string DocumentReferrer { get; set; }
+        public string? DocumentReferrer { get; set; }
 
         /// <summary>
         /// Specifies the campaign name.
@@ -265,7 +265,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>(direct)</example>
         /// </summary>
         [Beacon("cn")]
-        public string CampaignName { get; set; }
+        public string? CampaignName { get; set; }
 
         /// <summary>
         /// Specifies the campaign source.
@@ -273,7 +273,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>(direct)</example>
         /// </summary>
         [Beacon("cs")]
-        public string CampaignSource { get; set; }
+        public string? CampaignSource { get; set; }
 
         /// <summary>
         /// Specifies the campaign medium.
@@ -281,7 +281,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>organic</example>
         /// </summary>
         [Beacon("cm")]
-        public string CampaignMedium { get; set; }
+        public string? CampaignMedium { get; set; }
 
         /// <summary>
         /// Specifies the campaign keyword.
@@ -289,7 +289,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>Blue Shoes</example>
         /// </summary>
         [Beacon("ck")]
-        public string CampaignKeyword { get; set; }
+        public string? CampaignKeyword { get; set; }
 
         /// <summary>
         /// Specifies the campaign content.
@@ -297,7 +297,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>content</example>
         /// </summary>
         [Beacon("cc")]
-        public string CampaignContent { get; set; }
+        public string? CampaignContent { get; set; }
 
         /// <summary>
         /// Specifies the campaign ID.
@@ -305,7 +305,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>ID</example>
         /// </summary>
         [Beacon("ci")]
-        public string CampaignId { get; set; }
+        public string? CampaignId { get; set; }
 
         /// <summary>
         /// Specifies the Google AdWords Id.
@@ -313,7 +313,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>CL6Q-OXyqKUCFcgK2goddQuoHg</example>
         /// </summary>
         [Beacon("gclid")]
-        public string GoogleAdWordsId { get; set; }
+        public string? GoogleAdWordsId { get; set; }
 
         /// <summary>
         /// Specifies the Google Display Ads Id.
@@ -321,7 +321,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>d_click_id</example>
         /// </summary>
         [Beacon("dclid")]
-        public string GoogleDisplayAdsId { get; set; }
+        public string? GoogleDisplayAdsId { get; set; }
 
         #endregion
 
@@ -333,7 +333,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>My App</example>
         /// </summary>
         [Beacon("an")]
-        public string ApplicationName { get; set; }
+        public string? ApplicationName { get; set; }
 
         /// <summary>
         /// Application identifier.
@@ -341,7 +341,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>com.company.app</example>
         /// </summary>
         [Beacon("aid")]
-        public string ApplicationId { get; set; }
+        public string? ApplicationId { get; set; }
 
         /// <summary>
         /// Specifies the application version.
@@ -349,7 +349,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>1.2</example>
         /// </summary>
         [Beacon("av")]
-        public string ApplicationVersion { get; set; }
+        public string? ApplicationVersion { get; set; }
 
         /// <summary>
         /// Application installer identifier.
@@ -357,7 +357,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>com.platform.vending</example>
         /// </summary>
         [Beacon("aiid")]
-        public string ApplicationInstallerId { get; set; }
+        public string? ApplicationInstallerId { get; set; }
 
         #endregion
 
@@ -365,9 +365,9 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <summary>
         /// Any custom dimensions are set here.
         /// </summary>
-        public void SetCustomDimensions(IDictionary<int, string> customDimensions)
+        public void SetCustomDimensions(IDictionary<int, string?>? customDimensions)
         {
-            if (customDimensions == null || customDimensions.Count <= 0) return;
+            if (customDimensions is not { Count: > 0 }) return;
             foreach (var dimension in customDimensions)
             {
                 if (dimension.Value == null) continue;
@@ -401,54 +401,74 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         }
 
         [Beacon("cd1")]
-        public string CustomDimension1 { get; set; }
+        public string? CustomDimension1 { get; set; }
+        
         [Beacon("cd2")]
-        public string CustomDimension2 { get; set; }
+        public string? CustomDimension2 { get; set; }
+        
         [Beacon("cd3")]
-        public string CustomDimension3 { get; set; }
+        public string? CustomDimension3 { get; set; }
+        
         [Beacon("cd4")]
-        public string CustomDimension4 { get; set; }
+        public string? CustomDimension4 { get; set; }
+        
         [Beacon("cd5")]
-        public string CustomDimension5 { get; set; }
+        public string? CustomDimension5 { get; set; }
+        
         [Beacon("cd6")]
-        public string CustomDimension6 { get; set; }
+        public string? CustomDimension6 { get; set; }
+        
         [Beacon("cd7")]
-        public string CustomDimension7 { get; set; }
+        public string? CustomDimension7 { get; set; }
+        
         [Beacon("cd8")]
-        public string CustomDimension8 { get; set; }
+        public string? CustomDimension8 { get; set; }
+        
         [Beacon("cd9")]
-        public string CustomDimension9 { get; set; }
+        public string? CustomDimension9 { get; set; }
+        
         [Beacon("cd10")]
-        public string CustomDimension10 { get; set; }
+        public string? CustomDimension10 { get; set; }
+        
         [Beacon("cd11")]
-        public string CustomDimension11 { get; set; }
+        public string? CustomDimension11 { get; set; }
+        
         [Beacon("cd12")]
-        public string CustomDimension12 { get; set; }
+        public string? CustomDimension12 { get; set; }
+        
         [Beacon("cd13")]
-        public string CustomDimension13 { get; set; }
+        public string? CustomDimension13 { get; set; }
+        
         [Beacon("cd14")]
-        public string CustomDimension14 { get; set; }
+        public string? CustomDimension14 { get; set; }
+        
         [Beacon("cd15")]
-        public string CustomDimension15 { get; set; }
+        public string? CustomDimension15 { get; set; }
+        
         [Beacon("cd16")]
-        public string CustomDimension16 { get; set; }
+        public string? CustomDimension16 { get; set; }
+        
         [Beacon("cd17")]
-        public string CustomDimension17 { get; set; }
+        public string? CustomDimension17 { get; set; }
+        
         [Beacon("cd18")]
-        public string CustomDimension18 { get; set; }
+        public string? CustomDimension18 { get; set; }
+        
         [Beacon("cd19")]
-        public string CustomDimension19 { get; set; }
+        public string? CustomDimension19 { get; set; }
+        
         [Beacon("cd20")]
-        public string CustomDimension20 { get; set; }
+        public string? CustomDimension20 { get; set; }
+        
         #endregion
 
         #region Implementation of ICustomMetricParameters
         /// <summary>
         /// Any custom dimensions are set here.
         /// </summary>
-        public void SetCustomMetrics(IDictionary<int, long?> customMetrics)
+        public void SetCustomMetrics(IDictionary<int, long?>? customMetrics)
         {
-            if (customMetrics == null || customMetrics.Count <= 0) return;
+            if (customMetrics is not { Count: > 0 }) return;
             foreach (var metric in customMetrics)
             {
                 if (metric.Value == null) continue;

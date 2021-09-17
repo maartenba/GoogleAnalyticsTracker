@@ -12,17 +12,13 @@ namespace Microsoft.AspNetCore.Builder
     public static class GoogleAnalyticsTrackerExtensions
     {
         public static IServiceCollection AddGoogleAnalyticsTracker(
-            this IServiceCollection services, Action<GoogleAnalyticsTrackerOptions> configureOptions)
+            this IServiceCollection services, Action<GoogleAnalyticsTrackerOptions> options)
         {
             services.AddOptions();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             
             services.TryAddScoped<AspNetCoreTracker>();
-            
-            if (configureOptions != null)
-            {
-                services.Configure(configureOptions);
-            }
+            services.Configure(options);
             
             return services;
         }

@@ -20,7 +20,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         /// <remarks>Required for all hit types</remarks>
         /// <example>UA-XXXX-Y</example>
         /// </summary>
-        string TrackingId { get; set; }
+        string? TrackingId { get; set; }
 
         /// <summary>
         /// When present, the IP address of the sender will be anonymized. 
@@ -45,13 +45,13 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         /// <remarks>Optional</remarks>
         /// <example>289372387623</example>
         /// </summary>        
-        string CacheBuster { get; set; }
+        string? CacheBuster { get; set; }
 
         /// <summary>
         /// Is a formatted user agent string that is used to compute the following dimensions: browser, platform, and mobile capabilities.
         /// <remarks>Required</remarks>
         /// <example>Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405</example>
         /// </summary>
-        string UserAgent { get; set; }
+        string? UserAgent { get; set; }
     }
 }

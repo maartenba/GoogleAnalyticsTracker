@@ -11,21 +11,21 @@ namespace GoogleAnalyticsTracker.AspNet
         /// <summary>
         /// Google Analytics ID / tracking identifier.
         /// </summary>
-        public string TrackerId { get; set; }
+        public string TrackerId { get; set; } = default!;
         
         /// <summary>
         /// Tracker environment customization.
         /// </summary>
-        public Func<ITrackerEnvironment, ITrackerEnvironment> CustomizeTrackerEnvironment { get; set; }
+        public Func<ITrackerEnvironment, ITrackerEnvironment>? CustomizeTrackerEnvironment { get; set; }
 
         /// <summary>
         /// Analytics session customization.
         /// </summary>
-        public Func<IAnalyticsSession, IAnalyticsSession> CustomizeAnalyticsSession { get; set; }
+        public Func<IAnalyticsSession, IAnalyticsSession>? CustomizeAnalyticsSession { get; set; }
 
         /// <summary>
         /// Should the request be tracked? 
         /// </summary>
-        public Func<HttpContext, bool> ShouldTrackRequestInMiddleware { get; set; } = TrackRequests.Yes;
+        public Func<HttpContext, bool>? ShouldTrackRequestInMiddleware { get; set; } = TrackRequests.Yes;
     }
 }

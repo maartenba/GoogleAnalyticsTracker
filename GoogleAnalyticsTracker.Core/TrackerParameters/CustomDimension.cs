@@ -13,13 +13,13 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
             Value = value;
         }
 
-        private int _id;
+        private int _id = 1;
         public int Id
         {
             get => _id;
             set
             {
-                if (value < 1 || value > 200)
+                if (value is < 1 or > 200)
                 {
                     throw new ArgumentOutOfRangeException(nameof(Id), "Must be between 1 and 200 inclusive");
                 }
@@ -30,7 +30,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
 
         public string Name => $"cd{_id}";
 
-        private string _value;
+        private string _value = string.Empty;
         public string Value
         {
             get => _value;

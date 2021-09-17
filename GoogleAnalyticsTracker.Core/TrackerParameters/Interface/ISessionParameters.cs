@@ -19,7 +19,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         /// <remarks>Optional</remarks>
         /// <example>1.2.3.4</example>
         /// </summary>        
-        string IpOverride { get; set; }
+        string? IpOverride { get; set; }
 
         /// <summary>
         /// The User Agent of the browser. Note that Google has libraries to identify real user agents. 
@@ -27,6 +27,6 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         /// <remarks>Optional</remarks>
         /// <example>Opera/9.80 (Windows NT 6.0) Presto/2.12.388 Version/12.14</example>
         /// </summary>        
-        string UserAgentOverride { get; set; }
+        string? UserAgentOverride { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 namespace GoogleAnalyticsTracker.Core.TrackerParameters
 {
     internal class BeaconList<TKey, TValue> : IList<Beacon<TKey, TValue>>
+        where TKey : notnull
     {
         private readonly IList<Beacon<TKey, TValue>> _list;
 

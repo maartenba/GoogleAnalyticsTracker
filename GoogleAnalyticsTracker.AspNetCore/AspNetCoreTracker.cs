@@ -32,7 +32,7 @@ namespace GoogleAnalyticsTracker.AspNet
         }
 
         public AspNetCoreTracker(
-            [NotNull] IHttpContextAccessor contextAccessor,
+            IHttpContextAccessor contextAccessor,
             IOptions<GoogleAnalyticsTrackerOptions> optionsAccessor)
             : base(
                 optionsAccessor.Value.TrackerId,
@@ -65,7 +65,7 @@ namespace GoogleAnalyticsTracker.AspNet
                 UserLanguage = _contextAccessor.HttpContext.Request.Headers["Accept-Language"],
                 DocumentReferrer = _contextAccessor.HttpContext.Request.Headers["Referrer"],
                 IpOverride = Environment.GetEnvironmentVariable("server.RemoteIpAddress"),
-                UserId = _contextAccessor.HttpContext.User.Identity.Name
+                UserId = _contextAccessor.HttpContext.User.Identity?.Name
             };
 
             await TrackAsync(eventTrackingParameters);
@@ -78,7 +78,7 @@ namespace GoogleAnalyticsTracker.AspNet
         }
 
         [UsedImplicitly]
-        public async Task TrackPageViewAsync([CanBeNull] string customTitle)
+        public async Task TrackPageViewAsync(string? customTitle)
         {
             // If no HTTP context available, bail out...
             if (_contextAccessor.HttpContext == null) return;
@@ -92,7 +92,7 @@ namespace GoogleAnalyticsTracker.AspNet
                 UserLanguage = _contextAccessor.HttpContext.Request.Headers["Accept-Language"],
                 DocumentReferrer = _contextAccessor.HttpContext.Request.Headers["Referrer"],
                 IpOverride = Environment.GetEnvironmentVariable("server.RemoteIpAddress"),
-                UserId = _contextAccessor.HttpContext.User.Identity.Name
+                UserId = _contextAccessor.HttpContext.User.Identity?.Name
             };
 
             await TrackAsync(pageviewTrackingParameters);
@@ -100,10 +100,13 @@ namespace GoogleAnalyticsTracker.AspNet
 
         private string GetRelativeUrl()
         {
+            var requestPath = _contextAccessor.HttpContext?.Request.Path.ToString() ?? string.Empty;
+            var requestQueryString = _contextAccessor.HttpContext?.Request.QueryString.ToString();
+            
             // ReSharper disable once UseStringInterpolation
-            return string.IsNullOrEmpty(_contextAccessor.HttpContext.Request.QueryString.ToString())
-                ? _contextAccessor.HttpContext.Request.Path.ToString()
-                : string.Format("{0}{1}", _contextAccessor.HttpContext.Request.Path, _contextAccessor.HttpContext.Request.QueryString);
+            return string.IsNullOrEmpty(requestQueryString)
+                ? requestPath
+                : string.Format("{0}{1}", requestPath, requestQueryString);
         }
     }
 }

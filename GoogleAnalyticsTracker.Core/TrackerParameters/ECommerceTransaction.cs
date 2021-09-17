@@ -6,6 +6,11 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
     [PublicAPI]
     public class ECommerceTransaction : GeneralParameters, IECommerceParameters, IECommerceTransactionParameters
     {
+        public ECommerceTransaction(string transactionId)
+        {
+            TransactionId = transactionId;
+        }
+        
         #region Overrides of GeneralParameters
 
         /// <summary>
@@ -35,7 +40,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>EUR</example>
         /// </summary>
         [Beacon("cu")]
-        public string CurrencyCode { get; set; } //TODO: Implement enum based
+        public string? CurrencyCode { get; set; } //TODO: Implement enum based
 
         #endregion
 
@@ -47,7 +52,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>Member</example>
         /// </summary>
         [Beacon("ta")]
-        public string TransactionAffiliation { get; set; }
+        public string? TransactionAffiliation { get; set; }
 
         /// <summary>
         /// Specifies the total revenue associated with the transaction. This value should include any shipping or tax costs.

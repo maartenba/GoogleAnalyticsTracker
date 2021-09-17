@@ -30,19 +30,19 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         }
 
         [Beacon("id")]
-        public string Sku { get; set; }
+        public string? Sku { get; set; }
 
         [Beacon("nm")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [Beacon("br")]
-        public string Brand { get; set; }
+        public string? Brand { get; set; }
 
         [Beacon("ca")]
-        public string Category { get; set; }
+        public string? Category { get; set; }
 
         [Beacon("va")]
-        public string Variant { get; set; }
+        public string? Variant { get; set; }
 
         [Beacon("pr")]
         public decimal? Price { get; set; }
@@ -51,7 +51,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         public int? Quantity { get; set; }
 
         [Beacon("cc")]
-        public string ProductCouponCode { get; set; }
+        public string? ProductCouponCode { get; set; }
 
         [Beacon("ps")]
         public int? Position { get; set; }

@@ -10,7 +10,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         /// <remarks>Optional</remarks>
         /// <example>DatabaseError</example>
         /// </summary>   
-        string Description { get; set; }
+        string? Description { get; set; }
 
         /// <summary>
         /// Specifies whether the exception was fatal.

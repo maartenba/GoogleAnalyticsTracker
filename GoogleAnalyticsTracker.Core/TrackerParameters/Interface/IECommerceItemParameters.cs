@@ -31,13 +31,13 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         /// <remarks>Optional</remarks>
         /// <example>SKU47</example>
         /// </summary>        
-        string ItemCode { get; set; }
+        string? ItemCode { get; set; }
 
         /// <summary>
         /// Specifies the category that the item belongs to.
         /// <remarks>Optional</remarks>
         /// <example>Blue</example>
         /// </summary>        
-        string ItemCategory { get; set; }
+        string? ItemCategory { get; set; }
     }
 }

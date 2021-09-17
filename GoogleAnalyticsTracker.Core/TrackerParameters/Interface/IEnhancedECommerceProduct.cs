@@ -11,35 +11,35 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         /// <remarks>Optional</remarks>
         /// <example>P12345</example>
         /// </summary>
-        string Sku { get; set; }
+        string? Sku { get; set; }
 
         /// <summary>
         /// The name of the product.
         /// <remarks>Optional</remarks>
         /// <example>Android T-Shirt</example>
         /// </summary>
-        string Name { get; set; }
+        string? Name { get; set; }
 
         /// <summary>
         /// The brand associated with the product.
         /// <remarks>Optional</remarks>
         /// <example>Google</example>
         /// </summary>
-        string Brand { get; set; }
+        string? Brand { get; set; }
 
         /// <summary>
         /// The category to which the product belongs.
         /// <remarks>Optional. Can be hierarchical with the "/" delimiter up to 5 levels.</remarks>
         /// <example>Apparel/Men/T-Shirts</example>
         /// </summary>
-        string Category { get; set; }
+        string? Category { get; set; }
 
         /// <summary>
         /// The variant of the product.
         /// <remarks>Optional</remarks>
         /// <example>Black</example>
         /// </summary>
-        string Variant { get; set; }
+        string? Variant { get; set; }
 
         /// <summary>
         /// The unit price of a product.
@@ -60,7 +60,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         /// <remarks>Optional</remarks>
         /// <example>SUMMER_SALE13</example>
         /// </summary>
-        string ProductCouponCode { get; set; }
+        string? ProductCouponCode { get; set; }
 
         /// <summary>
         /// The product's position in a list or collection.

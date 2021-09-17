@@ -10,7 +10,7 @@ namespace GoogleAnalyticsTracker.AspNet
     [PublicAPI]
     public static class AspNetCoreTrackerExtensions
     {
-        public static async Task<TrackingResult> TrackUserTimingAsync(this AspNetCoreTracker tracker, HttpContext httpContext, string pageTitle, string pageUrl, string category, string var, long value, string label = null)
+        public static async Task<TrackingResult> TrackUserTimingAsync(this AspNetCoreTracker tracker, HttpContext httpContext, string pageTitle, string pageUrl, string category, string var, long value, string? label = null)
         {
             var userTimingParameters = new UserTimings
             {
@@ -28,7 +28,7 @@ namespace GoogleAnalyticsTracker.AspNet
             return await tracker.TrackAsync(userTimingParameters);
         }
         
-        public static async Task<TrackingResult> TrackPageViewAsync(this AspNetCoreTracker tracker, HttpContext httpContext, string pageTitle, string pageUrl = null)
+        public static async Task<TrackingResult> TrackPageViewAsync(this AspNetCoreTracker tracker, HttpContext httpContext, string pageTitle, string? pageUrl = null)
         {
             pageUrl ??= httpContext.Request.Path;
 
@@ -39,7 +39,7 @@ namespace GoogleAnalyticsTracker.AspNet
                 UserAgent = httpContext.Request.Headers[HeaderNames.UserAgent].ToString(),
                 DocumentHostName = httpContext.Request.Host.Value,
                 UserLanguage = httpContext.Request.Headers[HeaderNames.AcceptLanguage].ToString().ToLower(),
-                IpOverride = httpContext.Connection.RemoteIpAddress.ToString()
+                IpOverride = httpContext.Connection.RemoteIpAddress?.ToString()
             };
 
             return await tracker.TrackAsync(pageViewParameters);

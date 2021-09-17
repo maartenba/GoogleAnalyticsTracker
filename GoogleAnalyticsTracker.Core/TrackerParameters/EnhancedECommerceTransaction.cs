@@ -7,7 +7,8 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
     [PublicAPI]
     public class EnhancedECommerceTransaction : ECommerceTransaction, IEnhancedECommerceTransactionParameters
     {
-        public EnhancedECommerceTransaction()
+        public EnhancedECommerceTransaction(string transactionId) 
+            : base(transactionId)
         {
             Products = new List<IEnhancedECommerceProduct>();
         }
@@ -27,16 +28,16 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         public ProductAction ProductAction { get; set; }
 
         [Beacon("tcc")]
-        public string CouponCode { get; set; }
+        public string? CouponCode { get; set; }
 
         [Beacon("pal")]
-        public string ProductActionList { get; set; }
+        public string? ProductActionList { get; set; }
 
         [Beacon("cos")]
         public int? CheckoutStep { get; set; }
 
         [Beacon("col")]
-        public string CheckoutStepOption { get; set; }
+        public string? CheckoutStepOption { get; set; }
 
         public List<IEnhancedECommerceProduct> Products { get; set; }
     }

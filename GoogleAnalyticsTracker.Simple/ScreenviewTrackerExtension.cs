@@ -10,7 +10,7 @@ namespace GoogleAnalyticsTracker.Simple
     public static class ScreenviewTrackerExtension
     {
         public static async Task<TrackingResult> TrackScreenviewAsync(this SimpleTracker tracker, string appName,
-            string appId, string appVersion, string appInstallerId, string screenName, IDictionary<int, string> customDimensions, IDictionary<int,long?> customMetrics = null)
+            string appId, string appVersion, string appInstallerId, string screenName, IDictionary<int, string?>? customDimensions = null, IDictionary<int,long?>? customMetrics = null)
         {
             var screenviewParameters = new ScreenviewTracking
             {

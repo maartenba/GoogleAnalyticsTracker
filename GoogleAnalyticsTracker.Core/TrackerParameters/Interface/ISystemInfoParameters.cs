@@ -10,35 +10,35 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         /// <remarks>Optional</remarks>
         /// <example>800x600</example>
         /// </summary>        
-        string ScreenResolution { get; set; }
+        string? ScreenResolution { get; set; }
 
         /// <summary>
         /// Specifies the viewable area of the browser / device.
         /// <remarks>Optional</remarks>
         /// <example>123x456</example>
         /// </summary>        
-        string ViewportSize { get; set; }
+        string? ViewportSize { get; set; }
 
         /// <summary>
         /// Specifies the character set used to encode the page / document.
         /// <remarks>Optional</remarks>
         /// <example>UTF-8</example>
         /// </summary>        
-        string DocumentEncoding { get; set; }
+        string? DocumentEncoding { get; set; }
 
         /// <summary>
         /// Specifies the screen color depth.
         /// <remarks>Optional</remarks>
         /// <example>24-bits</example>
         /// </summary>        
-        string ScreenColors { get; set; }
+        string? ScreenColors { get; set; }
 
         /// <summary>
         /// Specifies the language.
         /// <remarks>Optional</remarks>
         /// <example>en-us</example>        
         /// </summary>        
-        string UserLanguage { get; set; }
+        string? UserLanguage { get; set; }
 
         /// <summary>
         /// Specifies whether Java was enabled.
@@ -52,6 +52,6 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         /// <remarks>Optional</remarks>
         /// <example>10 1 r103</example>
         /// </summary>        
-        string FlashVersion { get; set; }
+        string? FlashVersion { get; set; }
     }
 }

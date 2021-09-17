@@ -10,7 +10,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         /// <remarks>Optional</remarks>
         /// <example>Member</example>
         /// </summary>        
-        string TransactionAffiliation { get; set; }
+        string? TransactionAffiliation { get; set; }
 
         /// <summary>
         /// Specifies the total revenue associated with the transaction. This value should include any shipping or tax costs.

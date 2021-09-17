@@ -32,10 +32,10 @@ namespace GoogleAnalyticsTracker.AspNet
         /// Initializes a new instance of the CookieBasedAnalyticsSession class.
         /// </summary>
         /// <param name="contextAccessor">The HTTP context accessor.</param>
-        public CookieBasedAnalyticsSession([NotNull] IHttpContextAccessor contextAccessor)
+        public CookieBasedAnalyticsSession(IHttpContextAccessor contextAccessor)
         {
             _contextAccessor = contextAccessor ?? throw new ArgumentNullException(nameof(contextAccessor));
-            _sessionFeatureAvailable = _contextAccessor.HttpContext?.Features?.Get<ISessionFeature>() != null;
+            _sessionFeatureAvailable = _contextAccessor.HttpContext?.Features.Get<ISessionFeature>() != null;
 
             // Create properties at once.
             GetOrCreateUniqueVisitorId(true);
@@ -82,7 +82,7 @@ namespace GoogleAnalyticsTracker.AspNet
                 return v;
             }
 
-            return _contextAccessor.HttpContext.Request.Cookies[StorageKeyUniqueId];
+            return _contextAccessor.HttpContext.Request.Cookies[StorageKeyUniqueId]!;
         }
 
         /// <summary>Gets or creates the first visit time.</summary>
@@ -143,7 +143,7 @@ namespace GoogleAnalyticsTracker.AspNet
             
             // Does the session match the previous session? If not, increment session count.
             if (!string.IsNullOrEmpty(_contextAccessor.HttpContext.Request.Cookies[StorageKeySessionId]) && 
-                _contextAccessor.HttpContext.Request.Cookies[StorageKeySessionId] != _contextAccessor.HttpContext.Session?.Id)
+                _contextAccessor.HttpContext.Request.Cookies[StorageKeySessionId] != _contextAccessor.HttpContext.Session.Id)
             {
                 v += 1;
             }
@@ -151,7 +151,7 @@ namespace GoogleAnalyticsTracker.AspNet
             // ReSharper disable once InvertIf
             if (createCookie)
             {
-                _contextAccessor.HttpContext.Response.Cookies.Append(StorageKeySessionId, _contextAccessor.HttpContext.Session?.Id);
+                _contextAccessor.HttpContext.Response.Cookies.Append(StorageKeySessionId, _contextAccessor.HttpContext.Session.Id);
                 _contextAccessor.HttpContext.Response.Cookies.Append(StorageKeySessionCount, v.ToString());
             }
 

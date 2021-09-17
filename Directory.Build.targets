@@ -1,7 +1,7 @@
 <Project>
     <PropertyGroup>
         <LangVersion>10</LangVersion>
-        <Nullable>disable</Nullable>
+        <Nullable>enable</Nullable>
     
         <!-- NuGet -->
         <IncludeSymbols>True</IncludeSymbols>

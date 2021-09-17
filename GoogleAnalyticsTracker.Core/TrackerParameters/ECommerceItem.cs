@@ -6,6 +6,19 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
     [PublicAPI]
     public class ECommerceItem : GeneralParameters, IECommerceParameters, IECommerceItemParameters
     {
+        /// <summary>
+        /// Creates a new <see cref="ECommerceItem"/>.
+        /// </summary>
+        /// <param name="transactionId">A unique identifier for the transaction. </param>
+        /// <param name="itemName">Specifies the item name.</param>
+        public ECommerceItem(
+            string transactionId, 
+            string itemName)
+        {
+            TransactionId = transactionId;
+            ItemName = itemName;
+        }
+        
         #region Overrides of GeneralParameters
 
         /// <summary>
@@ -35,7 +48,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>EUR</example>
         /// </summary>
         [Beacon("cu")]
-        public string CurrencyCode { get; set; }
+        public string? CurrencyCode { get; set; }
 
         #endregion
 
@@ -71,7 +84,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>SKU47</example>
         /// </summary>
         [Beacon("ic")]
-        public string ItemCode { get; set; }
+        public string? ItemCode { get; set; }
 
         /// <summary>
         /// Specifies the category that the item belongs to.
@@ -79,7 +92,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>Blue</example>
         /// </summary>
         [Beacon("iv")]
-        public string ItemCategory { get; set; }
+        public string? ItemCategory { get; set; }
 
         #endregion
     }

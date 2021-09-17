@@ -10,14 +10,14 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         /// <remarks>Optional</remarks>
         /// <example>category</example>
         /// </summary>       
-        string UserTimingCategory { get; set; }
+        string? UserTimingCategory { get; set; }
 
         /// <summary>
         /// Specifies the user timing variable.
         /// <remarks>Optional</remarks>
         /// <example>lookup</example>
         /// </summary>        
-        string UserTimingVariable { get; set; }
+        string? UserTimingVariable { get; set; }
 
         /// <summary>
         /// Specifies the user timing value. The value is in milliseconds.
@@ -31,7 +31,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters.Interface
         /// <remarks>Optional</remarks>
         /// <example>label</example>
         /// </summary>        
-        string UserTimingLabel { get; set; }
+        string? UserTimingLabel { get; set; }
 
         /// <summary>
         /// Specifies the time it took for a page to load. The value is in milliseconds.

@@ -4,7 +4,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
 {
     [PublicAPI]
     public class PageView : GeneralParameters
-    {        
+    {
         #region Overrides of GeneralParameters
 
         /// <summary>

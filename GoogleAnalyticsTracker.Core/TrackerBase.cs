@@ -16,7 +16,7 @@ namespace GoogleAnalyticsTracker.Core
     [PublicAPI]
     public class TrackerBase : IDisposable
     {
-        private static readonly HttpClient DefaultHttpClient = new HttpClient();
+        private static readonly HttpClient DefaultHttpClient = new();
 
         public string TrackingAccount { get; set; }
         public IAnalyticsSession AnalyticsSession { get; set; }
@@ -33,7 +33,7 @@ namespace GoogleAnalyticsTracker.Core
         /// </summary>
         public bool UseHttpGet { get; set; }
 
-        private HttpClient _customHttpClient;
+        private HttpClient? _customHttpClient;
 
         /// <summary>
         /// Makes it possible to set a custom HTTP client. If not set, the internal, static default one will be used.
@@ -57,7 +57,7 @@ namespace GoogleAnalyticsTracker.Core
             EndpointUrl = GoogleAnalyticsEndpoints.Default;
             
             // ReSharper disable once UseStringInterpolation
-            UserAgent = string.Format("GoogleAnalyticsTracker/6.0 ({0}; {1}; {2})", trackerEnvironment.OsPlatform, trackerEnvironment.OsVersion, trackerEnvironment.OsVersionString);
+            UserAgent = string.Format("GoogleAnalyticsTracker/7.0 ({0}; {1}; {2})", trackerEnvironment.OsPlatform, trackerEnvironment.OsVersion, trackerEnvironment.OsVersionString);
         }
 
         private async Task<TrackingResult> RequestUrlAsync(string url, IDictionary<string, string> parameters, string userAgent)
@@ -70,12 +70,7 @@ namespace GoogleAnalyticsTracker.Core
             );
 
             // Build TrackingResult
-            var returnValue = new TrackingResult
-            {
-                Url = url,
-                Parameters = parameters,
-                Query = data
-            };
+            var returnValue = new TrackingResult(url, parameters, data);
 
             // Create request
             HttpRequestMessage request;
@@ -105,7 +100,7 @@ namespace GoogleAnalyticsTracker.Core
             }
 
             // Perform request
-            HttpResponseMessage response = null;
+            HttpResponseMessage? response = null;
             try
             {
                 response = await HttpClient.SendAsync(request);
@@ -132,7 +127,7 @@ namespace GoogleAnalyticsTracker.Core
         }
 
         private static HttpRequestMessage CreateGetWebRequest(string url, string data)
-            => new HttpRequestMessage(HttpMethod.Get, $"{url}?{data}");
+            => new(HttpMethod.Get, $"{url}?{data}");
 
         private static HttpRequestMessage CreatePostWebRequest(string url, string data)
         {
@@ -150,32 +145,32 @@ namespace GoogleAnalyticsTracker.Core
 
             foreach (var p in parameters.GetType().GetRuntimeProperties())
             {
-                if (!(p.GetCustomAttribute(typeof(BeaconAttribute), true) is BeaconAttribute attr))
+                if (p.GetCustomAttribute(typeof(BeaconAttribute), true) is not BeaconAttribute attr)
                 {
                     continue;
                 }
 
-                object value;
+                object? value;
                 var underlyingType = Nullable.GetUnderlyingType(p.PropertyType);
 
                 if ((p.PropertyType.GetTypeInfo().IsEnum || p.PropertyType.IsNullableEnum()) && attr.IsEnumByValueBased)
                 {
-                    value = GetValueFromEnum(p, parameters) ?? p.GetMethod.Invoke(parameters, null);
+                    value = GetValueFromEnum(p, parameters) ?? p.GetMethod?.Invoke(parameters, null);
                 }
                 else if (p.PropertyType.GetTypeInfo().IsEnum || p.PropertyType.IsNullableEnum())
                 {
-                    value = GetLowerCaseValueFromEnum(p, parameters) ?? p.GetMethod.Invoke(parameters, null);
+                    value = GetLowerCaseValueFromEnum(p, parameters) ?? p.GetMethod?.Invoke(parameters, null);
                 }
                 // ReSharper disable once ArrangeRedundantParentheses
                 else if (p.PropertyType == typeof(bool) || (underlyingType != null && underlyingType == typeof(bool)))
                 {
-                    value = p.GetMethod.Invoke(parameters, null);
+                    value = p.GetMethod?.Invoke(parameters, null);
                     if (value != null)
                         value = (bool)value ? "1" : "0";
                 }
                 else
                 {
-                    value = p.GetMethod.Invoke(parameters, null);
+                    value = p.GetMethod?.Invoke(parameters, null);
                 }
 
                 if (value == null)
@@ -183,7 +178,7 @@ namespace GoogleAnalyticsTracker.Core
                     continue;
                 }
 
-                beaconList.Add(attr.Name, Convert.ToString(value, CultureInfo.InvariantCulture));
+                beaconList.Add(attr.Name, Convert.ToString(value, CultureInfo.InvariantCulture)!);
             }
 
             var parametersType = parameters.GetType();
@@ -196,11 +191,11 @@ namespace GoogleAnalyticsTracker.Core
             return beaconList.ToDictionary(key => key.Item1, value => value.Item2);
         }
 
-        private static BeaconList<string, string> GetProductsParameters(IProvideProductsParameters parameters)
+        private static BeaconList<string, string> GetProductsParameters(IProvideProductsParameters? parameters)
         {
             var result = new BeaconList<string, string>();
             
-            if (parameters.Products == null || !parameters.Products.Any()) return result;
+            if (parameters?.Products.Any() != true) return result;
             
             var productIndex = 1;
             foreach (var product in parameters.Products)
@@ -221,9 +216,9 @@ namespace GoogleAnalyticsTracker.Core
             return result;
         }
 
-        private static object GetValueFromEnum(PropertyInfo propertyInfo, IProvideBeaconParameters parameters)
+        private static object? GetValueFromEnum(PropertyInfo propertyInfo, IProvideBeaconParameters parameters)
         {
-            var value = propertyInfo.GetMethod.Invoke(parameters, null);
+            var value = propertyInfo.GetMethod?.Invoke(parameters, null);
 
             if (value == null) return null;
 
@@ -233,16 +228,15 @@ namespace GoogleAnalyticsTracker.Core
 
             if (propertyType == null) return null;
 
-            var enumValue = Enum.Parse(propertyType, value.ToString());
+            var enumValue = Enum.Parse(propertyType, value.ToString()!);
 
             return enumValue.GetHashCode().ToString(CultureInfo.InvariantCulture);
         }
 
-        private static object GetLowerCaseValueFromEnum(PropertyInfo propertyInfo, IProvideBeaconParameters parameters)
+        private static object? GetLowerCaseValueFromEnum(PropertyInfo propertyInfo, IProvideBeaconParameters parameters)
         {
-            var value = propertyInfo.GetMethod.Invoke(parameters, null);
-
-            return value?.ToString().ToLowerInvariant();
+            var value = propertyInfo.GetMethod?.Invoke(parameters, null);
+            return value?.ToString()?.ToLowerInvariant();
         }
 
         /// <summary>

@@ -25,7 +25,7 @@ namespace GoogleAnalyticsTracker.Core.TrackerParameters
         /// <example>DatabaseError</example>
         /// </summary>   
         [Beacon("exd")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         /// <summary>
         /// Specifies whether the exception was fatal.
