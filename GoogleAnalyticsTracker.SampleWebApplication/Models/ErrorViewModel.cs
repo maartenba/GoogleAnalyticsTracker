@@ -1,9 +1,8 @@
-namespace GoogleAnalyticsTracker.SampleWebApplication.Models
-{
-    public class ErrorViewModel
-    {
-        public string RequestId { get; set; } = string.Empty;
+namespace GoogleAnalyticsTracker.SampleWebApplication.Models;
 
-        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
-    }
+public class ErrorViewModel
+{
+    public string RequestId { get; set; } = string.Empty;
+
+    public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 }

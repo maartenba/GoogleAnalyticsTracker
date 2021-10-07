@@ -5,27 +5,26 @@ using GoogleAnalyticsTracker.Core;
 using GoogleAnalyticsTracker.Core.TrackerParameters;
 using JetBrains.Annotations;
 
-namespace GoogleAnalyticsTracker.Simple
+namespace GoogleAnalyticsTracker.Simple;
+
+[PublicAPI]
+public static class EventTrackerExtensions
 {
-    [PublicAPI]
-    public static class EventTrackerExtensions
+    public static async Task<TrackingResult> TrackEventAsync(this SimpleTracker tracker, string category, string action, string label, IDictionary<int, string?>? customDimensions = null, IDictionary<int,long?>? customMetrics = null, long value = 1)
     {
-        public static async Task<TrackingResult> TrackEventAsync(this SimpleTracker tracker, string category, string action, string label, IDictionary<int, string?>? customDimensions = null, IDictionary<int,long?>? customMetrics = null, long value = 1)
+        var eventTrackingParameters = new EventTracking
         {
-            var eventTrackingParameters = new EventTracking
-            {
-                Category = category,
-                Action = action,
-                Label = label,
-                Value = value
-            };
+            Category = category,
+            Action = action,
+            Label = label,
+            Value = value
+        };
 
-            eventTrackingParameters.SetCustomDimensions(customDimensions);
-            if (customMetrics != null) {
-                eventTrackingParameters.SetCustomMetrics(customMetrics);
-            }
-
-            return await tracker.TrackAsync(eventTrackingParameters);
+        eventTrackingParameters.SetCustomDimensions(customDimensions);
+        if (customMetrics != null) {
+            eventTrackingParameters.SetCustomMetrics(customMetrics);
         }
+
+        return await tracker.TrackAsync(eventTrackingParameters);
     }
 }

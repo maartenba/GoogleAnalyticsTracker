@@ -1,17 +1,16 @@
 ﻿using JetBrains.Annotations;
 
-namespace GoogleAnalyticsTracker.Core.TrackerParameters
+namespace GoogleAnalyticsTracker.Core.TrackerParameters;
+
+[PublicAPI]
+public enum ProductAction
 {
-    [PublicAPI]
-    public enum ProductAction
-    {
-        Detail,
-        Click,
-        Add,
-        Remove,
-        Checkout,
-        CheckoutOption,
-        Purchase,
-        Refund
-    }
+    Detail,
+    Click,
+    Add,
+    Remove,
+    Checkout,
+    CheckoutOption,
+    Purchase,
+    Refund
 }

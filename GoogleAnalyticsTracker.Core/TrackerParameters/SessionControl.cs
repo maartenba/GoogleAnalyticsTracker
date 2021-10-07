@@ -1,11 +1,10 @@
 using JetBrains.Annotations;
 
-namespace GoogleAnalyticsTracker.Core.TrackerParameters
+namespace GoogleAnalyticsTracker.Core.TrackerParameters;
+
+[PublicAPI]
+public enum SessionControl
 {
-    [PublicAPI]
-    public enum SessionControl
-    {
-        Start,
-        End
-    }
+    Start,
+    End
 }

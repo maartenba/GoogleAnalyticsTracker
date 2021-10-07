@@ -7,71 +7,70 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace GoogleAnalyticsTracker.SampleWebApplication
+namespace GoogleAnalyticsTracker.SampleWebApplication;
+
+[SuppressMessage("ReSharper", "ArgumentsStyleStringLiteral")]
+public class Startup
 {
-    [SuppressMessage("ReSharper", "ArgumentsStyleStringLiteral")]
-    public class Startup
+    public Startup(IConfiguration configuration)
     {
-        public Startup(IConfiguration configuration)
+        Configuration = configuration;
+    }
+
+    // ReSharper disable once MemberCanBePrivate.Global
+    // ReSharper disable once UnusedAutoPropertyAccessor.Global
+    public IConfiguration Configuration { get; }
+
+    // This method gets called by the runtime. Use this method to add services to the container.
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddRouting(options => options.LowercaseUrls = true);
+            
+        services.Configure<CookiePolicyOptions>(options =>
         {
-            Configuration = configuration;
+            // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+            options.CheckConsentNeeded = _ => true;
+            options.MinimumSameSitePolicy = SameSiteMode.None;
+        });
+
+        services.AddGoogleAnalyticsTracker(options =>
+        {
+            // ReSharper disable once StringLiteralTypo
+            options.TrackerId = "UA-XXXXXX-XX";
+            options.ShouldTrackRequestInMiddleware = TrackRequests.OnlyWhenNotYetTracked;
+        });
+
+        services.AddMvc();
+    }
+
+    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        app.UseCookiePolicy();
+        app.UseRouting();
+            
+        app.UseGoogleAnalyticsTracker();
+            
+        if (env.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+        }
+        else
+        {
+            app.UseExceptionHandler("/Home/Error");
         }
 
-        // ReSharper disable once MemberCanBePrivate.Global
-        // ReSharper disable once UnusedAutoPropertyAccessor.Global
-        public IConfiguration Configuration { get; }
+        app.UseStaticFiles();
+        app.UseCookiePolicy();
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        app.UseEndpoints(endpoints =>
         {
-            services.AddRouting(options => options.LowercaseUrls = true);
-            
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = _ => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
-
-            services.AddGoogleAnalyticsTracker(options =>
-            {
-                // ReSharper disable once StringLiteralTypo
-                options.TrackerId = "UA-XXXXXX-XX";
-                options.ShouldTrackRequestInMiddleware = TrackRequests.OnlyWhenNotYetTracked;
-            });
-
-            services.AddMvc();
-        }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            app.UseCookiePolicy();
-            app.UseRouting();
-            
-            app.UseGoogleAnalyticsTracker();
-            
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
-
-            app.UseStaticFiles();
-            app.UseCookiePolicy();
-
-            app.UseEndpoints(endpoints =>
-            {
                 
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+            endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
                 
-                endpoints.MapRazorPages();
-            });
-        }
+            endpoints.MapRazorPages();
+        });
     }
 }

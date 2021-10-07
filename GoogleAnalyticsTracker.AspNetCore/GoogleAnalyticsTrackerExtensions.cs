@@ -6,27 +6,26 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 // ReSharper disable once CheckNamespace
-namespace Microsoft.AspNetCore.Builder
+namespace Microsoft.AspNetCore.Builder;
+
+[PublicAPI]
+public static class GoogleAnalyticsTrackerExtensions
 {
-    [PublicAPI]
-    public static class GoogleAnalyticsTrackerExtensions
+    public static IServiceCollection AddGoogleAnalyticsTracker(
+        this IServiceCollection services, Action<GoogleAnalyticsTrackerOptions> options)
     {
-        public static IServiceCollection AddGoogleAnalyticsTracker(
-            this IServiceCollection services, Action<GoogleAnalyticsTrackerOptions> options)
-        {
-            services.AddOptions();
-            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        services.AddOptions();
+        services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             
-            services.TryAddScoped<AspNetCoreTracker>();
-            services.Configure(options);
+        services.TryAddScoped<AspNetCoreTracker>();
+        services.Configure(options);
             
-            return services;
-        }
+        return services;
+    }
         
-        public static IApplicationBuilder UseGoogleAnalyticsTracker(
-            this IApplicationBuilder builder)
-        {
-            return builder.UseMiddleware<GoogleAnalyticsTrackerMiddleware>();
-        }
+    public static IApplicationBuilder UseGoogleAnalyticsTracker(
+        this IApplicationBuilder builder)
+    {
+        return builder.UseMiddleware<GoogleAnalyticsTrackerMiddleware>();
     }
 }
