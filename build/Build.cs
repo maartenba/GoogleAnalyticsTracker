@@ -31,14 +31,14 @@ class Build : NukeBuild
     public static int Main () => Execute<Build>(x => x.Package);
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
-    readonly string Configuration = IsLocalBuild ? "Debug" : "Release";
+    readonly string Configuration = "Release";
 
     [Solution] readonly Solution Solution;
 
     AbsolutePath SourceDirectory => RootDirectory;
     AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
 
-    static string AssemblyVersion = Environment.GetEnvironmentVariable("VersionFormat")?.Replace("{0}", "0")?.Until("-") ?? "0.0.1";
+    static string AssemblyVersion =  Environment.GetEnvironmentVariable("AssemblyVersion") ?? Environment.GetEnvironmentVariable("VersionFormat")?.Replace("{0}", "0")?.Until("-") ?? "0.0.1";
     static string PackageVersion = Environment.GetEnvironmentVariable("PackageVersion") ?? AssemblyVersion + "-dev";
 
     Target Clean => _ => _
@@ -77,6 +77,7 @@ class Build : NukeBuild
             {
                 DotNetPack(_ => _
                     .SetProject(project)
+                    .SetConfiguration(Configuration)
                     .EnableIncludeSource()
                     .EnableIncludeSymbols()
                     .EnableNoRestore()
