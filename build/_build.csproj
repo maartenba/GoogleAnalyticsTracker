@@ -15,9 +15,9 @@
     <PackageReference Include="Nuke.Common" Version="5.3.0" />
 
     <PackageReference Include="Microsoft.Build" Version="16.10.0" />
-    <PackageReference Include="Microsoft.Build.Framework" Version="16.10.0" />
-    <PackageReference Include="Microsoft.Build.Tasks.Core" Version="16.10.0" />
-    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.10.0" />
+    <PackageReference Include="Microsoft.Build.Framework" Version="17.14.7" />
+    <PackageReference Include="Microsoft.Build.Tasks.Core" Version="17.14.7" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.14.7" />
   </ItemGroup>
 
 </Project>
